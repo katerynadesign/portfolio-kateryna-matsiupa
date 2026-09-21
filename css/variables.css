@@ -1,13 +1,26 @@
 /* Design tokens — single source of truth for colors, spacing, type */
 
 :root {
-  /* Color palette — monochrome */
-  --color-bg: #ffffff;
-  --color-bg-alt: #f4f4f4;
-  --color-text: #111111;
-  --color-text-muted: #6b6b6b;
-  --color-border: #e0e0e0;
+  /* Light theme only for now: keeps native controls/scrollbars light too */
+  color-scheme: light;
+
+  /* Color palette — one navy hue (#000933) at three opacities.
+     Elevation logic: the page background is the darkest surface; cards
+     (--color-surface) are slightly lighter than it. */
+  --color-bg: #f4f4f4;
+  --color-surface: #ffffff;
+  --color-text: #000933;
+  --color-text-muted: rgba(0, 9, 51, 0.65);
+  --color-border: rgba(0, 9, 51, 0.12);
   --color-inverse: #ffffff;
+
+  /* Card depth: a very light shadow (the border is only used by the parked dark theme) */
+  --shadow-card: 0 1px 2px rgba(0, 9, 51, 0.06), 0 2px 8px rgba(0, 9, 51, 0.04);
+  --border-card: transparent;
+
+  /* Hover panel on a case card: translucent so the image shows through, opaque
+     enough that --color-text / --color-text-muted keep AA contrast over any image */
+  --overlay-bg: rgba(255, 255, 255, 0.88);
 
   /* Typography */
   --font-heading: "Raleway", -apple-system, BlinkMacSystemFont, sans-serif;
@@ -27,20 +40,31 @@
   --space-5: 4rem;
   --space-6: 6rem;
 
-  /* Layout — 12-col grid: 64px columns, 32px gutters (12*64 + 11*32 = 1120px) */
+  /* Layout — 12-col grid: 64px columns, 32px gutters (12*64 + 11*32 = 1120px).
+     --container-width is the CONTENT width; --container-max adds the two side
+     gutters, because the containers' max-width includes their padding (1168px). */
   --container-width: 1120px;
+  --container-max: calc(var(--container-width) + 2 * var(--space-3));
   --grid-gap: 32px;
   --radius: 2px;
   --transition: 0.2s ease;
 }
 
+/* DARK THEME — DISABLED for now (the site is light-only while we work).
+   To bring it back, uncomment this block and remove `color-scheme: light`
+   from :root. Rationale for the values is in DESIGN-SYSTEM.md ("Parked").
+
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-bg: #111111;
-    --color-bg-alt: #1a1a1a;
-    --color-text: #f5f5f5;
-    --color-text-muted: #9a9a9a;
-    --color-border: #2c2c2c;
-    --color-inverse: #111111;
+    --color-bg: #02040f;
+    --color-surface: #090d22;
+    --color-text: #eef0ff;
+    --color-text-muted: rgba(238, 240, 255, 0.65);
+    --color-border: rgba(238, 240, 255, 0.14);
+    --color-inverse: #02040f;
+    --shadow-card: none;
+    --border-card: rgba(238, 240, 255, 0.14);
+    --overlay-bg: rgba(22, 28, 58, 0.88);
   }
 }
+*/

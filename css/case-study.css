@@ -1,0 +1,526 @@
+/* Case study page — layout for the 9-block template.
+   Composes existing tokens only (no new colours, fonts or radii). Loaded after
+   style.css and only by case study pages. See DESIGN-SYSTEM.md, "Case study page". */
+
+/* ---------- 1. Hook ---------- */
+/* The largest type on the site: --fs-2xl (the hero h1) scaled up 15%. */
+.cs-hook {
+  padding: var(--space-6) var(--space-3) var(--space-5);
+}
+
+.cs-hook-text {
+  margin: 0;
+  font-size: calc(var(--fs-2xl) * 1.15);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+/* ---------- 2. Quick facts + contents ---------- */
+.cs-intro {
+  row-gap: var(--space-5);
+}
+
+.cs-facts {
+  grid-column: 1 / 5; /* columns 1–4 */
+}
+
+.cs-facts-list {
+  margin: 0;
+}
+
+.cs-facts-list > div {
+  display: grid;
+  grid-template-columns: 6.5rem 1fr;
+  align-items: baseline;
+  column-gap: var(--space-2);
+  padding: var(--space-1) 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.cs-facts-list > div:last-child {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.cs-facts-list dt {
+  font-size: var(--fs-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+}
+
+.cs-facts-list dd {
+  margin: 0;
+  color: var(--color-text);
+}
+
+/* The engagement row is the point of the block: embedded and ongoing, not one-off. */
+.cs-facts-list .is-key {
+  font-weight: 600;
+}
+
+.cs-toc {
+  grid-column: 1 / -1;
+}
+
+.cs-toc ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: toc;
+  display: grid;
+  grid-template-rows: repeat(3, auto);
+  grid-auto-flow: column; /* 01–03 | 04–06 | 07–09, read top to bottom */
+  grid-auto-columns: minmax(0, 1fr);
+  column-gap: var(--grid-gap);
+  row-gap: var(--space-1);
+}
+
+.cs-toc li {
+  counter-increment: toc;
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+.cs-toc li::before {
+  content: counter(toc, decimal-leading-zero);
+  font-size: var(--fs-sm);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-muted);
+}
+
+/* ---------- 3. Section body: narrow text column, wide visuals ---------- */
+.cs-body {
+  row-gap: var(--space-4);
+}
+
+/* Columns 5–10 (6 of 12): measured at about 68–71 characters per line in Karla 16px.
+   Seven columns measured 79–84, which is too long to read comfortably. */
+.cs-prose {
+  grid-column: 5 / 11;
+}
+
+.cs-prose p {
+  color: var(--color-text); /* long-form reading: full-strength text, not the muted body colour */
+}
+
+.cs-prose > :last-child {
+  margin-bottom: 0;
+}
+
+.cs-prose h3 {
+  margin-top: var(--space-4);
+  font-size: var(--fs-lg);
+}
+
+.cs-prose h3:first-child {
+  margin-top: 0;
+}
+
+.cs-list {
+  margin: 0 0 var(--space-2);
+}
+
+.cs-list li {
+  position: relative;
+  padding-left: var(--space-3);
+  color: var(--color-text);
+}
+
+.cs-list li + li {
+  margin-top: var(--space-1);
+}
+
+.cs-list li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: var(--color-text-muted);
+}
+
+/* ---------- 4. Visuals ---------- */
+/* Three widths, all outside the text column:
+   default = columns 5–12, .cs-wide = columns 1–12, .cs-figure--bleed = edge to edge. */
+.cs-figure {
+  margin: 0;
+}
+
+/* Only a figure placed directly in the section grid takes columns 5–12; figures inside
+   a .cs-row are sized by the row instead. */
+.cs-body > .cs-figure {
+  grid-column: 5 / 13;
+}
+
+.cs-body > .cs-wide {
+  grid-column: 1 / -1;
+}
+
+.cs-media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 16 / 9;
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+}
+
+.cs-media--4x3 {
+  aspect-ratio: 4 / 3;
+}
+
+.cs-media-label {
+  padding: var(--space-2);
+  font-size: var(--fs-sm);
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+/* Every non-trivial visual carries a one-sentence caption that states the decision. */
+.cs-figure figcaption {
+  margin-top: var(--space-2);
+  max-width: 60ch;
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+}
+
+.cs-figure--bleed {
+  margin-top: var(--space-4);
+}
+
+.cs-figure--bleed .cs-media {
+  aspect-ratio: 21 / 9;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* Caption of a bleed image lines up with column 1 of the grid. */
+.cs-figure--bleed figcaption {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--space-3);
+}
+
+.cs-figure--bleed figcaption p {
+  max-width: 60ch;
+  margin: 0;
+  color: inherit;
+}
+
+/* A row of equal items: 2 or 3 variants, 2 diagrams, 3–5 screens or 4 milestones,
+   with no change to the markup or CSS. */
+.cs-row {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  column-gap: var(--grid-gap);
+}
+
+/* Process: options side by side, the verdict directly under each. */
+.cs-variant {
+  margin: 0;
+}
+
+.cs-variant.is-chosen .cs-media {
+  box-shadow: 0 0 0 1px var(--color-text); /* a 1px outline, no layout shift */
+}
+
+.cs-variant figcaption {
+  max-width: none;
+  font-size: var(--fs-base);
+}
+
+.cs-variant-label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-family: var(--font-heading);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text);
+}
+
+.cs-variant-verdict {
+  margin: 0;
+  color: var(--color-text);
+}
+
+/* Solution: screens in device frames, each with an annotation. */
+.cs-device {
+  aspect-ratio: 9 / 19;
+  padding: var(--space-1);
+  background: var(--color-surface);
+  border: 1px solid var(--color-text);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+}
+
+.cs-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background: var(--color-bg);
+  border-radius: var(--radius);
+}
+
+.cs-note-title {
+  display: block;
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+/* Evolution: a flat, horizontal timeline. Deliberately unlike Solution (no frames). */
+.cs-timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  column-gap: 0;
+}
+
+.cs-timeline > li {
+  position: relative;
+  padding: var(--space-3) var(--grid-gap) 0 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.cs-timeline > li::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 0;
+  width: 9px;
+  height: 9px;
+  background: var(--color-text);
+}
+
+.cs-time {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-family: var(--font-heading);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.cs-timeline h3 {
+  margin-bottom: var(--space-2);
+  font-size: var(--fs-base);
+}
+
+.cs-timeline .cs-media {
+  box-shadow: none;
+  border: 1px solid var(--color-border);
+}
+
+/* Impact: ONE component with two variants, so every case reads alike.
+     .cs-impact--metric    there is a number: the figure, what it measures, how it was measured.
+     .cs-impact--evidence  there is no number: a short claim, an honest statement of what can be
+                           confirmed, and a note on why that is the proof available.
+   Both share the same slots (lead, body, note) and the same width. */
+.cs-impact {
+  grid-column: 5 / 13;
+}
+
+/* Evidence only: names which kind of proof this is (continued engagement, adoption, quote, in production). */
+.cs-impact-kind {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-heading);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* The number (metric) or the short claim (evidence). Both stay below the Hook
+   (--fs-2xl × 1.15), which must remain the largest type on the page. */
+.cs-impact-lead {
+  margin: 0 0 var(--space-1);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.cs-impact--metric .cs-impact-lead {
+  font-size: var(--fs-2xl);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.cs-impact--evidence .cs-impact-lead {
+  max-width: 24ch;
+  margin-bottom: var(--space-2);
+  font-size: var(--fs-xl);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+/* Metric: what the number measures. Evidence: the plain statement of what can be confirmed. */
+.cs-impact-body {
+  margin: 0 0 var(--space-2);
+  color: var(--color-text);
+}
+
+.cs-impact--metric .cs-impact-body {
+  max-width: 40ch;
+  font-size: var(--fs-lg);
+}
+
+.cs-impact--evidence .cs-impact-body {
+  max-width: 60ch;
+}
+
+/* Evidence, kind 3 (stakeholder quote): attributed, with the rule of a pull quote. */
+.cs-impact-quote {
+  max-width: 52ch;
+  margin: var(--space-3) 0 var(--space-2);
+  padding-left: var(--space-3);
+  border-left: 1px solid var(--color-text);
+}
+
+.cs-impact-quote p {
+  margin: 0 0 var(--space-1);
+  font-size: var(--fs-lg);
+  color: var(--color-text);
+}
+
+.cs-impact-quote footer {
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+}
+
+/* "How it was measured" (metric) / "Why this evidence" (evidence). */
+.cs-impact-note {
+  max-width: 60ch;
+  margin: 0;
+  font-size: var(--fs-sm);
+}
+
+.cs-impact-note-label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text);
+}
+
+/* ---------- 9. Mobile ---------- */
+@media (max-width: 720px) {
+  /* Reading gutter is --space-2 on this page (the rest of the site uses --space-3). */
+  .cs-main .container,
+  .cs-main .grid-12 {
+    padding-left: var(--space-2);
+    padding-right: var(--space-2);
+  }
+
+  .cs-hook-text {
+    font-size: calc(var(--fs-xl) * 1.2);
+  }
+
+  /* .grid-12 is display: block here, so spacing comes from margins, not row-gap. */
+  .cs-intro > * + * {
+    margin-top: var(--space-5);
+  }
+
+  .cs-body > * + * {
+    margin-top: var(--space-4);
+  }
+
+  .cs-toc ol {
+    grid-template-rows: none;
+    grid-auto-flow: row;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* Prose runs the full available width. */
+  .cs-prose {
+    max-width: none;
+  }
+
+  /* Visuals go edge to edge. */
+  .cs-body .cs-figure > .cs-media,
+  .cs-body .cs-variant > .cs-media {
+    margin-inline: calc(var(--space-2) * -1);
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .cs-body .cs-figure--bleed {
+    margin-top: var(--space-4);
+  }
+
+  .cs-figure--bleed figcaption {
+    padding-inline: var(--space-2);
+  }
+
+  /* Variants and diagrams stack vertically instead of side by side. */
+  .cs-row {
+    grid-auto-flow: row;
+    grid-auto-columns: minmax(0, 1fr);
+    row-gap: var(--space-4);
+  }
+
+  .cs-variant.is-chosen .cs-media {
+    box-shadow: none;
+    outline: 1px solid var(--color-text);
+    outline-offset: -1px;
+  }
+
+  /* Screens: one horizontal, snapping strip, so five phones are not five screens of scrolling. */
+  .cs-row.cs-devices {
+    display: flex;
+    gap: var(--space-3);
+    margin-inline: calc(var(--space-2) * -1);
+    padding-inline: var(--space-2);
+    padding-block: var(--space-1); /* room for the frame shadow, which overflow would clip */
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    /* A snapped screen rests on the reading gutter, not against the screen edge.
+       Without this, snapping scrolls the strip by the padding and the first screen and
+       its caption end up flush with the edge. */
+    scroll-padding-inline: var(--space-2);
+    scrollbar-width: none;
+  }
+
+  .cs-row.cs-devices::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Each screen is at most 16rem wide, and never so wide that the next one stops peeking in:
+     viewport − left gutter − gap − a 4rem peek. The caption is as wide as its screen, so the
+     snapped screen's whole caption is always in view; only the next one is cut by the edge. */
+  .cs-devices > figure {
+    flex: 0 0 min(16rem, calc(100vw - var(--space-2) - var(--space-3) - var(--space-5)));
+    scroll-snap-align: start;
+  }
+
+  /* Timeline turns vertical. */
+  .cs-timeline > li {
+    padding: 0 0 var(--space-4) var(--space-3);
+    border-top: 0;
+    border-left: 1px solid var(--color-border);
+  }
+
+  .cs-timeline > li::before {
+    top: 0.35em;
+    left: -5px;
+  }
+
+  .cs-body .cs-timeline .cs-figure > .cs-media {
+    margin-inline: 0;
+    border: 1px solid var(--color-border);
+  }
+
+  .cs-impact--metric .cs-impact-lead {
+    font-size: calc(var(--fs-xl) * 1.1);
+  }
+}

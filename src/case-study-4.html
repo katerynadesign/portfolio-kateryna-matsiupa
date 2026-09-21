@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Case Study Four — Kateryna</title>
+  <meta name="description" content="Case study: one sentence on the problem and the outcome." />
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600&family=Raleway:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/case-study.css" />
+</head>
+<body>
+
+  <!--
+    Case study page. Structure and content rules: CASE-STUDY-TEMPLATE.md.
+    Components and layout: DESIGN-SYSTEM.md ("Case study page").
+    The header and footer are shared: edit src/partials/, then run python3 build.py.
+    Replace every PLACEHOLDER. Keep exactly one Impact variant (metric OR evidence).
+  -->
+
+  <!-- @include header -->
+
+  <main class="cs-main">
+
+    <!-- 1 · HOOK — the whole case in one or two sentences; the largest type on the site. -->
+    <section id="hook" class="cs-hook container">
+      <p class="eyebrow"><!-- PLACEHOLDER -->Case Study Four · 2022 · Niche · Platform</p>
+      <h1 class="cs-hook-text">
+        <!-- PLACEHOLDER: one or two sentences that carry the problem, the change and the result on their own. -->
+        Two sentences that hold the whole case: what was broken, what changed, and the result,
+        so a reader who stops here still gets it.
+      </h1>
+    </section>
+
+    <!-- Quick facts (columns 1–4) and contents (directly beneath) -->
+    <div class="cs-intro grid-12">
+      <section class="cs-facts" aria-labelledby="factsTitle">
+        <h2 class="eyebrow" id="factsTitle">Quick facts</h2>
+        <dl class="cs-facts-list">
+          <!-- PLACEHOLDER: replace all four values -->
+          <div><dt>Role</dt><dd>Lead product designer</dd></div>
+          <div><dt>Engagement</dt><dd class="is-key">Embedded · 8 months, and still ongoing</dd></div>
+          <div><dt>Team</dt><dd>1 designer, 3 engineers, 1 PM</dd></div>
+          <div><dt>Tools</dt><dd>Figma, Notion, Amplitude</dd></div>
+        </dl>
+      </section>
+
+      <nav class="cs-toc" aria-labelledby="tocTitle">
+        <h2 class="eyebrow" id="tocTitle">Contents</h2>
+        <ol>
+          <li><a href="#hook">hook</a></li>
+          <li><a href="#context">context &amp; ownership</a></li>
+          <li><a href="#problem">problem</a></li>
+          <li><a href="#discovery">discovery</a></li>
+          <li><a href="#process">process</a></li>
+          <li><a href="#solution">solution</a></li>
+          <li><a href="#evolution">evolution</a></li>
+          <li><a href="#impact">impact</a></li>
+          <li><a href="#reflection">reflection &amp; what's next</a></li>
+        </ol>
+      </nav>
+    </div>
+
+    <!-- 2 · CONTEXT & OWNERSHIP — one "before" visual, default width -->
+    <section id="context" class="section">
+      <div class="container">
+        <h2 class="section-title">Context &amp; Ownership</h2>
+        <hr class="section-divider" />
+      </div>
+      <div class="grid-12 cs-body">
+        <div class="cs-prose">
+          <!-- PLACEHOLDER -->
+          <p>Set the scene in a few sentences: the product, the team, and where things stood when
+          you arrived. Keep it to what a reader needs to understand the rest of the page, not the
+          full company history.</p>
+          <p>Then state what you owned, plainly. Which decisions were yours, which were shared, and
+          which were made above you. Ownership is what makes the rest of the case believable.</p>
+        </div>
+        <figure class="cs-figure">
+          <div class="cs-media" role="img" aria-label="Placeholder: the product before the project"><span class="cs-media-label">before: screenshot or diagram</span></div>
+          <figcaption><!-- PLACEHOLDER -->The onboarding flow as it was when I joined: six steps, no progress indicator, and the first thing every new user saw.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 3 · PROBLEM — one artefact that makes the problem felt, full-bleed -->
+    <section id="problem" class="section">
+      <div class="container">
+        <h2 class="section-title">Problem</h2>
+        <hr class="section-divider" />
+      </div>
+      <div class="grid-12 cs-body">
+        <div class="cs-prose">
+          <!-- PLACEHOLDER -->
+          <p>Name the problem as the user experienced it, then as the business experienced it. One
+          sentence each is usually enough; the artefact below does the persuading.</p>
+          <p>If there is a number that made the team take it seriously, put it here and say where
+          it came from.</p>
+        </div>
+      </div>
+      <figure class="cs-figure cs-figure--bleed">
+        <div class="cs-media" role="img" aria-label="Placeholder: an artefact that makes the problem tangible"><span class="cs-media-label">artefact: old flow or ticket chart</span></div>
+        <figcaption><p><!-- PLACEHOLDER -->Support tickets tagged “can’t find it” in the six months before the redesign, the pattern that made the problem hard to argue with.</p></figcaption>
+      </figure>
+    </section>
+
+    <!-- 4 · DISCOVERY — one or two insight → decision diagrams, wide -->
+    <section id="discovery" class="section">
+      <div class="container">
+        <h2 class="section-title">Discovery</h2>
+        <hr class="section-divider" />
+      </div>
+      <div class="grid-12 cs-body">
+        <div class="cs-prose">
+          <!-- PLACEHOLDER -->
+          <p>What you did to understand the problem, and what you learned. Lead with the insight,
+          then the decision it changed. Method is supporting detail, not the story.</p>
+        </div>
+        <div class="cs-row cs-wide">
+          <figure class="cs-figure">
+            <div class="cs-media cs-media--4x3" role="img" aria-label="Placeholder: insight to decision diagram"><span class="cs-media-label">diagram: insight → decision</span></div>
+            <figcaption><!-- PLACEHOLDER -->Interviews showed people read the collapsed filter panel as an ad, so the decision was to make filtering visible by default.</figcaption>
+          </figure>
+          <figure class="cs-figure">
+            <div class="cs-media cs-media--4x3" role="img" aria-label="Placeholder: second insight to decision diagram"><span class="cs-media-label">diagram: insight → decision</span></div>
+            <figcaption>Session recordings showed the same search repeated three times before giving up, so we treated “no results” as a flow to design, not an error.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 · PROCESS — the most important visual: 2–3 options side by side, verdict under each.
+         Gets the most room: full container width, large media. -->
+    <section id="process" class="section">
+      <div class="container">
+        <h2 class="section-title">Process</h2>
+        <hr class="section-divider" />
+      </div>
+      <div class="grid-12 cs-body">
+        <div class="cs-prose">
+          <!-- PLACEHOLDER -->
+          <p>Show the options you seriously considered and why you chose one. Senior work is
+          visible in what you rejected and the reason, so give each option a real verdict.</p>
+          <!-- OPTIONAL: if lighter parallel work belongs to this story, ONE sentence here: "In parallel, I also …". Never a list, heading, card or block. See CASE-STUDY-TEMPLATE.md, "Portfolio architecture". -->
+        </div>
+        <div class="cs-row cs-wide">
+          <figure class="cs-variant">
+            <div class="cs-media cs-media--4x3" role="img" aria-label="Placeholder: option A"><span class="cs-media-label">option A</span></div>
+            <figcaption>
+              <span class="cs-variant-label">Option A · rejected</span>
+              <p class="cs-variant-verdict"><!-- PLACEHOLDER -->Fastest to ship, but it hid the filters again, which testing had just shown was the problem.</p>
+            </figcaption>
+          </figure>
+          <figure class="cs-variant is-chosen">
+            <div class="cs-media cs-media--4x3" role="img" aria-label="Placeholder: option B, chosen"><span class="cs-media-label">option B</span></div>
+            <figcaption>
+              <span class="cs-variant-label">Option B · chosen</span>
+              <p class="cs-variant-verdict">Permanent side panel: costs width on small screens, but every test participant found it unprompted.</p>
+            </figcaption>
+          </figure>
+          <figure class="cs-variant">
+            <div class="cs-media cs-media--4x3" role="img" aria-label="Placeholder: option C"><span class="cs-media-label">option C</span></div>
+            <figcaption>
+              <span class="cs-variant-label">Option C · rejected</span>
+              <p class="cs-variant-verdict">Best on paper, but it needed a backend change we could not get into the quarter.</p>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6 · SOLUTION — 3–5 screens in device frames, each annotated with what it is and what it decides -->
+    <section id="solution" class="section">
+      <div class="container">
+        <h2 class="section-title">Solution</h2>
+        <hr class="section-divider" />
+      </div>
+      <div class="grid-12 cs-body">
+        <div class="cs-prose">
+          <!-- PLACEHOLDER -->
+          <p>The final state, in a few sentences. Say what the design does and how it answers the
+          problem from earlier; the screens and their annotations carry the detail.</p>
+        </div>
+        <div class="cs-row cs-wide cs-devices">
+          <figure class="cs-figure">
+            <div class="cs-device"><div class="cs-screen" role="img" aria-label="Placeholder: screen one"><span class="cs-media-label">screen</span></div></div>
+            <figcaption><!-- PLACEHOLDER --><span class="cs-note-title">Filters, always visible</span>The panel stays open so nobody has to discover it.</figcaption>
+          </figure>
+          <figure class="cs-figure">
+            <div class="cs-device"><div class="cs-screen" role="img" aria-label="Placeholder: screen two"><span class="cs-media-label">screen</span></div></div>
+            <figcaption><span class="cs-note-title">Empty results, with a way out</span>Suggests the nearest match instead of a dead end.</figcaption>
+          </figure>
+          <figure class="cs-figure">
+            <div class="cs-device"><div class="cs-screen" role="img" aria-label="Placeholder: screen three"><span class="cs-media-label">screen</span></div></div>
+            <figcaption><span class="cs-note-title">Progress you can see</span>A step indicator answers “how much more?” before people ask.</figcaption>
+          </figure>
+          <figure class="cs-figure">
+            <div class="cs-device"><div class="cs-screen" role="img" aria-label="Placeholder: screen four"><span class="cs-media-label">screen</span></div></div>
+            <figcaption><span class="cs-note-title">Confirmation that closes the loop</span>Says what happens next and when.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7 · EVOLUTION — change over time: a flat horizontal timeline (deliberately unlike Solution) -->
+    <section id="evolution" class="section">
+      <div class="container">
+        <h2 class="section-title">Evolution</h2>
+        <hr class="section-divider" />
+      </div>
+      <div class="grid-12 cs-body">
+        <div class="cs-prose">
+          <!-- PLACEHOLDER -->
+          <p>What changed after launch and why. This is about the design over time, not its final
+          state: what you learned from real use and what you did about it.</p>
+          <!-- OPTIONAL: if lighter parallel work belongs to this story, ONE sentence here: "In parallel, I also …". Never a list, heading, card or block. See CASE-STUDY-TEMPLATE.md, "Portfolio architecture". -->
+        </div>
+        <ol class="cs-row cs-wide cs-timeline">
+          <li>
+            <time class="cs-time" datetime="2024-03"><!-- PLACEHOLDER -->Month 1</time>
+            <h3>Launch</h3>
+            <figure class="cs-figure">
+              <div class="cs-media cs-media--4x3" role="img" aria-label="Placeholder: launch version"><span class="cs-media-label">v1</span></div>
+              <figcaption>Shipped with the panel open by default; the first week’s data confirmed it.</figcaption>
+            </figure>
+          </li>
+          <li>
+            <time class="cs-time" datetime="2024-05">Month 3</time>
+            <h3>First revision</h3>
+            <figure class="cs-figure">
+              <div class="cs-media cs-media--4x3" role="img" aria-label="Placeholder: first revision"><span class="cs-media-label">v2</span></div>
+              <figcaption>Collapsed the panel on mobile after tap-target complaints.</figcaption>
+            </figure>
+          </li>
+          <li>
+            <time class="cs-time" datetime="2024-07">Month 5</time>
+            <h3>Second revision</h3>
+            <figure class="cs-figure">
+              <div class="cs-media cs-media--4x3" role="img" aria-label="Placeholder: second revision"><span class="cs-media-label">v3</span></div>
+              <figcaption>Added saved filters once we saw the same five combinations repeat.</figcaption>
+            </figure>
+          </li>
+          <li>
+            <time class="cs-time" datetime="2024-09">Month 8</time>
+            <h3>Today</h3>
+            <figure class="cs-figure">
+              <div class="cs-media cs-media--4x3" role="img" aria-label="Placeholder: current version"><span class="cs-media-label">now</span></div>
+              <figcaption>Still iterating: the current work is on the results page.</figcaption>
+            </figure>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 8 · IMPACT — ONE component (.cs-impact), TWO variants. Keep exactly one per case and delete
+         the other. See CASE-STUDY-TEMPLATE.md, part 2. Never invent a number.
+
+         Slots shared by both:  .cs-impact-lead  (the number, or a short claim)
+                                .cs-impact-body  (what it measures, or the honest statement)
+                                .cs-impact-note  (a labelled one-liner: how it was measured / why this evidence) -->
+    <section id="impact" class="section">
+      <div class="container">
+        <h2 class="section-title">Impact</h2>
+        <hr class="section-divider" />
+      </div>
+      <div class="grid-12 cs-body">
+
+        <!-- VARIANT A · METRIC — use when there is a real number -->
+        <div class="cs-impact cs-impact--metric">
+          <!-- PLACEHOLDER: one number, what it measures, and how it was measured -->
+          <p class="cs-impact-lead">−38%</p>
+          <p class="cs-impact-body">median time to first booking</p>
+          <p class="cs-impact-note"><span class="cs-impact-note-label">How it was measured</span>Measured over the eight weeks after launch against the eight weeks before (n = [sample size]). This shows correlation with the redesign, not proof it was the only cause.</p>
+        </div>
+
+        <!-- VARIANT B · EVIDENCE — use when there are no metrics. Pick ONE kind:
+               Trust and continuation · Adoption by other teams · Stakeholder confirmation · Still in production
+             For a stakeholder quote, add this after .cs-impact-body:
+               <blockquote class="cs-impact-quote"><p>“…”</p><footer>Name, role</footer></blockquote> -->
+        <div class="cs-impact cs-impact--evidence">
+          <!-- PLACEHOLDER -->
+          <p class="cs-impact-kind">Trust and continuation</p>
+          <p class="cs-impact-lead">Asked to stay on and take over a second product area.</p>
+          <p class="cs-impact-body">The client did not share analytics after launch, but here is what I can confirm: [X, stated plainly and specifically].</p>
+          <p class="cs-impact-note"><span class="cs-impact-note-label">Why this evidence</span>The engagement is ongoing and analytics stay with the client, so continued and expanded scope is the strongest proof I can honestly offer.</p>
+        </div>
+
+        <div class="cs-prose">
+          <p>Put the evidence in context: what it meant for users or the business, and what you do
+          not know. An honest caveat reads as confidence.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9 · REFLECTION & WHAT'S NEXT — text only -->
+    <section id="reflection" class="section">
+      <div class="container">
+        <h2 class="section-title">Reflection &amp; What’s next</h2>
+        <hr class="section-divider" />
+      </div>
+      <div class="grid-12 cs-body">
+        <div class="cs-prose">
+          <!-- PLACEHOLDER -->
+          <h3>Reflection</h3>
+          <p>What you would do differently, and what you now believe that you did not at the
+          start. One specific lesson is worth more than a list of general ones.</p>
+          <h3>What’s next</h3>
+          <ul class="cs-list">
+            <li>The next problem the team is picking up</li>
+            <li>What you will measure to know it worked</li>
+            <li>What you still do not know</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- @include footer -->
+
+  <script src="js/main.js"></script>
+</body>
+</html>

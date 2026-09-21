@@ -113,13 +113,14 @@
   margin-right: 0;
 }
 
-/* 12-column grid: 64px columns, 32px gutters at full width (max-width: 1120px) */
+/* 12-column grid: 64px columns, 32px gutters at full width. The 1120px content box plus the
+   two side gutters gives max-width: var(--container-max) = 1168px. */
 .grid-12 {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   column-gap: var(--grid-gap);
   width: 100%;
-  max-width: var(--container-width);
+  max-width: var(--container-max);
   margin: 0 auto;
   padding: 0 var(--space-3);
 }
@@ -138,11 +139,18 @@
 
 /* Work carousel */
 .carousel {
+  /* Where grid column 1 starts. The same inset is used as scroll-padding: without it,
+     scroll-snap scrolls the strip right by this amount on load and the first card
+     ends up flush with the screen edge instead of on column 1. */
+  --carousel-inset: max(var(--space-3), calc((100% - var(--container-width)) / 2));
   overflow-x: auto;
   scroll-snap-type: x proximity;
   /* left edge aligns with grid column 1; right edge bleeds to the viewport */
-  padding-left: max(var(--space-3), calc((100% - var(--container-width)) / 2 + var(--space-3)));
+  padding-left: var(--carousel-inset);
+  scroll-padding-left: var(--carousel-inset);
   padding-right: var(--space-3);
+  /* room for the card shadow, which overflow-x would otherwise clip */
+  padding-top: var(--space-1);
   padding-bottom: var(--space-1);
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
@@ -164,33 +172,51 @@
   width: clamp(390px, 48vw, 630px);
   aspect-ratio: 1 / 1;
   border-radius: var(--radius);
-  background: var(--color-border);
+  background: var(--color-surface);
+  border: 1px solid var(--border-card);
+  box-shadow: var(--shadow-card);
   overflow: hidden;
   scroll-snap-align: start;
-  transition: transform var(--transition);
 }
 
-.case-item:hover {
-  transform: translateY(-2px);
-}
-
+/* The card is just the image; its content fades in over the whole card on
+   hover. Keyboard focus reveals it too, and touch devices (no hover) always
+   show it, so the content never depends on a mouse. */
 .case-overlay {
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   gap: 0.35rem;
-  padding: var(--space-3);
-  /* partial scrim: keeps text accessible without hiding the image */
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.88) 0%,
-    rgba(0, 0, 0, 0.6) 55%,
-    rgba(0, 0, 0, 0) 100%
-  );
-  color: #ffffff;
+  padding: var(--space-4);
+  text-align: center;
+  /* translucent so the image still shows through; the blur keeps text
+     readable over busy imagery */
+  background: var(--overlay-bg);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  color: var(--color-text);
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.case-item:hover .case-overlay,
+.case-item:focus-within .case-overlay {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .case-overlay {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .case-overlay {
+    transition: none;
+  }
 }
 
 .case-year {
@@ -198,11 +224,11 @@
   font-size: var(--fs-sm);
   letter-spacing: var(--tracking-wide);
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-text-muted);
 }
 
 .case-title {
-  color: #ffffff;
+  color: var(--color-text);
   font-size: var(--fs-lg);
   margin: 0;
 }
@@ -211,29 +237,44 @@
   font-size: var(--fs-sm);
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-text-muted);
   margin: 0;
 }
 
 .case-desc {
   font-size: var(--fs-sm);
-  color: rgba(255, 255, 255, 0.85);
+  color: var(--color-text);
+  max-width: 36ch;
   margin: 0;
 }
 
 .case-cta {
-  align-self: flex-start;
-  color: #ffffff;
+  color: var(--color-text);
   font-weight: 600;
   font-size: var(--fs-sm);
   margin-top: 0.25rem;
 }
 
-.case-cta:hover {
-  background-image: linear-gradient(#fff, #fff);
+/* The whole card is the link: this stretches the CTA's hit area over .case-overlay,
+   which already covers the card. The CTA stays the one link, so there is one tab stop
+   and the accessible name is unchanged. */
+.case-cta::after {
+  content: "";
+  position: absolute;
+  inset: 0;
 }
 
-/* Skills + CV link */
+/* Keyboard focus outlines the whole card, not just the words. */
+.case-cta:focus-visible {
+  outline: none;
+}
+
+.case-cta:focus-visible::after {
+  outline: 2px solid var(--color-text);
+  outline-offset: -2px;
+}
+
+/* CV link (About) */
 .cv-link {
   display: inline-block;
   margin-top: var(--space-3);
