@@ -45,6 +45,7 @@ built page directly**, because the next build overwrites it.
 It is shared by every page, and each part runs only if its markup is on the page:
 
 - mobile navigation toggle
+- the site header: slides away while scrolling down and returns on scroll up
 - footer year
 - contact form: a placeholder that only shows a message, because GitHub Pages cannot process
   form submissions (see "To do")
@@ -114,7 +115,7 @@ GitHub Pages, served from the `main` branch root: Settings → Pages → Source:
 
 - [ ] Replace the placeholder name, bio and role
 - [ ] Fill in `case-study-2.html` … `4.html` (placeholders that repeat the template)
-- [ ] Export the images the AI Assistant Platform page is waiting for: `hero.png`,
+- [ ] Export the images the AI Assistant Platform page is waiting for:
       `solution-screens-1.png` … `3.png` (and optionally `evolution-whitelabel-1.png` / `2.png`),
       into `assets/images/projects/`
 - [ ] Add project images to `assets/images/projects/` and use them on the carousel cards

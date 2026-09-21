@@ -14,6 +14,28 @@ navLinks.querySelectorAll("a").forEach((link) => {
   });
 });
 
+// Site header: slides away while scrolling down, returns on scroll up
+const siteHeader = document.querySelector(".site-header");
+
+if (siteHeader) {
+  let lastScrollY = window.scrollY;
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      const y = window.scrollY;
+      const delta = y - lastScrollY;
+      if (Math.abs(delta) < 6) return; // ignore jitter
+      lastScrollY = y;
+
+      const menuOpen = navLinks.classList.contains("open");
+      const nearTop = y < siteHeader.offsetHeight;
+      siteHeader.classList.toggle("is-hidden", delta > 0 && !nearTop && !menuOpen);
+    },
+    { passive: true }
+  );
+}
+
 // Footer year
 document.getElementById("year").textContent = new Date().getFullYear();
 

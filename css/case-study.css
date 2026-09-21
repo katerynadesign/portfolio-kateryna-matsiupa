@@ -23,47 +23,43 @@
   font-size: var(--fs-lg);
 }
 
-/* Hook with the hero image as its background (AI Assistant Platform). The section runs edge to
-   edge; the text stays on column 1 (.container). A scrim from the page colour keeps the text
-   readable over any image and lets the mockup show on the right. */
+/* Hook with the hero image as its background (AI Assistant Platform), the same at every width.
+   The image is in normal flow at its own aspect ratio (1440 × 993), so its height follows the
+   width and it is never cropped. The text block is pulled up over it by --hook-overlap (a
+   percentage of the width, so the overlap scales with the picture): it starts on the lower part
+   of the laptop and runs down past the bottom of the image. A scrim in the page background
+   colour (not white), opaque at the bottom of the image and fading upward, keeps the text
+   readable over the laptop and joins the image to the page below. */
 .cs-hook--bg {
+  --hook-overlap: 24%;
   position: relative;
   isolation: isolate;
-  overflow: hidden;
   padding: 0;
-  min-height: 32rem;
-  display: flex;
-  align-items: flex-end;
 }
 
 .cs-hook--bg .cs-hook-media {
-  position: absolute;
-  inset: 0;
-  z-index: -2;
+  display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: right center;
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-  background: var(--color-surface);
+  height: auto;
 }
 
 .cs-hook--bg::after {
   content: "";
   position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(90deg, var(--color-bg) 0%, var(--overlay-bg) 45%, transparent 100%);
-}
-
-.cs-hook--bg .cs-media-label {
-  padding: var(--space-3);
+  top: 0;
+  left: 0;
+  right: 0;
+  aspect-ratio: 1440 / 993;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(to top, var(--color-bg) 0%, var(--color-bg) 30%, transparent 65%);
 }
 
 .cs-hook-inner {
-  padding-top: var(--space-6);
+  position: relative;
+  z-index: 1;
+  margin-top: calc(var(--hook-overlap) * -1);
+  padding-top: 0;
   padding-bottom: var(--space-5);
 }
 
@@ -718,22 +714,12 @@
     padding-right: var(--space-2);
   }
 
-  /* Text runs the full width on a phone, so the scrim is even instead of a left-to-right fade. */
-  .cs-hook--bg {
-    min-height: 0;
-  }
-
-  .cs-hook--bg::after {
-    background: var(--overlay-bg);
-  }
-
   /* One stacked column on a phone: the text uses the full width. */
   .cs-hook-inner > * {
     max-width: none;
   }
 
   .cs-hook-inner {
-    padding-top: var(--space-5);
     padding-bottom: var(--space-4);
   }
 

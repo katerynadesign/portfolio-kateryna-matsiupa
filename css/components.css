@@ -78,5 +78,6 @@
 .nav-toggle span {
   width: 22px;
   height: 2px;
-  background: var(--color-text);
+  /* The menu icon is a step lighter than the text: 80% of --color-text. */
+  background: color-mix(in srgb, var(--color-text) 80%, transparent);
 }

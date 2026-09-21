@@ -24,7 +24,7 @@
     paraphrase it or add facts and numbers; anything new goes through Kateryna first.
     Structure and content rules: CASE-STUDY-TEMPLATE.md. Components: DESIGN-SYSTEM.md.
     The header and footer are shared: edit src/partials/, then run python3 build.py.
-    Placeholders still to replace with exported images: hero.png,
+    Placeholders still to replace with exported images:
     solution-screens-1.png … solution-screens-3.png (and optionally evolution-whitelabel-1/2.png).
   -->
 
@@ -44,11 +44,13 @@
 
   <main class="cs-main">
 
-    <!-- 1 · HOOK — the hero section. The device mockup of the finished product is its background
-         (placeholder until hero.png is exported: then replace the div with
-         <img class="cs-hook-media" src="assets/images/projects/hero.png" alt="Device mockup of the finished product" />). -->
+    <!-- 1 · HOOK — the hero section. The hero image is its background, shown whole (never cropped)
+         at every width. The text starts on the lower part of the laptop and runs down past the
+         bottom of the image, on a scrim in the page colour: see css/case-study.css.
+         hero-alt.png is the one in use; hero-desktop.png and hero-mobile.png are currently the
+         same picture and are not referenced. -->
     <section id="hook" class="cs-hook cs-hook--bg">
-      <div class="cs-hook-media" role="img" aria-label="Placeholder: device mockup of the finished product"><span class="cs-media-label">hero.png · device mockup of the finished product</span></div>
+      <img class="cs-hook-media" src="assets/images/projects/hero-alt.png" width="1440" height="993" fetchpriority="high" alt="Laptop mockup of the finished product, showing the Leads screen of the platform" />
       <div class="cs-hook-inner container">
         <p class="eyebrow">AI Assistant Platform · 2025 · SaaS Web App / Productivity Tools</p>
         <h1 class="cs-hook-text">

@@ -4,8 +4,22 @@
   position: sticky;
   top: 0;
   background: var(--color-bg);
-  border-bottom: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
   z-index: 10;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+/* Slides away while scrolling down and returns on scroll up (js/main.js). It stays visible
+   while something inside it has keyboard focus. */
+.site-header.is-hidden:not(:focus-within) {
+  transform: translateY(-100%);
+  box-shadow: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header {
+    transition: none;
+  }
 }
 
 .hero {

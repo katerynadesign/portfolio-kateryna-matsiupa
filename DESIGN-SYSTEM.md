@@ -23,7 +23,7 @@ the code. If code and this document disagree, fix whichever is wrong in the same
 | `--color-surface` | `#ffffff` | Cards, one step lighter than the page. Used by the case cards. |
 | `--color-text` | `#000933` | Primary text, headings, primary button fill, link underline, focus border. |
 | `--color-text-muted` | `rgba(0, 9, 51, 0.65)` | Body paragraphs, eyebrow, secondary nav links, form status. |
-| `--color-border` | `rgba(0, 9, 51, 0.12)` | Hairlines: section dividers, header/footer rules, input borders, the quick-facts rows. |
+| `--color-border` | `rgba(0, 9, 51, 0.12)` | Hairlines: section dividers, footer rule, input borders, the quick-facts rows. |
 | `--color-inverse` | `#ffffff` | Text placed on a `--color-text` fill (primary button label). |
 
 ### Card tokens
@@ -113,8 +113,7 @@ is not clipped by its horizontal `overflow`.
 
 ### Section separation
 - Sections are separated by space only: `.section` has `padding: var(--space-6) 0` and **no
-  borders between sections**. (The header's bottom rule and the footer's top rule remain; they
-  frame the page and do not separate sections.)
+  borders between sections**. (The footer's top rule remains; it frames the page and does not separate sections. The header has no border: it is lifted off the page by a very light shadow, `--shadow-card`. It slides out of view while scrolling down and returns on scroll up (`js/main.js`; always visible near the top of the page, while the mobile menu is open and while it has keyboard focus).)
 
 ## Typography rules
 
@@ -128,6 +127,7 @@ is not clipped by its horizontal `overflow`.
 
 ## Components
 
+- **Mobile menu icon (`.nav-toggle`):** three 2px bars in `--color-text` at 80% (`color-mix`), a step lighter than the text.
 - **Buttons (`.btn`):** Raleway 600, `--fs-sm`, 1px border in `--color-text`. `.btn-primary` is
   filled (`--color-text` fill, `--color-inverse` label) and inverts on hover; `.btn-outline` is the
   reverse.
@@ -265,7 +265,7 @@ first). Components built for it, all in `css/case-study.css`:
 | Component | Where | What it is |
 |---|---|---|
 | `.cs-hook-subtitle` | under the Hook | Optional subtitle: Karla at `--fs-lg` in the muted colour (the hero paragraph style), so the Hook stays the largest type. The Hook headline is the first sentence; the subtitle carries the rest of the approved hook copy. |
-| `.cs-hook--bg` | the Hook section | The hero image is the **background of the Hook section**, not a separate block: an edge-to-edge section (min height `32rem`) with `.cs-hook-media` (the placeholder for `hero.png`, later an `<img>` with `object-fit: cover`, anchored right) behind the text, and the text staying on column 1 and limited to **8 of the 12 columns** on desktop (eyebrow, headline and subtitle; 736px on the 64px grid, fluid below 1168px, full width at ≤720px). A scrim (`--color-bg` → `--overlay-bg` → transparent, left to right) keeps the text readable over any image; on mobile the scrim is an even `--overlay-bg`. |
+| `.cs-hook--bg` | the Hook section | The hero image (`hero-alt.png`, 1440×993, blue gradient fading to white at the bottom) is the **background of the Hook section**, the same at every width. It is in normal flow at its own aspect ratio, so its height follows the width (259px at 375px, 965px at 1400px, 1324px at 1920px) and it is **never cropped**. The text block is pulled up over it (`--hook-overlap: 24%` of the width, so it scales with the picture): it starts at 65% of the image height, on the lower part of the laptop, on column 1 and limited to **8 of the 12 columns** on desktop (full width at ≤720px), and runs down past the bottom of the image. A scrim in the page background colour (`--color-bg` at the bottom of the image, opaque up to 30%, transparent at 65%; never white) keeps the text readable over the laptop and joins the image to the page below. `hero-desktop.png` and `hero-mobile.png` currently hold the same picture and are not referenced. |
 | Quick facts | after the Hook | The four facts of the Context brief (role, team, duration, engagement). It is not repeated as a second fact strip in Context. |
 | `.cs-quotes` | Problem | Two user-research quotes stacked in columns 5–12, attributed "User research". |
 | `.cs-findings` | Discovery | Five numbered cards (`01`–`05`, CSS counter) in an auto-fit grid, three across on desktop: title plus one sentence. The card is `--color-surface` with `--shadow-card`. |
@@ -296,7 +296,7 @@ label in `--font-handwritten` (Caveat 500, `--fs-lg`). Rules:
 
 Text in these blocks is copied from the brief. The IA diagram has no caption of its own, because its
 group titles label it and the Solution paragraph explains it. Placeholders still to replace with
-exported images: `hero.png`, `solution-screens-1.png` … `3.png`, and optionally
+exported images: `solution-screens-1.png` … `3.png`, and optionally
 `evolution-whitelabel-1.png` / `2.png` (Evolution stays text-only until those exist).
 
 ### Mobile (≤ 720px)
