@@ -182,8 +182,7 @@ full-width divider.
   the nav with a small eyebrow (`case study · year · niche`). Nothing else on the page may be
   larger (on mobile: `--fs-xl × 1.2`).
 - **Quick facts:** a definition list in **columns 1–4** right after the Hook (role, engagement,
-  team, tools). The engagement row is set in semibold (`.is-key`) because "embedded, and still
-  ongoing" is the point of the block.
+  team, tools). All values share one weight; no row is emphasised.
 - **Contents:** directly under Quick facts, not floating: lowercase links, one per section that has
   a title (eight: Context & Ownership … Reflection & What's next), scrolling to each section's
   anchor. **The Hook is not listed**, because it is the top of the page and has no title; its
@@ -193,7 +192,9 @@ full-width divider.
 - **Text column:** prose sits in **columns 5–10** (6 of 12, `544px` on the 64px grid), which
   measures 65–75 characters per line in Karla 16px (all 17 measured lines, average 71.5). Seven
   columns measured 79–84 on the earlier 60px grid, which is too long.
-  Prose uses `--color-text`, not the muted body colour, because this page is for long reading.
+  Prose paragraphs and bullet lists use `--color-text-muted`, the same lighter tone as the Hook
+  subtitle (6.04:1 on the page background, AA). Headings, labels, quotes and card titles stay
+  `--color-text`.
 - **Visual widths, all outside the text column:** default = columns 5–12 (`.cs-figure`), wide =
   columns 1–12 (`.cs-wide`), full-bleed = edge to edge (`.cs-figure--bleed`).
 - **Rhythm:** sections use the site-wide `.section` padding (`--space-6`), with no extra rules or
@@ -263,8 +264,9 @@ first). Components built for it, all in `css/case-study.css`:
 
 | Component | Where | What it is |
 |---|---|---|
-| `.cs-hero` | under the Hook | Full-width placeholder for `hero.png` (device mockup of the finished product), columns 1–12. |
-| Quick facts | after the hero | The four facts of the Context brief (role, team, duration, engagement). It is not repeated as a second fact strip in Context. |
+| `.cs-hook-subtitle` | under the Hook | Optional subtitle: Karla at `--fs-lg` in the muted colour (the hero paragraph style), `60ch` wide, so the Hook stays the largest type. The Hook headline is the first sentence; the subtitle carries the rest of the approved hook copy. |
+| `.cs-hook--bg` | the Hook section | The hero image is the **background of the Hook section**, not a separate block: an edge-to-edge section (min height `32rem`) with `.cs-hook-media` (the placeholder for `hero.png`, later an `<img>` with `object-fit: cover`, anchored right) behind the text, and the text staying on column 1. A scrim (`--color-bg` → `--overlay-bg` → transparent, left to right) keeps the text readable over any image; on mobile the scrim is an even `--overlay-bg`. |
+| Quick facts | after the Hook | The four facts of the Context brief (role, team, duration, engagement). It is not repeated as a second fact strip in Context. |
 | `.cs-quotes` | Problem | Two user-research quotes stacked in columns 5–12, attributed "User research". |
 | `.cs-findings` | Discovery | Five numbered cards (`01`–`05`, CSS counter) in an auto-fit grid, three across on desktop: title plus one sentence. The card is `--color-surface` with `--shadow-card`. |
 | `.cs-flow` | Process | The Before / After diagram (below). |
