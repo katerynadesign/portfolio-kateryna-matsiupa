@@ -249,8 +249,8 @@ skipped the collapsed one", not "wireframe v2".
   plainly that there are no metrics) are in `CASE-STUDY-TEMPLATE.md`, part 2. The `--metric`
   variant without its note also serves as the plain **stat callout** in Problem.
 - **Impact tiles (`.cs-impact--tiles`):** three or so `.cs-impact-tile`s across columns 1–12, each a
-  `--fs-xl` `from → to` figure (the arrow in `--color-text-muted`) and a one-line label, under a
-  hairline. They stack on mobile. Used when a case has several approved figures; the lead stays
+  `--fs-xl` `from → to` figure (the arrow at 0.5625 of the figure size, weight 500, in `--color-text-muted`) and a one-line
+  label in the muted colour. No divider above the tiles. They stack on mobile. Used when a case has several approved figures; the lead stays
   below the Hook.
 - **Pull quote (`.cs-quote`):** the quote style shared by user-research quotes (Problem) and
   stakeholder confirmation (Impact evidence): a `1px --color-text` rule, `--fs-lg` text, and a small
