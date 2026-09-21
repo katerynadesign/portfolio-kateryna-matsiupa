@@ -56,6 +56,7 @@ the code. If code and this document disagree, fix whichever is wrong in the same
 |---|---|---|
 | `--font-heading` | `"Raleway"`, system sans fallback | `h1`–`h3`, buttons, logo, eyebrow, CV link, case year. |
 | `--font-body` | `"Karla"`, system sans fallback | Everything else. |
+| `--font-handwritten` | `"Caveat"`, `cursive` | **Accent only:** the hand-drawn callout labels on the AI Assistant Platform Process diagram. Never body copy, headings or navigation. The one font added beyond the Raleway + Karla pair. |
 | `--fs-sm` | `0.875rem` | Nav, buttons, labels, card metadata. |
 | `--fs-base` | `1rem` | Body text, form fields. |
 | `--fs-lg` | `1.25rem` | Hero paragraph, logo, case title. |
@@ -63,8 +64,8 @@ the code. If code and this document disagree, fix whichever is wrong in the same
 | `--fs-2xl` | `2.75rem` | Hero `h1` on desktop. |
 | `--tracking-wide` | `0.08em` | Letter-spacing on uppercase labels (section titles, eyebrow, case year). |
 
-Fonts load from Google Fonts (`Raleway` 500/600/700, `Karla` 400/500/600) via `<link>` in
-`index.html`; nothing is self-hosted.
+Fonts load from Google Fonts (`Raleway` 500/600/700, `Karla` 400/500/600) via `<link>` in each page;
+nothing is self-hosted. `Caveat` (500/600) is loaded only by `ai-assistant-platform.html`.
 
 ## Spacing, layout, shape, motion tokens
 
@@ -161,9 +162,11 @@ therefore `work / about / contact`.
 
 Template: [`case-study-template.html`](case-study-template.html), built from
 `src/case-study-template.html` (see README, "Building pages"). Each case on the home carousel has
-its own page, `case-study-1.html` … `4.html`, started from the template. Styles are in
+its own page: [`ai-assistant-platform.html`](ai-assistant-platform.html) is the first real case,
+and `case-study-2.html` … `4.html` are placeholders started from the template. Styles are in
 [`css/case-study.css`](css/case-study.css) (loaded after `style.css`, only by case pages). It
-composes existing tokens and adds no colours, fonts or radii. The header, footer and section
+composes existing tokens and adds no colours or radii; the only new font is the hand-drawn
+callout face (see "AI Assistant Platform case"). The header, footer and section
 title/divider pattern are identical to the rest of the site. What each section should contain,
 and when a project earns a full case at all, is in
 [`CASE-STUDY-TEMPLATE.md`](CASE-STUDY-TEMPLATE.md).
@@ -181,8 +184,12 @@ full-width divider.
 - **Quick facts:** a definition list in **columns 1–4** right after the Hook (role, engagement,
   team, tools). The engagement row is set in semibold (`.is-key`) because "embedded, and still
   ongoing" is the point of the block.
-- **Contents:** directly under Quick facts, not floating: nine lowercase links in three columns
-  (01–03 | 04–06 | 07–09) that scroll to each section's anchor.
+- **Contents:** directly under Quick facts, not floating: lowercase links, one per section that has
+  a title (eight: Context & Ownership … Reflection & What's next), scrolling to each section's
+  anchor. **The Hook is not listed**, because it is the top of the page and has no title; its
+  content is unchanged. Entries fill three columns top to bottom. **The numbers are derived, not
+  typed:** a CSS counter numbers the `<li>`s in list order, starting at `01`, so adding, removing
+  or reordering an entry never needs manual renumbering.
 - **Text column:** prose sits in **columns 5–10** (6 of 12, `544px` on the 64px grid), which
   measures 65–75 characters per line in Karla 16px (all 17 measured lines, average 71.5). Seven
   columns measured 79–84 on the earlier 60px grid, which is too long.
@@ -224,9 +231,10 @@ skipped the collapsed one", not "wireframe v2".
 - **Timeline (`.cs-timeline`):** a hairline with a `9px` square marker per milestone, uppercase
   time label, short title, thumbnail, caption. Deliberately unlike the device row: no frames, and
   the connecting line signals change over time.
-- **Impact (`.cs-impact`): one component, two variants.** Both use the same three slots and the
-  same width (columns 5–12), so every case looks alike. The template shows both; keep one per case
-  and delete the other.
+- **Impact (`.cs-impact`): one component, three variants.** `--metric` and `--evidence` use the
+  same three slots and the same width (columns 5–12), so every case looks alike. The template shows
+  both; keep one per case and delete the other. `--tiles` (below the table) shows several
+  before → after figures side by side.
 
   | Slot | `--metric` (there is a number) | `--evidence` (no metrics) |
   |---|---|---|
@@ -236,8 +244,58 @@ skipped the collapsed one", not "wireframe v2".
   | `.cs-impact-quote` | not used | optional attributed quote, with a `1px` `--color-text` rule (for the stakeholder-confirmation kind) |
   | `.cs-impact-note` | labelled **How it was measured** | labelled **Why this evidence** |
 
-  The lead stays below the Hook in both variants. The wording rules (never invent a number, say
-  plainly that there are no metrics) are in `CASE-STUDY-TEMPLATE.md`, part 2.
+  The lead stays below the Hook in every variant. The wording rules (never invent a number, say
+  plainly that there are no metrics) are in `CASE-STUDY-TEMPLATE.md`, part 2. The `--metric`
+  variant without its note also serves as the plain **stat callout** in Problem.
+- **Impact tiles (`.cs-impact--tiles`):** three or so `.cs-impact-tile`s across columns 1–12, each a
+  `--fs-xl` `from → to` figure (the arrow in `--color-text-muted`) and a one-line label, under a
+  hairline. They stack on mobile. Used when a case has several approved figures; the lead stays
+  below the Hook.
+- **Pull quote (`.cs-quote`):** the quote style shared by user-research quotes (Problem) and
+  stakeholder confirmation (Impact evidence): a `1px --color-text` rule, `--fs-lg` text, and a small
+  attribution in `footer`.
+
+### AI Assistant Platform case
+
+[`ai-assistant-platform.html`](ai-assistant-platform.html) follows the nine sections with the reviewed,
+approved copy from its brief (do not paraphrase it or add facts; new material goes through Kateryna
+first). Components built for it, all in `css/case-study.css`:
+
+| Component | Where | What it is |
+|---|---|---|
+| `.cs-hero` | under the Hook | Full-width placeholder for `hero.png` (device mockup of the finished product), columns 1–12. |
+| Quick facts | after the hero | The four facts of the Context brief (role, team, duration, engagement). It is not repeated as a second fact strip in Context. |
+| `.cs-quotes` | Problem | Two user-research quotes stacked in columns 5–12, attributed "User research". |
+| `.cs-findings` | Discovery | Five numbered cards (`01`–`05`, CSS counter) in an auto-fit grid, three across on desktop: title plus one sentence. The card is `--color-surface` with `--shadow-card`. |
+| `.cs-flow` | Process | The Before / After diagram (below). |
+| `.cs-ia` | Solution | Grouped boxes: Assistant tools (columns 1–4), Business tools (5–9), and a smaller Account / utility group (10–12), the last with an outline and no shadow. Layout only, not a screenshot. |
+| `.cs-devices` | Solution | Three placeholders (`solution-screens-1…3.png`) in device frames, each with its caption. |
+| `.cs-impact--tiles` | Impact | Three before → after tiles. |
+
+**Process diagram (`.cs-flow`).** Two columns of step cards joined by arrows: Before (7 steps) in
+columns 1–4 and After (6 steps) in columns 5–8. Each step is a `.cs-flow-box` (`--color-surface`,
+`--shadow-card`); the arrow between steps is decorative generated content (`↓`, with an empty alt
+text). Sub-lists (Upload Content: Website, Text, Files, FAQ) sit inside the box. The three hand-drawn
+callouts belong to the After column only, and sit in the free columns 9–12, each vertically centred
+on the step it points at.
+
+**The hand-drawn accent (the one deliberate exception to the flat system).** A callout is a wobbly
+ink-coloured SVG arrow (1.5px stroke, irregular control points, no standard arrowhead) plus a short
+label in `--font-handwritten` (Caveat 500, `--fs-lg`). Rules:
+- The handwriting face is used **only** in `.cs-callout-text`, never for body copy, headings or
+  navigation (verified: no other element on the page computes to it).
+- The arrow is decoration (`aria-hidden`); the label is real text inside its step, so a screen reader
+  reads it with the step it annotates.
+- Caveat is loaded only by this page (its own `<link>`), not by the other pages.
+- On mobile the columns stack and each callout sits inside its step card under the step name, its
+  arrow turned to point up at the name.
+- Keep it sparing. It may be extended to the Solution IA diagram or the Impact tiles later if
+  Kateryna asks; do not spread it further.
+
+Text in these blocks is copied from the brief. The IA diagram has no caption of its own, because its
+group titles label it and the Solution paragraph explains it. Placeholders still to replace with
+exported images: `hero.png`, `solution-screens-1.png` … `3.png`, and optionally
+`evolution-whitelabel-1.png` / `2.png` (Evolution stays text-only until those exist).
 
 ### Mobile (≤ 720px)
 One column. The reading gutter is `--space-2` (the rest of the site uses `--space-3`) and the text
@@ -299,8 +357,11 @@ These are current facts, not decisions:
 - **The Impact lead is at most `--fs-2xl`** (the number) or `--fs-xl` (an evidence claim), smaller
   than a "hero stat" usually is. A larger one would outrank the Hook, which must stay the largest
   type on the page.
-- **The four case pages are placeholders.** They are copies of the template with a different
-  title, year and eyebrow; they repeat the same placeholder content until real content is written.
-  They are published and linked, so they show placeholder text to visitors.
+- **Three of the four case pages are placeholders** (`case-study-2.html` … `4.html`): copies of the
+  template with a different title, year and eyebrow, repeating the same placeholder text. They are
+  published and linked, so they show that text to visitors. The AI Assistant Platform page is real,
+  apart from its image placeholders.
+- **The AI Assistant Platform Impact has no "how it was measured" note**, because the brief supplies
+  none and the copy may not be invented. Add one when the method is known.
 - **Head is not shared.** Only the header and footer come from partials. Each page keeps its own
   `<head>` (fonts, stylesheet links), so a new stylesheet has to be added to every page.

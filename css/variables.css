@@ -25,6 +25,9 @@
   /* Typography */
   --font-heading: "Raleway", -apple-system, BlinkMacSystemFont, sans-serif;
   --font-body: "Karla", -apple-system, BlinkMacSystemFont, sans-serif;
+  /* Accent only: the hand-drawn callout labels on the AI Assistant Platform Process diagram.
+     Never body copy, headings or navigation. Loaded (Caveat) only by that page. */
+  --font-handwritten: "Caveat", cursive;
   --fs-sm: 0.875rem;
   --fs-base: 1rem;
   --fs-lg: 1.25rem;

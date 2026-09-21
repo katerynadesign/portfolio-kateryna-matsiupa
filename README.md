@@ -9,12 +9,14 @@ page.
 ```
 portfolio-site/
 ├── index.html                  BUILT  home: hero, work carousel, about, contact
-├── case-study-1.html … 4.html  BUILT  one page per case study on the home carousel
+├── ai-assistant-platform.html  BUILT  the first real case study
+├── case-study-2.html … 4.html  BUILT  placeholder case studies on the home carousel
 ├── case-study-template.html    BUILT  the template every case page starts from (noindex)
 ├── build.py                    the page builder (see "Building pages")
 ├── src/                        WHERE YOU EDIT PAGES
 │   ├── index.html
-│   ├── case-study-1.html … 4.html
+│   ├── ai-assistant-platform.html
+│   ├── case-study-2.html … 4.html
 │   ├── case-study-template.html
 │   └── partials/
 │       ├── header.html         shared by every page
@@ -111,7 +113,10 @@ GitHub Pages, served from the `main` branch root: Settings → Pages → Source:
 ## To do
 
 - [ ] Replace the placeholder name, bio and role
-- [ ] Fill in the four case study pages (all are placeholders that repeat the template)
+- [ ] Fill in `case-study-2.html` … `4.html` (placeholders that repeat the template)
+- [ ] Export the images the AI Assistant Platform page is waiting for: `hero.png`,
+      `solution-screens-1.png` … `3.png` (and optionally `evolution-whitelabel-1.png` / `2.png`),
+      into `assets/images/projects/`
 - [ ] Add project images to `assets/images/projects/` and use them on the carousel cards
 - [ ] Add `assets/cv.pdf` (the "download cv" link points at it and the file does not exist yet)
 - [ ] Update the email and social links in Contact

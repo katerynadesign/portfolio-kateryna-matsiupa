@@ -1,5 +1,6 @@
 /* Case study page — layout for the 9-block template.
-   Composes existing tokens only (no new colours, fonts or radii). Loaded after
+   Composes existing tokens only (no new colours or radii; the one font exception is the
+   hand-drawn callout face, --font-handwritten). Loaded after
    style.css and only by case study pages. See DESIGN-SYSTEM.md, "Case study page". */
 
 /* ---------- 1. Hook ---------- */
@@ -70,7 +71,7 @@
   counter-reset: toc;
   display: grid;
   grid-template-rows: repeat(3, auto);
-  grid-auto-flow: column; /* 01–03 | 04–06 | 07–09, read top to bottom */
+  grid-auto-flow: column; /* filled top to bottom, three rows per column; numbers come from the counter below */
   grid-auto-columns: minmax(0, 1fr);
   column-gap: var(--grid-gap);
   row-gap: var(--space-1);
@@ -377,7 +378,9 @@
   max-width: 60ch;
 }
 
-/* Evidence, kind 3 (stakeholder quote): attributed, with the rule of a pull quote. */
+/* Pull quote: user research (Problem) or a stakeholder confirmation (Impact evidence).
+   Attributed, with the rule of a pull quote. */
+.cs-quote,
 .cs-impact-quote {
   max-width: 52ch;
   margin: var(--space-3) 0 var(--space-2);
@@ -385,12 +388,14 @@
   border-left: 1px solid var(--color-text);
 }
 
+.cs-quote p,
 .cs-impact-quote p {
   margin: 0 0 var(--space-1);
   font-size: var(--fs-lg);
   color: var(--color-text);
 }
 
+.cs-quote footer,
 .cs-impact-quote footer {
   font-size: var(--fs-sm);
   color: var(--color-text-muted);
@@ -411,6 +416,246 @@
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--color-text);
+}
+
+/* ---------- Components used by the AI Assistant Platform case ---------- */
+
+/* Hero image directly under the Hook. */
+.cs-hero {
+  margin-bottom: var(--space-5);
+}
+
+/* Problem: two user-research quotes, stacked. */
+.cs-quotes {
+  grid-column: 5 / 13;
+  display: grid;
+  row-gap: var(--space-4);
+}
+
+.cs-quotes .cs-quote {
+  margin: 0;
+  max-width: 52ch;
+}
+
+/* Discovery: key findings as numbered cards. */
+.cs-findings {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: finding;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: var(--space-3) var(--grid-gap);
+}
+
+.cs-finding {
+  counter-increment: finding;
+  padding: var(--space-3);
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+}
+
+.cs-finding::before {
+  content: counter(finding, decimal-leading-zero);
+  display: block;
+  margin-bottom: var(--space-1);
+  font-family: var(--font-heading);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-text-muted);
+}
+
+.cs-finding h3 {
+  margin: 0 0 0.25rem;
+  font-size: var(--fs-base);
+}
+
+.cs-finding p {
+  margin: 0;
+  font-size: var(--fs-sm);
+  color: var(--color-text);
+}
+
+/* Process: the Before / After flow diagram. Before is columns 1-4, After is 5-8, and the
+   hand-drawn callouts sit in the free columns 9-12, each beside the step it points at. */
+.cs-flow {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--grid-gap);
+}
+
+.cs-flow-col--before {
+  grid-column: 1 / 5;
+}
+
+.cs-flow-col--after {
+  grid-column: 5 / 9;
+}
+
+.cs-flow-heading {
+  margin: 0 0 var(--space-3);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.cs-flow-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* A step is a card; the arrow to the next step is decorative generated content. */
+.cs-flow-box {
+  position: relative;
+  padding: var(--space-2);
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+}
+
+.cs-flow-label {
+  margin: 0;
+  color: var(--color-text);
+}
+
+.cs-flow-sub {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem var(--space-2);
+  margin: 0.5rem 0 0;
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+}
+
+.cs-flow-step:not(:last-child)::after {
+  content: "↓";
+  content: "↓" / "";
+  display: block;
+  padding: 0.5rem 0;
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+/* The one hand-drawn accent on the site: a wobbly ink arrow and a handwritten label.
+   The label is real text; the arrow is decoration. */
+.cs-callout {
+  position: absolute;
+  top: 50%;
+  left: calc(100% + var(--space-3));
+  width: calc(100% - var(--space-3));
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--color-text);
+}
+
+.cs-callout-arrow {
+  flex: none;
+  width: 64px;
+  height: 24px;
+}
+
+.cs-callout-arrow svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.cs-callout-text {
+  font-family: var(--font-handwritten);
+  font-size: var(--fs-lg);
+  font-weight: 500;
+  line-height: 1.15;
+}
+
+/* Solution: the information architecture as grouped boxes (layout only, not a screenshot). */
+.cs-ia {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--grid-gap);
+  align-items: start;
+}
+
+.cs-ia-group {
+  padding: var(--space-3);
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+}
+
+.cs-ia-group--assistant {
+  grid-column: 1 / 5;
+}
+
+.cs-ia-group--business {
+  grid-column: 5 / 10;
+}
+
+/* The utility group is smaller and quieter: an outline, no shadow. */
+.cs-ia-group--utility {
+  grid-column: 10 / 13;
+  padding: var(--space-2);
+  background: transparent;
+  box-shadow: none;
+  border: 1px solid var(--color-border);
+}
+
+.cs-ia-title {
+  margin: 0 0 var(--space-2);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.cs-ia-items {
+  margin: 0;
+}
+
+.cs-ia-items li {
+  padding: 0.5rem 0;
+  color: var(--color-text);
+  border-top: 1px solid var(--color-border);
+}
+
+.cs-ia-items li:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.cs-ia-items li:last-child {
+  padding-bottom: 0;
+}
+
+/* Impact, third variant: several before → after figures side by side. */
+.cs-impact--tiles {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  column-gap: var(--grid-gap);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+}
+
+.cs-impact--tiles .cs-impact-lead {
+  margin-bottom: var(--space-1);
+  font-size: var(--fs-xl);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.cs-impact--tiles .cs-impact-body {
+  max-width: none;
+  margin: 0;
+  font-size: var(--fs-base);
+}
+
+.cs-impact-arrow {
+  color: var(--color-text-muted);
 }
 
 /* ---------- 9. Mobile ---------- */
@@ -522,5 +767,59 @@
 
   .cs-impact--metric .cs-impact-lead {
     font-size: calc(var(--fs-xl) * 1.1);
+  }
+
+  /* Process diagram: the columns stack, and each callout drops under its step,
+     with its arrow turned to point up at it. */
+  .cs-flow {
+    display: block;
+  }
+
+  .cs-flow-col + .cs-flow-col {
+    margin-top: var(--space-5);
+  }
+
+  .cs-callout {
+    position: static;
+    width: auto;
+    margin-top: var(--space-1);
+    transform: none;
+  }
+
+  .cs-callout-arrow {
+    position: relative;
+    width: 24px;
+    height: 64px;
+  }
+
+  .cs-callout-arrow svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 64px;
+    height: 24px;
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+
+  /* The IA groups stack. */
+  .cs-ia {
+    display: block;
+  }
+
+  .cs-ia-group + .cs-ia-group {
+    margin-top: var(--space-3);
+  }
+
+  .cs-quotes {
+    display: block;
+  }
+
+  .cs-quotes .cs-quote + .cs-quote {
+    margin-top: var(--space-4);
+  }
+
+  .cs-impact--tiles {
+    grid-auto-flow: row;
+    row-gap: var(--space-4);
   }
 }
