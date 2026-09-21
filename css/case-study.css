@@ -20,7 +20,6 @@
 /* Subtitle under the Hook: body face at the hero paragraph size, so the Hook stays the largest type. */
 .cs-hook-subtitle {
   margin: var(--space-3) 0 0;
-  max-width: 60ch;
   font-size: var(--fs-lg);
 }
 
@@ -66,6 +65,13 @@
 .cs-hook-inner {
   padding-top: var(--space-6);
   padding-bottom: var(--space-5);
+}
+
+/* Desktop: the Hook text (eyebrow, headline, subtitle) is limited to 8 of the 12 grid columns,
+   starting on column 1. The width is 8 columns plus 7 gutters, so it follows the fluid grid
+   below 1168px: (container − 11 gutters) × 8/12 + 7 gutters = 736px on the 64px grid. */
+.cs-hook-inner > * {
+  max-width: calc((100% - 11 * var(--grid-gap)) * 8 / 12 + 7 * var(--grid-gap));
 }
 
 /* ---------- 2. Quick facts + contents ---------- */
@@ -719,6 +725,11 @@
 
   .cs-hook--bg::after {
     background: var(--overlay-bg);
+  }
+
+  /* One stacked column on a phone: the text uses the full width. */
+  .cs-hook-inner > * {
+    max-width: none;
   }
 
   .cs-hook-inner {

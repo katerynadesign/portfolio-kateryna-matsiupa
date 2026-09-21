@@ -2,3 +2,6 @@
 *.log
 .vscode/
 node_modules/
+
+# Local scratch output, not part of the site
+Claude outputs/
