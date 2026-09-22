@@ -8,8 +8,9 @@
   <link rel="icon" type="image/png" href="assets/images/favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <!-- Caveat is loaded only here: the hand-drawn callout labels on the Process diagram. -->
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Karla:wght@400;500;600&family=Raleway:wght@500;600;700&display=swap" rel="stylesheet" />
+  <!-- Solitreo is loaded only here, for .cs-callout's hand-drawn label — currently unused (see
+       its own comment in css/case-study.css) but kept, not deleted. -->
+  <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600&family=Raleway:wght@500;600;700&family=Solitreo&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/variables.css" />
   <link rel="stylesheet" href="css/base.css" />
   <link rel="stylesheet" href="css/components.css" />
@@ -41,9 +42,9 @@
       <div class="cs-hook-inner container">
         <p class="eyebrow">AI Assistant Platform · 2025 · SaaS Web App / Productivity Tools</p>
         <h1 class="cs-hook-text">
-          Rebuilt the Lexicon Lab SaaS product from a raw MVP into a coherent system.
+          Rebuilt the Lexicon Lab SaaS product from MVP into a coherent system.
         </h1>
-        <p class="cs-hook-subtitle">Information architecture, design system, and every core flow — cutting time-to-first-working-assistant from 15–20 minutes to 5–7.</p>
+        <p class="cs-hook-subtitle">Information architecture, a design system, and every core flow — starting with onboarding, the step that decided whether a new user ever reached the product, where time-to-first-working-assistant dropped from 15–20 minutes to 5–7.</p>
       </div>
     </section>
 
@@ -163,66 +164,32 @@
       </div>
       <div class="grid-12 cs-body">
         <div class="cs-prose">
-          <p>Before: Log in → Demo video → Subscription → Business Info → Pick Assistant → Set Tasks → Upload Content (required: website, text, files, FAQ) — seven steps before reaching the product, with the user's actual goal only appearing at step five.</p>
-          <p>After: Pick Assistant moved right after login, the mandatory content requirement reduced to one method (website), and subscription and the demo video pushed later — as optional support rather than blocking steps.</p>
-          <p>The same logic was applied across the rest of the flows: assistant management, channel connections, chats, and leads. I aligned each key step with the team before moving forward. After handoff, I tested the shipped product against the design and filed tickets for the developer to fix discrepancies.</p>
+          <p>I audited every core flow against one principle: one required path to the user's actual goal, with everything else deferred as optional support. I started with onboarding — the user's first touchpoint with the product, and the one most of what follows depends on — which is why the redesign began there: seven steps stood between sign-up and the product itself, with the user's actual goal only appearing at step five.</p>
+          <p>The same logic then carried across the rest of the flows: assistant management, channel connections, chats, and leads.</p>
+          <p>The decisions were mine — grounded in the audit and validated with real users. I kept the team informed wherever a change affected their work. After handoff, I checked the shipped product against the design and filed tickets for the developer to fix discrepancies.</p>
           <!-- OPTIONAL: if lighter parallel work belongs to this story, ONE sentence here: "In parallel, I also …". Never a list, heading, card or block. See CASE-STUDY-TEMPLATE.md, "Portfolio architecture". -->
         </div>
 
-        <div class="cs-flow cs-wide">
-          <div class="cs-flow-col cs-flow-col--before">
-            <h3 class="cs-flow-heading">Before — 7 steps</h3>
-            <ol class="cs-flow-steps">
-              <li class="cs-flow-step"><div class="cs-flow-box"><p class="cs-flow-label">Log in / Sign up</p></div></li>
-              <li class="cs-flow-step"><div class="cs-flow-box"><p class="cs-flow-label">Demo video</p></div></li>
-              <li class="cs-flow-step"><div class="cs-flow-box"><p class="cs-flow-label">Subscription</p></div></li>
-              <li class="cs-flow-step"><div class="cs-flow-box"><p class="cs-flow-label">Business Info</p></div></li>
-              <li class="cs-flow-step"><div class="cs-flow-box"><p class="cs-flow-label">Pick Assistant</p></div></li>
-              <li class="cs-flow-step"><div class="cs-flow-box"><p class="cs-flow-label">Set Tasks</p></div></li>
-              <li class="cs-flow-step">
-                <div class="cs-flow-box">
-                  <p class="cs-flow-label">Upload Content</p>
-                  <ul class="cs-flow-sub"><li>Website</li><li>Text</li><li>Files</li><li>FAQ</li></ul>
-                </div>
-              </li>
-            </ol>
-          </div>
+        <div class="cs-onboarding cs-wide">
+          <h3 class="cs-onb-title">onboarding</h3>
+          <div class="cs-onb-flows">
 
-          <div class="cs-flow-col cs-flow-col--after">
-            <h3 class="cs-flow-heading">After — 6 steps</h3>
-            <ol class="cs-flow-steps">
-              <li class="cs-flow-step"><div class="cs-flow-box"><p class="cs-flow-label">Log in / Sign up</p></div></li>
-              <li class="cs-flow-step">
-                <div class="cs-flow-box">
-                  <p class="cs-flow-label">Pick Assistant</p>
-                  <div class="cs-callout">
-                    <span class="cs-callout-arrow" aria-hidden="true"><svg viewBox="0 0 64 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M62 11 C 54 4, 47 19, 38 12 S 20 8, 6 12" /><path d="M12 5 L4 12 L11 19" /></svg></span>
-                    <span class="cs-callout-text">moved right after login — the user's actual goal</span>
-                  </div>
-                </div>
-              </li>
-              <li class="cs-flow-step"><div class="cs-flow-box"><p class="cs-flow-label">Business Info</p></div></li>
-              <li class="cs-flow-step">
-                <div class="cs-flow-box">
-                  <p class="cs-flow-label">Upload Content</p>
-                  <ul class="cs-flow-sub"><li>Website</li></ul>
-                  <div class="cs-callout">
-                    <span class="cs-callout-arrow" aria-hidden="true"><svg viewBox="0 0 64 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M62 13 C 55 20, 45 6, 37 12 S 22 17, 5 11" /><path d="M11 4 L4 11 L10 18" /></svg></span>
-                    <span class="cs-callout-text">reduced to one required action</span>
-                  </div>
-                </div>
-              </li>
-              <li class="cs-flow-step"><div class="cs-flow-box"><p class="cs-flow-label">Subscription</p></div></li>
-              <li class="cs-flow-step">
-                <div class="cs-flow-box">
-                  <p class="cs-flow-label">Demo video</p>
-                  <div class="cs-callout">
-                    <span class="cs-callout-arrow" aria-hidden="true"><svg viewBox="0 0 64 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M62 12 C 52 8, 48 17, 34 13 S 18 6, 6 12" /><path d="M13 6 L5 12 L12 18" /></svg></span>
-                    <span class="cs-callout-text">moved to the end — optional guide, not a blocker</span>
-                  </div>
-                </div>
-              </li>
-            </ol>
+            <figure class="cs-onb-flow">
+              <picture>
+                <source media="(min-width: 721px)" srcset="assets/images/projects/onboarding-flow-before-horizontal.png" />
+                <img src="assets/images/projects/onboarding-flow-before-vertical.png" alt="Old onboarding flow diagram: Log in / Sign up, Demo video, Subscription, Business Info, Pick Assistant, Set Tasks, then Upload Content requiring a website, text, files and FAQ" />
+              </picture>
+              <figcaption class="cs-onb-caption">old flow</figcaption>
+            </figure>
+
+            <figure class="cs-onb-flow">
+              <picture>
+                <source media="(min-width: 721px)" srcset="assets/images/projects/onboarding-flow-after-horizontal.png" />
+                <img src="assets/images/projects/onboarding-flow-after-vertical.png" alt="Improved onboarding flow diagram: Log in / Sign up, Pick Assistant, Business Info, Upload Content requiring only a website, Subscription, then Demo video" />
+              </picture>
+              <figcaption class="cs-onb-caption">improved flow</figcaption>
+            </figure>
+
           </div>
         </div>
       </div>
@@ -296,7 +263,7 @@
       </div>
       <div class="grid-12 cs-body">
         <div class="cs-prose">
-          <p>The share of users lost during onboarding dropped by roughly half (30% → 15%), and the average time to create a first assistant fell from 15–20 minutes to 5–7. Mandatory onboarding steps dropped from 7 to 6, and required content types at first setup from 4 to 1. The same logic was applied across every core flow, cutting the average number of required steps by roughly a third.</p>
+          <p>The product shipped, stayed in production, and was never reverted. The same design system and information architecture proved resilient enough to launch a second product — a white-label version for a different market — without a separate design cycle. The clearest, fully measured proof of the approach is onboarding: the share of users lost during it dropped by roughly half, the average time to create a first assistant fell sharply, and the number of mandatory steps came down.</p>
         </div>
 
         <div class="cs-impact cs-impact--tiles">
@@ -311,6 +278,14 @@
           <div class="cs-impact-tile">
             <p class="cs-impact-lead">7 <span class="cs-impact-arrow">→</span> 6</p>
             <p class="cs-impact-body">mandatory onboarding steps</p>
+          </div>
+          <div class="cs-impact-tile">
+            <p class="cs-impact-lead">Same system, second product</p>
+            <p class="cs-impact-body">the design system and IA carried over to a white-label product without a separate design cycle</p>
+          </div>
+          <div class="cs-impact-tile">
+            <p class="cs-impact-lead">Shipped and stayed</p>
+            <p class="cs-impact-body">the redesigned flows went into production and were never rolled back</p>
           </div>
         </div>
       </div>

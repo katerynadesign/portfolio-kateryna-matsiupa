@@ -40,6 +40,16 @@ the code. If code and this document disagree, fix whichever is wrong in the same
 | `--overlay-bg-80` | `rgba(255, 255, 255, 0.8)` | The same panel, at halfway out. |
 | `--overlay-bg-40` | `rgba(255, 255, 255, 0.4)` | The same panel, toward the corners: still translucent, never fully transparent, each declared with its own alpha so the fade never drifts through the `transparent` keyword's black. |
 
+### Onboarding diagram tokens
+
+For `.cs-callout` (currently unused — see its own comment in `case-study.css`): colours copied
+from the Figma source it was built to annotate. Not used anywhere else.
+
+| Token | Value | Role |
+|---|---|---|
+| `--color-flow-red` | `#de1c1c` | Annotation callout: a problem. |
+| `--color-flow-green` | `#1fa103` | Annotation callout: a decision or guidance. |
+
 ### Contrast (WCAG 2.x, computed)
 
 | Pair | Ratio | AA text (4.5:1) |
@@ -63,7 +73,7 @@ the code. If code and this document disagree, fix whichever is wrong in the same
 |---|---|---|
 | `--font-heading` | `"Raleway"`, system sans fallback | `h1`–`h3`, buttons, eyebrow, CV link, case year. |
 | `--font-body` | `"Karla"`, system sans fallback | Everything else. |
-| `--font-handwritten` | `"Caveat"`, `cursive` | **Accent only:** the hand-drawn callout labels on the AI Assistant Platform Process diagram. Never body copy, headings or navigation. The one font added beyond the Raleway + Karla pair. |
+| `--font-handwritten` | `"Solitreo"`, `cursive` | **Accent only, currently unused:** built for the hand-drawn callout labels on the AI Assistant Platform Process diagram's Onboarding flow, now two pairs of real images. Never body copy, headings or navigation. |
 | `--fs-sm` | `0.875rem` | Nav, buttons, labels, card metadata. |
 | `--fs-base` | `1rem` | Body text, form fields. |
 | `--fs-lg` | `1.25rem` | Hero paragraph, case title. |
@@ -72,7 +82,7 @@ the code. If code and this document disagree, fix whichever is wrong in the same
 | `--tracking-wide` | `0.08em` | Letter-spacing on uppercase labels (section titles, eyebrow, case year). |
 
 Fonts load from Google Fonts (`Raleway` 500/600/700, `Karla` 400/500/600) via `<link>` in each page;
-nothing is self-hosted. `Caveat` (500/600) is loaded only by `ai-assistant-platform.html`.
+nothing is self-hosted. `Solitreo` is loaded only by `ai-assistant-platform.html`.
 
 ## Spacing, layout, shape, motion tokens
 
@@ -331,10 +341,14 @@ skipped the collapsed one", not "wireframe v2".
   The lead stays below the Hook in every variant. The wording rules (never invent a number, say
   plainly that there are no metrics) are in `CASE-STUDY-TEMPLATE.md`, part 2. The `--metric`
   variant without its note also serves as the plain **stat callout** in Problem.
-- **Impact tiles (`.cs-impact--tiles`):** three or so `.cs-impact-tile`s across columns 1–12, each a
-  `--fs-xl` `from → to` figure (the arrow at 0.5625 of the figure size, weight 500, in `--color-text-muted`) and a one-line
-  label in the muted colour. No divider above the tiles. They stack on mobile. Used when a case has several approved figures; the lead stays
-  below the Hook.
+- **Impact tiles (`.cs-impact--tiles`):** three or so `.cs-impact-tile`s across columns 1–12, each
+  a `--fs-xl` `.cs-impact-lead` and a one-line `.cs-impact-body` in the muted colour. Usually a
+  `from → to` figure (the arrow at 0.5625 of the figure size, weight 500, in
+  `--color-text-muted`), but the lead can be a short evidence statement instead ("Same system,
+  second product") when the tile is naming a kind of proof rather than a measured change — the
+  two share one component and one row; nothing distinguishes them but the lead's own content. No
+  divider above the tiles. They stack on mobile. Used when a case has several approved figures;
+  the lead stays below the Hook.
 - **Pull quote (`.cs-quote`):** the quote style shared by user-research quotes (Problem) and
   stakeholder confirmation (Impact evidence): a `1px --color-text` rule, `--fs-lg` text, and a small
   attribution in `footer`.
@@ -352,30 +366,40 @@ first). Components built for it, all in `css/case-study.css`:
 | Quick facts | after the Hook | The four facts of the Context brief (role, team, duration, engagement). It is not repeated as a second fact strip in Context. |
 | `.cs-quotes` | Problem | Two user-research quotes stacked in columns 5–12, attributed "User research". |
 | `.cs-findings` | Discovery | Five numbered cards (`01`–`05`, CSS counter) in an auto-fit grid, three across on desktop: title plus one sentence. The card is `--color-surface` with `--shadow-card`. |
-| `.cs-flow` | Process | The Before / After diagram (below). |
+| `.cs-onboarding` | Process | The Onboarding flow, old and improved, two pairs of real images (below). |
 | `.cs-ia` | Solution | Grouped boxes: Assistant tools (columns 1–4), Business tools (5–9), and a smaller Account / utility group (10–12), the last with an outline and no shadow. Layout only, not a screenshot. |
 | `.cs-devices` | Solution | Three placeholders (`solution-screens-1…3.png`) in device frames, each with its caption. |
-| `.cs-impact--tiles` | Impact | Three before → after tiles. |
+| `.cs-impact--tiles` | Impact | Five tiles: three before → after figures, then two evidence statements ("Same system, second product", "Shipped and stayed"). |
 
-**Process diagram (`.cs-flow`).** Two columns of step cards joined by arrows: Before (7 steps) in
-columns 1–4 and After (6 steps) in columns 5–8. Each step is a `.cs-flow-box` (`--color-surface`,
-`--shadow-card`); the arrow between steps is decorative generated content (`↓`, with an empty alt
-text). Sub-lists (Upload Content: Website, Text, Files, FAQ) sit inside the box. The three hand-drawn
-callouts belong to the After column only, and sit in the free columns 9–12, each vertically centred
-on the step it points at.
+**Process visual: the Onboarding flow, old and improved (`.cs-onboarding`).** Two real exported
+image pairs — a wide "horizontal" one (steps left to right) and a tall "vertical" one (steps top
+to bottom) for each of old and after — picked per viewport with no JS, via `<picture>` /
+`<source media="(min-width: 721px)">`: horizontal above `721px`, vertical at or below `720px`,
+matching the site's one breakpoint. **The two flows are never stacked one after another; they
+always sit together, and always start together:**
+- **Desktop (horizontal images):** `.cs-onb-flows` is a flex column, `align-items: flex-start`,
+  so both images stack vertically but stay **left-aligned to column 1**. Neither image is
+  stretched to the column's width (`width: auto; height: clamp(6rem, 16vw, 13rem)`): both share
+  one height, so each keeps its own natural width at that height, and the shorter flow's image is
+  visibly narrower — measured at 1400px, `820px` (old) vs `790px` (improved), both starting at
+  the same left edge.
+- **Mobile (`≤720px`, vertical images):** `.cs-onb-flows` switches to a flex row instead, both
+  images **top-aligned** side by side (`flex: 1 1 0` each) — never stacked sequentially — so the
+  shorter flow's image visibly ends sooner vertically instead.
+- Above both sits one heading, "onboarding" (`.cs-onb-title`, aligned to column 1): 25% smaller
+  than a section title (`calc(--fs-xl * 0.75)`), the same weight (600), lowercase — unlike a
+  section title, which is uppercase, because this is a label inside Process, not a section of its
+  own.
+- Below each image, its caption (`.cs-onb-caption`, `--fs-sm`, `--color-text-muted`): "old flow" /
+  "improved flow", aligned to column 1 on desktop (the figure's own left edge), centred on a
+  phone. Only onboarding gets a diagram; the prose above names the other flows redesigned the
+  same way (assistant management, channel connections, chats, leads) without showing them.
 
-**The hand-drawn accent (the one deliberate exception to the flat system).** A callout is a wobbly
-ink-coloured SVG arrow (1.5px stroke, irregular control points, no standard arrowhead) plus a short
-label in `--font-handwritten` (Caveat 500, `--fs-lg`). Rules:
-- The handwriting face is used **only** in `.cs-callout-text`, never for body copy, headings or
-  navigation (verified: no other element on the page computes to it).
-- The arrow is decoration (`aria-hidden`); the label is real text inside its step, so a screen reader
-  reads it with the step it annotates.
-- Caveat is loaded only by this page (its own `<link>`), not by the other pages.
-- On mobile the columns stack and each callout sits inside its step card under the step name, its
-  arrow turned to point up at the name.
-- Keep it sparing. It may be extended to the Solution IA diagram or the Impact tiles later if
-  Kateryna asks; do not spread it further.
+This is the third build of this one diagram (hand-built CSS boxes, then a live port of the Figma
+source, now real images again); the CSS for the second attempt (`.cs-onb-shape`, `.cs-onb-steps`,
+the clip-path shapes, `--font-diagram`) has been removed, since none of it is reusable for
+anything else on the site. `.cs-callout` (the hand-drawn accent) is kept, parked, unused — see
+"Known gaps".
 
 Text in these blocks is copied from the brief. The IA diagram has no caption of its own, because its
 group titles label it and the Solution paragraph explains it. Placeholders still to replace with
@@ -435,6 +459,14 @@ These are current facts, not decisions:
   `js/main.js`, no longer render on any page — Work moved off the home page to `work.html`, which
   uses the work list card (`.work-item`) instead. Kept working (the JS guards itself on
   `#carousel` not existing) in case a carousel is wanted again; ask before deleting it.
+- **`onboarding-flow-before.png` and `-after.png` (the original, no-suffix pair) are
+  unreferenced**, superseded by the `-horizontal` / `-vertical` pairs `.cs-onboarding` now uses.
+  Still in `assets/images/projects/`, unused. Kept, not deleted; ask before removing them.
+- **The hand-drawn callout component is unused**, for the same reason as `--font-diagram` no
+  longer exists at all: `.cs-callout` and its Solitreo font `<link>` in
+  `ai-assistant-platform.html`'s `<head>` were built for the second attempt at the Process
+  diagram (a live port of its Figma source), now real images again. Kept, not deleted; ask before
+  removing either.
 - **`work.html`'s Hook, and the home page Work preview's sentence, are placeholder copy**, same
   status as the rest of the site's unfinished text (see README, "To do").
 - **The Work preview's image does not actually rotate yet.** It is a static placeholder with a

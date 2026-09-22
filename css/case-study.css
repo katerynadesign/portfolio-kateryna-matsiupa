@@ -202,6 +202,16 @@
   margin: 0;
 }
 
+/* A real (non-placeholder) image directly in a figure: scale by width, height auto, so it keeps
+   its own aspect ratio instead of the box's — max-width alone (the base.css img reset) does not
+   reliably do this once the figure sits in a grid (.cs-row), where the row can stretch a grid
+   item's cross-axis height independent of its content's own proportions. */
+.cs-figure > img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 /* Only a figure placed directly in the section grid takes columns 5–12; figures inside
    a .cs-row are sized by the row instead. */
 .cs-body > .cs-figure {
@@ -236,6 +246,16 @@
 /* Every non-trivial visual carries a one-sentence caption that states the decision. */
 .cs-figure figcaption {
   margin-top: var(--space-2);
+  max-width: 60ch;
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+}
+
+/* A closing note below a .cs-row of figures, covering all of them at once. Same look as a
+   figcaption. Currently unused: it held the "N flows were audited" line under the Onboarding
+   pair in Process, since removed; kept in case another multi-figure block wants a shared note. */
+.cs-flow-note {
+  margin: var(--space-2) 0 0;
   max-width: 60ch;
   font-size: var(--fs-sm);
   color: var(--color-text-muted);
@@ -528,85 +548,78 @@
   color: var(--color-text);
 }
 
-/* Process: the Before / After flow diagram. Before is columns 1-4, After is 5-8, and the
-   hand-drawn callouts sit in the free columns 9-12, each beside the step it points at. */
-.cs-flow {
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  column-gap: var(--grid-gap);
+/* Process: the Onboarding flow, before and after — two pairs of real exported images (a wide
+   "horizontal" one for desktop, a tall "vertical" one for a phone, picked with no JS via
+   <picture>/<source media>). The two flows are never stacked one after the other: they always
+   sit together, and always start together, so the improved one visibly ending sooner (a
+   shorter width on desktop, a shorter height on a phone) reads directly from the image, with
+   nothing needing to say so. */
+.cs-onboarding {
+  grid-column: 1 / -1;
 }
 
-.cs-flow-col--before {
-  grid-column: 1 / 5;
-}
-
-.cs-flow-col--after {
-  grid-column: 5 / 9;
-}
-
-.cs-flow-heading {
+/* 25% smaller than a section title (--fs-xl), same weight, lowercase (not the uppercase a
+   section title gets: this is a label inside Process, not a section of its own). */
+.cs-onb-title {
   margin: 0 0 var(--space-3);
-  font-size: var(--fs-sm);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-.cs-flow-steps {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-/* A step is a card; the arrow to the next step is decorative generated content. */
-.cs-flow-box {
-  position: relative;
-  padding: var(--space-2);
-  background: var(--color-surface);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-card);
-}
-
-.cs-flow-label {
-  margin: 0;
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--color-border);
+  font-size: calc(var(--fs-xl) * 0.75);
   color: var(--color-text);
 }
 
-.cs-flow-sub {
+/* Desktop: the two (horizontal) images stack, left-aligned to column 1 rather than stretched to
+   its width — each keeps its own natural width at a shared height (h scales with the viewport,
+   clamped), so the shorter flow's image is visibly narrower, not just resized alongside it. */
+.cs-onb-flows {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.25rem var(--space-2);
-  margin: 0.5rem 0 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.cs-onb-flow {
+  margin: 0;
+  max-width: 100%;
+}
+
+.cs-onb-flow img {
+  display: block;
+  height: clamp(6rem, 16vw, 13rem);
+  width: auto;
+  max-width: 100%;
+}
+
+/* Column 1 on desktop (the figure's own left edge, unset); centred on a phone. */
+.cs-onb-caption {
+  margin: var(--space-2) 0 0;
   font-size: var(--fs-sm);
   color: var(--color-text-muted);
 }
 
-.cs-flow-step:not(:last-child)::after {
-  content: "↓";
-  content: "↓" / "";
-  display: block;
-  padding: 0.5rem 0;
-  text-align: center;
-  color: var(--color-text-muted);
-}
-
-/* The one hand-drawn accent on the site: a wobbly ink arrow and a handwritten label.
-   The label is real text; the arrow is decoration. */
+/* The hand-drawn accent, currently unused: built for two earlier attempts at this same
+   diagram (hand-built boxes, then a live Figma port), each replaced by something simpler.
+   Kept, not deleted, along with its Solitreo font <link> in <head>, in case a hand-drawn
+   callout is wanted on a future diagram; ask before removing either. */
 .cs-callout {
-  position: absolute;
-  top: 50%;
-  left: calc(100% + var(--space-3));
-  width: calc(100% - var(--space-3));
-  transform: translateY(-50%);
   display: flex;
   align-items: center;
   gap: var(--space-1);
-  color: var(--color-text);
+}
+
+.cs-callout--red {
+  color: var(--color-flow-red);
+}
+
+.cs-callout--green {
+  color: var(--color-flow-green);
 }
 
 .cs-callout-arrow {
   flex: none;
-  width: 64px;
-  height: 24px;
+  width: 40px;
+  height: 16px;
+  color: currentColor;
 }
 
 .cs-callout-arrow svg {
@@ -618,8 +631,9 @@
 .cs-callout-text {
   font-family: var(--font-handwritten);
   font-size: var(--fs-lg);
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1.15;
+  color: currentColor;
 }
 
 /* Solution: the information architecture as grouped boxes (layout only, not a screenshot). */
@@ -839,36 +853,28 @@
     font-size: calc(var(--fs-xl) * 1.1);
   }
 
-  /* Process diagram: the columns stack, and each callout drops under its step,
-     with its arrow turned to point up at it. */
-  .cs-flow {
-    display: block;
+  /* Onboarding: the two (now vertical) images sit side by side — still never one flow after
+     the other — both top-aligned, each filling its own half of the column; only the picture
+     source changes above 720px, not this layout. */
+  .cs-onb-flows {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--space-2);
   }
 
-  .cs-flow-col + .cs-flow-col {
-    margin-top: var(--space-5);
+  .cs-onb-flow {
+    flex: 1 1 0;
+    min-width: 0;
   }
 
-  .cs-callout {
-    position: static;
-    width: auto;
-    margin-top: var(--space-1);
-    transform: none;
+  .cs-onb-flow img {
+    height: auto;
+    width: 100%;
+    max-width: none;
   }
 
-  .cs-callout-arrow {
-    position: relative;
-    width: 24px;
-    height: 64px;
-  }
-
-  .cs-callout-arrow svg {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 64px;
-    height: 24px;
-    transform: translate(-50%, -50%) rotate(90deg);
+  .cs-onb-caption {
+    text-align: center;
   }
 
   /* The IA groups stack. */

@@ -21,6 +21,11 @@
      "Components") is what mainly separates the card from the page either way. */
   --color-card-milk: #fafafa;
 
+  /* For .cs-callout, the site's one hand-drawn accent (currently unused — see its own comment
+     in case-study.css): colours copied from the Figma source it was built to annotate. */
+  --color-flow-red: #de1c1c; /* annotation: a problem */
+  --color-flow-green: #1fa103; /* annotation: a decision/guidance */
+
   /* Card depth: a very light shadow (the border is only used by the parked dark theme) */
   --shadow-card: 0 1px 2px rgba(0, 9, 51, 0.06), 0 2px 8px rgba(0, 9, 51, 0.04);
   --border-card: transparent;
@@ -36,9 +41,10 @@
   /* Typography */
   --font-heading: "Raleway", -apple-system, BlinkMacSystemFont, sans-serif;
   --font-body: "Karla", -apple-system, BlinkMacSystemFont, sans-serif;
-  /* Accent only: the hand-drawn callout labels on the AI Assistant Platform Process diagram.
-     Never body copy, headings or navigation. Loaded (Caveat) only by that page. */
-  --font-handwritten: "Caveat", cursive;
+  /* Accent only, currently unused: built for the hand-drawn callout labels on the AI Assistant
+     Platform Process diagram (see .cs-callout in case-study.css). Never body copy, headings or
+     navigation. Loaded only by that page. */
+  --font-handwritten: "Solitreo", cursive;
   --fs-sm: 0.875rem;
   --fs-base: 1rem;
   --fs-lg: 1.25rem;
