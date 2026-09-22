@@ -13,8 +13,8 @@ In a page or a partial:
     <!-- @include header -->    inserted from src/partials/header.html, keeping the
                                 indentation of the line the comment is on
     {{home}}                    "" on index.html, "index.html" on every other page, so the
-                                same header links to #work on the home page and to
-                                index.html#work everywhere else
+                                same header links to #about on the home page and to
+                                index.html#about everywhere else
 """
 
 import re

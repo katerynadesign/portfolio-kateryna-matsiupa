@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kateryna — Portfolio</title>
   <meta name="description" content="Portfolio of Kateryna — UX/UI design and product work." />
-  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+  <link rel="icon" type="image/png" href="assets/images/favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600&family=Raleway:wght@500;600;700&display=swap" rel="stylesheet" />
@@ -19,14 +19,16 @@
 
   <header class="site-header">
     <nav class="nav container">
-      <a href="#top" class="logo">Kateryna</a>
+      <a href="#top" class="logo">
+        <img src="assets/images/logo-mark.png" alt="Kateryna" width="245" height="240" class="logo-mark" />
+      </a>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
       <ul class="nav-links" id="navLinks">
-        <li><a href="#work">work</a></li>
-        <li><a href="#about">about</a></li>
-        <li><a href="#contact">contact</a></li>
+        <li><a href="work.html" data-nav="work">work</a></li>
+        <li><a href="#about" data-nav="about">about</a></li>
+        <li><a href="#contact" data-nav="contact">contact</a></li>
       </ul>
     </nav>
   </header>
@@ -44,75 +46,28 @@
         two or three sentences — enough to give a visitor a real sense of you
         before they scroll further.
       </p>
-      <div class="hero-actions">
-        <a href="#work" class="btn btn-primary">view my work</a>
-        <a href="#contact" class="btn btn-outline">get in touch</a>
-      </div>
     </section>
 
-    <!-- Work / Case studies -->
+    <!-- Work: a single full-width preview, not a list — the list lives on work.html. -->
     <section id="work" class="section">
       <div class="container">
-        <div class="section-head">
-          <h2 class="section-title">Work</h2>
-          <div class="carousel-controls">
-            <button type="button" class="carousel-btn" id="carouselPrev" aria-label="Previous case study">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
-            </button>
-            <button type="button" class="carousel-btn" id="carouselNext" aria-label="Next case study">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6" /></svg>
-            </button>
-          </div>
-        </div>
+        <h2 class="section-title">Work</h2>
         <hr class="section-divider" />
       </div>
-      <div class="carousel" id="carousel">
-        <div class="carousel-track">
-
-          <article class="case-item">
-            <div class="case-media" aria-hidden="true"></div>
-            <div class="case-overlay">
-              <span class="case-year">2025</span>
-              <h3 class="case-title">AI Assistant Platform</h3>
-              <p class="case-niche">SaaS Web App / Productivity Tools</p>
-              <p class="case-desc">UX/UI redesign of an AI platform: restructured user flows, improved clarity, and built a clean, responsive design system.</p>
-              <a href="ai-assistant-platform.html" class="case-cta">view case study →</a>
-            </div>
-          </article>
-
-          <article class="case-item">
-            <div class="case-media" aria-hidden="true"></div>
-            <div class="case-overlay">
-              <span class="case-year">2023</span>
-              <h3 class="case-title">Case Study Two</h3>
-              <p class="case-niche">Niche · Platform</p>
-              <p class="case-desc">One or two sentences on the problem and outcome.</p>
-              <a href="case-study-2.html" class="case-cta">view case study →</a>
-            </div>
-          </article>
-
-          <article class="case-item">
-            <div class="case-media" aria-hidden="true"></div>
-            <div class="case-overlay">
-              <span class="case-year">2023</span>
-              <h3 class="case-title">Case Study Three</h3>
-              <p class="case-niche">Niche · Platform</p>
-              <p class="case-desc">One or two sentences on the problem and outcome.</p>
-              <a href="case-study-3.html" class="case-cta">view case study →</a>
-            </div>
-          </article>
-
-          <article class="case-item">
-            <div class="case-media" aria-hidden="true"></div>
-            <div class="case-overlay">
-              <span class="case-year">2022</span>
-              <h3 class="case-title">Case Study Four</h3>
-              <p class="case-niche">Niche · Platform</p>
-              <p class="case-desc">One or two sentences on the problem and outcome.</p>
-              <a href="case-study-4.html" class="case-cta">view case study →</a>
-            </div>
-          </article>
-
+      <div class="grid-12">
+        <div class="work-preview">
+          <!-- PLACEHOLDER: this image is meant to cycle through case study thumbnails
+               (a small rotator); not built yet, so it is a static placeholder. -->
+          <div class="work-preview-media" role="img" aria-label="Placeholder: rotating preview of case study thumbnails">
+            <span class="work-preview-media-label">preview image · will rotate through case study thumbnails</span>
+          </div>
+          <div class="work-preview-content">
+            <p class="section-text">
+              <!-- PLACEHOLDER -->
+              A closer look at a few projects — the problems, the decisions, and what shipped.
+            </p>
+            <a href="work.html" class="case-cta">view all case studies →</a>
+          </div>
         </div>
       </div>
     </section>

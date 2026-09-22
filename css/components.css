@@ -33,26 +33,38 @@
   color: var(--color-inverse);
 }
 
-/* Nav */
+/* Nav: logo on the left, links (or, on a phone, the menu toggle) on the right. Vertically
+   centred as a row (unchanged by that). No bottom padding: the header ends exactly where the
+   logo (its tallest item) ends, with no gap below it. */
 .nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--space-2) var(--space-3);
+  padding: var(--space-2) var(--space-3) 0;
 }
 
 .logo {
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: var(--fs-lg);
-  letter-spacing: 0.02em;
-  color: var(--color-text);
+  display: inline-flex;
+  align-items: center;
   background-image: none;
 }
 
+/* The hand-drawn wordmark, navy on transparent, exported tight to its own ink (see
+   assets/images/logo.png for the untouched source). Sized by height; width follows its own
+   ratio (about 1.02:1). Sized up from an initial 2.5rem: the thin strokes were getting lost. */
+.logo-mark {
+  display: block;
+  height: 3.5rem;
+  width: auto;
+}
+
+/* Margin-bottom, not padding: with the logo now taller and the row still vertically centred,
+   this pushes the links' own centre up within the row so they sit higher, closer to the logo's
+   upper half, instead of centred on its full height (--space-3 = 24px). */
 .nav-links {
   display: flex;
   gap: var(--space-3);
+  margin-bottom: var(--space-3);
 }
 
 .nav-links a {
@@ -63,6 +75,13 @@
 
 .nav-links a:hover {
   color: var(--color-text);
+}
+
+/* Current page or section: the same look as :hover (full-strength text, the underline grown
+   in), left on rather than triggered by the pointer. Set by js/main.js. */
+.nav-links a.is-active {
+  color: var(--color-text);
+  background-size: 100% 1px;
 }
 
 .nav-toggle {

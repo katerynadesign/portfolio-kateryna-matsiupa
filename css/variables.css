@@ -11,16 +11,27 @@
   --color-surface: #ffffff;
   --color-text: #000933;
   --color-text-muted: rgba(0, 9, 51, 0.65);
-  --color-border: rgba(0, 9, 51, 0.12);
+  --color-border: rgba(0, 9, 51, 0.08);
   --color-inverse: #ffffff;
+
+  /* A deliberate one-off exception to the neutral --color-surface white: a light neutral fill
+     for the work preview / work list cards specifically, at Kateryna's request. Not part of the
+     navy-at-three-opacities system and not used anywhere else. Contrast ratio against --color-bg
+     (#f4f4f4) is 1.054:1 — still subtle, a step more visible than #f5f5f5 was; the border (see
+     "Components") is what mainly separates the card from the page either way. */
+  --color-card-milk: #fafafa;
 
   /* Card depth: a very light shadow (the border is only used by the parked dark theme) */
   --shadow-card: 0 1px 2px rgba(0, 9, 51, 0.06), 0 2px 8px rgba(0, 9, 51, 0.04);
   --border-card: transparent;
 
-  /* Hover panel on a case card: translucent so the image shows through, opaque
-     enough that --color-text / --color-text-muted keep AA contrast over any image */
-  --overlay-bg: rgba(255, 255, 255, 0.88);
+  /* Hover panel on a case card: a radial gradient, three stops by opacity, so the image shows
+     through most at the corners (where the text never reaches) and least at the centre (where it
+     sits). Named by opacity, and each declared with its own alpha (not via the `transparent`
+     keyword or a mix towards it) so the fade never drifts through grey/black. */
+  --overlay-bg-100: rgba(255, 255, 255, 1);
+  --overlay-bg-80: rgba(255, 255, 255, 0.8);
+  --overlay-bg-40: rgba(255, 255, 255, 0.4);
 
   /* Typography */
   --font-heading: "Raleway", -apple-system, BlinkMacSystemFont, sans-serif;
@@ -67,7 +78,9 @@
     --color-inverse: #02040f;
     --shadow-card: none;
     --border-card: rgba(238, 240, 255, 0.14);
-    --overlay-bg: rgba(22, 28, 58, 0.88);
+    --overlay-bg-100: rgba(22, 28, 58, 1);
+    --overlay-bg-80: rgba(22, 28, 58, 0.8);
+    --overlay-bg-40: rgba(22, 28, 58, 0.4);
   }
 }
 */

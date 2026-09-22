@@ -4,9 +4,12 @@
    style.css and only by case study pages. See DESIGN-SYSTEM.md, "Case study page". */
 
 /* ---------- 1. Hook ---------- */
-/* The largest type on the site: --fs-2xl (the hero h1) scaled up 15%. */
+/* The largest type on the site: --fs-2xl (the hero h1) scaled up 15%. Vertical padding only —
+   .cs-hook-inner is always a .container too, so it alone provides the side gutter (the same
+   .section/.container split used everywhere else); a plain .cs-hook (no background image, e.g.
+   work.html) would otherwise get the gutter twice. */
 .cs-hook {
-  padding: var(--space-6) var(--space-3) var(--space-5);
+  padding: var(--space-6) 0 var(--space-5);
 }
 
 .cs-hook-text {
@@ -55,7 +58,10 @@
   background: linear-gradient(to top, var(--color-bg) 0%, var(--color-bg) 30%, transparent 65%);
 }
 
-.cs-hook-inner {
+/* Only for the background-image variant: the overlap and the scrim need the image's own box to
+   measure against. A plain .cs-hook-inner (no image, e.g. work.html) gets no extra padding or
+   margin of its own; .cs-hook's own section padding is all the spacing it needs. */
+.cs-hook--bg .cs-hook-inner {
   position: relative;
   z-index: 1;
   margin-top: calc(var(--hook-overlap) * -1);
@@ -65,7 +71,8 @@
 
 /* Desktop: the Hook text (eyebrow, headline, subtitle) is limited to 8 of the 12 grid columns,
    starting on column 1. The width is 8 columns plus 7 gutters, so it follows the fluid grid
-   below 1168px: (container − 11 gutters) × 8/12 + 7 gutters = 736px on the 64px grid. */
+   below 1168px: (container − 11 gutters) × 8/12 + 7 gutters = 736px on the 64px grid. Applies
+   whether or not the Hook has a background image. */
 .cs-hook-inner > * {
   max-width: calc((100% - 11 * var(--grid-gap)) * 8 / 12 + 7 * var(--grid-gap));
 }
@@ -719,7 +726,14 @@
     max-width: none;
   }
 
-  .cs-hook-inner {
+  /* A smaller bottom gap under the Hook on a phone, for both variants: the plain one via
+     .cs-hook's own padding, the background-image one via its more specific override (matching
+     the specificity of its desktop rule, so this one wins). */
+  .cs-hook {
+    padding-bottom: var(--space-4);
+  }
+
+  .cs-hook--bg .cs-hook-inner {
     padding-bottom: var(--space-4);
   }
 

@@ -17,8 +17,12 @@ The home page has four sections and no others:
 
 **Hero → Work → About → Contact**
 
-- **Work** is the carousel of **3–5 flagship cases**. Each one is a full case study page with the
-  nine sections in part 1.
+- **Work** is a single flat preview block (an image half, a text-and-button half, no card chrome),
+  not a list — a teaser for [`work.html`](work.html), linked from the header nav too. That page
+  lists **3–5 flagship cases**, each a full case study page with the nine sections in part 1: a
+  Hook-style intro, a Contents list linking to each card, then the cards themselves, full width,
+  image and summary side by side, always visible, left-aligned, alternating sides (see
+  `DESIGN-SYSTEM.md`, "The work list page").
 - **About** holds the bio and the CV link. **Contact** holds the form and the links.
 - There is no Skills section and no section for smaller work.
 
@@ -111,7 +115,7 @@ Ask three questions, in order, about each project.
 
 | Answers | Outcome |
 |---|---|
-| Strong **yes** to 1 and 2, and it passes 3 | **Full case**: all nine sections, a flagship on the Work carousel (3–5 in total). |
+| Strong **yes** to 1 and 2, and it passes 3 | **Full case**: all nine sections, a flagship listed on `work.html` (3–5 in total). |
 | Real work, but weak on evidence, or it duplicates another case | **Not a case.** One sentence inside the relevant flagship case (Process or Evolution), or not shown. |
 | No decision and no evidence | **Leave it out.** Fewer cases beat one weak case. |
 

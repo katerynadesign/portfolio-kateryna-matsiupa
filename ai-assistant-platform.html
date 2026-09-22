@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AI Assistant Platform — Kateryna</title>
   <meta name="description" content="UX/UI redesign of an AI platform: restructured user flows, improved clarity, and built a clean, responsive design system." />
-  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+  <link rel="icon" type="image/png" href="assets/images/favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <!-- Caveat is loaded only here: the hand-drawn callout labels on the Process diagram. -->
@@ -30,14 +30,16 @@
 
   <header class="site-header">
     <nav class="nav container">
-      <a href="index.html#top" class="logo">Kateryna</a>
+      <a href="index.html#top" class="logo">
+        <img src="assets/images/logo-mark.png" alt="Kateryna" width="245" height="240" class="logo-mark" />
+      </a>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
       <ul class="nav-links" id="navLinks">
-        <li><a href="index.html#work">work</a></li>
-        <li><a href="index.html#about">about</a></li>
-        <li><a href="index.html#contact">contact</a></li>
+        <li><a href="work.html" data-nav="work">work</a></li>
+        <li><a href="index.html#about" data-nav="about">about</a></li>
+        <li><a href="index.html#contact" data-nav="contact">contact</a></li>
       </ul>
     </nav>
   </header>

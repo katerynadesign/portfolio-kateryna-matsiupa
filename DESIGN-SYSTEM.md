@@ -9,9 +9,12 @@ the code. If code and this document disagree, fix whichever is wrong in the same
 - **Light theme only, for now.** The dark theme is designed but parked (see "Parked: dark theme").
   `:root` sets `color-scheme: light`, so the site stays light even when the OS is in dark mode.
 - **Palette:** one navy hue, `#000933`, used at three opacities instead of three different greys
-  (the same approach as the original katerynamatsiupa.framer.website).
+  (the same approach as the original katerynamatsiupa.framer.website). One deliberate exception:
+  `--color-card-milk`, a light neutral fill for the work preview and work list cards (see "Card
+  tokens").
 - **Elevation logic:** the page background is the darkest surface and cards sit on it one step
-  lighter (white cards on `#f4f4f4`), separated by a very light shadow.
+  lighter (white cards on `#f4f4f4`), separated by a very light shadow. The work preview and work
+  list cards are the exception: a thin border instead of a shadow (see "Components").
 - **Type pair (confirmed, do not change):** Raleway for headings, Karla for body text.
 - **Character:** restrained, editorial, monochrome-in-navy. No accent colour.
 
@@ -23,7 +26,7 @@ the code. If code and this document disagree, fix whichever is wrong in the same
 | `--color-surface` | `#ffffff` | Cards, one step lighter than the page. Used by the case cards. |
 | `--color-text` | `#000933` | Primary text, headings, primary button fill, link underline, focus border. |
 | `--color-text-muted` | `rgba(0, 9, 51, 0.65)` | Body paragraphs, eyebrow, secondary nav links, form status. |
-| `--color-border` | `rgba(0, 9, 51, 0.12)` | Hairlines: section dividers, footer rule, input borders, the quick-facts rows. |
+| `--color-border` | `rgba(0, 9, 51, 0.08)` | Hairlines: section dividers, footer rule, input borders, the quick-facts rows, the work preview / work list card border. |
 | `--color-inverse` | `#ffffff` | Text placed on a `--color-text` fill (primary button label). |
 
 ### Card tokens
@@ -32,7 +35,10 @@ the code. If code and this document disagree, fix whichever is wrong in the same
 |---|---|---|
 | `--shadow-card` | `0 1px 2px rgba(0,9,51,.06), 0 2px 8px rgba(0,9,51,.04)` | Very light shadow that lifts a card off the page. |
 | `--border-card` | `transparent` | Card border colour. Only becomes visible in the parked dark theme. |
-| `--overlay-bg` | `rgba(255, 255, 255, 0.88)` | Translucent panel that fades in over a case card on hover. |
+| `--color-card-milk` | `#fafafa` | **A deliberate one-off exception** to the neutral `--color-surface` white, at Kateryna's request, for the work preview and work list cards only (see "Components"). Contrast ratio against `--color-bg` (`#f4f4f4`) is `1.054:1` — still subtle; the card reads mainly by its border, not this fill. Not used anywhere else. |
+| `--overlay-bg-100` | `rgba(255, 255, 255, 1)` | Translucent panel that fades in over a case card on hover: fully opaque white at the centre of its radial gradient, where the text sits. |
+| `--overlay-bg-80` | `rgba(255, 255, 255, 0.8)` | The same panel, at halfway out. |
+| `--overlay-bg-40` | `rgba(255, 255, 255, 0.4)` | The same panel, toward the corners: still translucent, never fully transparent, each declared with its own alpha so the fade never drifts through the `transparent` keyword's black. |
 
 ### Contrast (WCAG 2.x, computed)
 
@@ -42,10 +48,11 @@ the code. If code and this document disagree, fix whichever is wrong in the same
 | `--color-text` on `--color-surface` | 19.32 | pass |
 | `--color-text-muted` on `--color-bg` | 6.04 | pass |
 | `--color-text-muted` on `--color-surface` | 6.27 | pass |
-| Hover panel: `--color-text`, worst case over any image | 14.69 | pass |
-| Hover panel: `--color-text-muted`, worst case over any image | 5.62 | pass |
+| Hover panel centre (100%): `--color-text` / `--color-text-muted`, worst case over any image | 19.32 / 6.27 | pass |
+| Hover panel halfway (80%): `--color-text` / `--color-text-muted`, worst case over any image | 12.03 / 5.14 | pass |
+| Hover panel toward the corners (40%): `--color-text` / `--color-text-muted`, worst case over any image | 3.37 / 2.46 | **fail** — see known gaps |
 | `--color-surface` vs `--color-bg` | 1.10 | n/a: deliberately subtle, reinforced by the shadow |
-| `--color-border` on `--color-bg` | ~1.3 | n/a, see known gaps |
+| `--color-border` on `--color-bg` | ~1.2 | n/a, see known gaps |
 
 "Worst case over any image" means the panel composited over a pure white and a pure black image
 (the lower of the two results is shown), so the figures hold for any photo.
@@ -54,12 +61,12 @@ the code. If code and this document disagree, fix whichever is wrong in the same
 
 | Token | Value | Role |
 |---|---|---|
-| `--font-heading` | `"Raleway"`, system sans fallback | `h1`–`h3`, buttons, logo, eyebrow, CV link, case year. |
+| `--font-heading` | `"Raleway"`, system sans fallback | `h1`–`h3`, buttons, eyebrow, CV link, case year. |
 | `--font-body` | `"Karla"`, system sans fallback | Everything else. |
 | `--font-handwritten` | `"Caveat"`, `cursive` | **Accent only:** the hand-drawn callout labels on the AI Assistant Platform Process diagram. Never body copy, headings or navigation. The one font added beyond the Raleway + Karla pair. |
 | `--fs-sm` | `0.875rem` | Nav, buttons, labels, card metadata. |
 | `--fs-base` | `1rem` | Body text, form fields. |
-| `--fs-lg` | `1.25rem` | Hero paragraph, logo, case title. |
+| `--fs-lg` | `1.25rem` | Hero paragraph, case title. |
 | `--fs-xl` | `1.75rem` | Section titles; hero `h1` on mobile. |
 | `--fs-2xl` | `2.75rem` | Hero `h1` on desktop. |
 | `--tracking-wide` | `0.08em` | Letter-spacing on uppercase labels (section titles, eyebrow, case year). |
@@ -78,8 +85,8 @@ nothing is self-hosted. `Caveat` (500/600) is loaded only by `ai-assistant-platf
 | `--radius` | `2px` | Corner radius for buttons, inputs, cards. Nav arrow buttons are circular (`50%`, not tokenised). |
 | `--transition` | `0.2s ease` | Hover/focus transitions, including the case card reveal. |
 
-The only shadow is `--shadow-card`. `.carousel` has `8px` of top and bottom padding so that shadow
-is not clipped by its horizontal `overflow`.
+The only shadow is `--shadow-card`. The (currently unused) `.carousel` has `8px` of top and bottom
+padding so that shadow is not clipped by its horizontal `overflow`.
 
 ## Layout rules
 
@@ -98,48 +105,106 @@ is not clipped by its horizontal `overflow`.
 2. **Content goes in columns 7–12** (`.section-content`).
 3. **An optional short description goes in columns 1–6**, under the divider (`.section-aside`).
    Use it only where it helps: Contact has one, About does not.
-- **Work** has the same title and divider, but its content is the carousel, which is not confined
-  to columns 7–12. Its prev/next buttons sit on the same row as the title.
 - **Hero** has no divider and no section title.
 
 ### Alignment to the grid
 - The hero and every section title/divider start at the left edge of column 1.
-- The first carousel item also starts at column 1: `.carousel` sets `--carousel-inset:
-  max(--space-3, (100% − --container-width) / 2)` and uses it as both `padding-left` **and**
-  `scroll-padding-left`. The scroll-padding is essential: without it, scroll-snap scrolls the
-  strip right by the padding on load and the first card sits flush with the screen edge (this was
-  the case until it was measured and fixed). Its right side bleeds to the viewport edge so the
-  next card peeks in.
 
 ### Section separation
 - Sections are separated by space only: `.section` has `padding: var(--space-6) 0` and **no
-  borders between sections**. (The footer's top rule remains; it frames the page and does not separate sections. The header has no border: it is lifted off the page by a very light shadow, `--shadow-card`. It slides out of view while scrolling down and returns on scroll up (`js/main.js`; always visible near the top of the page, while the mobile menu is open and while it has keyboard focus).)
+  borders between sections**. (The footer's top rule remains; it frames the page and does not separate sections. The header has no border and no shadow: just the page background colour, `--color-bg`, with nothing lifting it off the page below. It slides out of view while scrolling down and returns on scroll up (`js/main.js`; always visible near the top of the page, while the mobile menu is open and while it has keyboard focus).)
 
 ## Typography rules
 
 - **Section titles:** uppercase (`text-transform: uppercase`, `--tracking-wide`), Raleway.
 - **Buttons, navigation and link-style calls to action: lowercase**, with no `text-transform`. The
-  markup itself is written in lowercase (`view my work`, `get in touch`, `send message`,
-  `download cv →`, `view case study →`, `work / about / contact`). Do not capitalise them.
+  markup itself is written in lowercase (`send message`, `download cv →`, `view case study →`,
+  `work / about / contact`). Do not capitalise them.
 - **Uppercase labels that are not buttons:** the hero eyebrow, the case year and the case niche
   are uppercase via CSS. This is intentional; the lowercase rule applies to actionable elements.
-- The logo (`Kateryna`) and headings other than section titles keep normal capitalisation.
+- Headings other than section titles keep normal capitalisation.
 
 ## Components
 
+- **Header (`.nav`):** logo on the left, the nav links (or, on a phone, the menu toggle) on the
+  right (`justify-content: space-between`), vertically centred as a row (`align-items: center`).
+  The links carry `margin-bottom: var(--space-3)` (24px): with the logo now taller, this nudges
+  their own centre up within the row instead of leaving them centred on its full height. No
+  bottom padding (`padding: var(--space-2) var(--space-3) 0`): the header ends exactly where the
+  logo, its tallest item, ends. No border, no shadow: just `--color-bg`. It slides out of view
+  while scrolling down and returns on scroll up (see "Section separation").
+  - **Current page or section stays underlined** (`.nav-links a.is-active`, set by
+    `js/main.js`): the same look `:hover` already has — full-strength text, the underline grown
+    in — left on instead of triggered by the pointer. `work` is active on `work.html` and on
+    every case study page (they live under Work, even though none of them is `work.html`
+    itself). On the home page, `about` and `contact` instead follow scroll position, via an
+    `IntersectionObserver` on the two sections with a thin band across the viewport's middle
+    20% (`rootMargin: "-40% 0px -40% 0px"`) deciding which one counts as current; at the Hero,
+    neither is active. Each link's `data-nav` attribute (`work` / `about` / `contact`) is what
+    the script matches against, not its `href`, since `href` differs by page (`{{home}}`).
+- **Logo (`.logo`):** the hand-drawn wordmark, not text. `assets/images/logo.png` is the export as
+  given (black ink, transparent background, `3578×3578`, a lot of margin); `logo-mark.png` is it
+  cropped tight to the ink and recoloured to `--color-text` (navy, not black, to keep the one-hue
+  palette), used in the header at `3.5rem` tall (sized up from an initial `2.5rem`: its thin
+  strokes were getting lost), width following its own ratio (about `1.02:1`), with no padding of
+  its own around it.
+  The `<img>`'s `alt` stays `"Kateryna"`, the accessible name a text logo would have had.
 - **Mobile menu icon (`.nav-toggle`):** three 2px bars in `--color-text` at 80% (`color-mix`), a step lighter than the text.
 - **Buttons (`.btn`):** Raleway 600, `--fs-sm`, 1px border in `--color-text`. `.btn-primary` is
   filled (`--color-text` fill, `--color-inverse` label) and inverts on hover; `.btn-outline` is the
   reverse.
 - **Links:** `--color-text`, no underline at rest, a 1px underline that grows in on hover.
-- **Work carousel:** square cards, `clamp(390px, 48vw, 630px)` wide (`78vw` at ≤720px), horizontal
-  scroll with snap, no visible scrollbar. Prev/next buttons scroll by one card and disable at the
-  ends. At rest the first card is on column 1 at `scrollLeft: 0`, and every snapped card lands on
-  column 1 (see "Alignment to the grid").
-- **Case card:** at rest it is just the image on a `--color-surface` card with `--shadow-card`.
+- **Work preview (`.work-preview`, home page):** one card, full grid width, same image / content
+  split and card treatment as the work list card below, but it is a **teaser for `work.html` as a
+  whole**, not any one case — content is a sentence plus `.case-cta` ("view all case studies →"),
+  the same link (and the same "whole card is the link" mechanism, via `position: relative` on
+  `.work-preview`) as a work list card, not a `.btn`. **The image is meant to cycle through case
+  study thumbnails** (a small rotator); not built yet, so it is a static placeholder with a label,
+  the same convention as an unexported case study image (see "AI Assistant Platform case").
+  Everything else — the card fill and border, the split, the padding, the alignment — is the same
+  rule as the work list card below. On a phone (`≤720px`) the split stacks: image full width,
+  content below.
+- **Work list card (`.work-item`, `work.html`):** a card — `--color-card-milk` fill, `1px solid
+  var(--color-border)`, `--radius` corners, no shadow — split into a square image (`.work-media`,
+  columns 1–8, `object-fit: cover`; an empty `aria-hidden` div until a project has one, filled
+  `--color-surface` so the placeholder still reads against the milk card) and its content
+  (`.work-content`, columns 9–12) — the card's own nested `repeat(12, 1fr)` grid, so the split,
+  and the `32px` gap between image and content, line up exactly with the page grid.
+  **Image always on the left, content always on the right** — no alternating. Content reuses the
+  year/title/niche/description/CTA classes below unchanged, **always visible** (not a hover
+  reveal), `padding: var(--space-5) var(--space-4) var(--space-5) 0` (64px top and bottom;
+  nothing on the left, since the column-gap already separates it from the image; 40px, not 64px,
+  on the right — the narrow (4-column) content box needs the extra width or the CTA wraps as it
+  narrows further). Vertically centred, horizontally left — but **stretched**, not shrink-wrapped:
+  `align-items: stretch` (not `flex-start`) on the content column itself, so the title and description each
+  take the full width remaining after the padding and wrap from there, rather than sizing to
+  their own shortest content; `.case-desc`'s usual `36ch` cap is lifted here (`.work-content
+  .case-desc { max-width: none }`) so its line length follows that stretched width instead.
+  **The CTA is the one exception**: `align-self: flex-start` keeps it at its own content width,
+  because the general link style's hover underline (`a { background-size }`, in `css/base.css`)
+  is sized as a percentage of the link's own box — stretched, it would grow under the empty space
+  past the arrow, not just under "view case study →". The content column's height still follows
+  the square image beside it. On a phone (`≤720px`) the split stacks: image full width, content
+  below, matching how the rest of the site collapses to one column.
+  - **The whole card is the link**, the same mechanism as the case card below: the `view case
+    study →` link's `::after` stretches over `.work-item` (its `position: relative` containing
+    block), so a click anywhere on the card follows it (one tab stop, one accessible name).
+    Keyboard focus outlines the whole card.
+- **Case year / title / niche / description / CTA (`.case-year`, `.case-title`, `.case-niche`,
+  `.case-desc`, `.case-cta`):** plain typographic classes, not scoped to one card type — the work
+  preview, the work list card, and the (currently unused) case card below all use them unchanged
+  (bar the `max-width` override on `.case-desc` noted above).
+- **Case card (`.case-item`, currently unused):** square, image at rest, content on hover. Built
+  for the home page carousel; both moved off the home page to `work.html` (the work list card,
+  above), so nothing currently renders this component, but it is kept, working, in case a
+  carousel is wanted again (see "Known gaps"). At rest it is just the image (an `<img
+  class="case-media">`, `object-fit: cover`) on a `--color-surface` card with `--shadow-card`.
   Year, title, niche, description and CTA live in `.case-overlay`, which covers the whole card and
-  fades in (`opacity 0 → 1`, `--transition`) on hover. Content is centred both ways, in
-  `--color-text` / `--color-text-muted` on `--overlay-bg` with a 12px backdrop blur.
+  fades in (`opacity 0 → 1`, `--transition`) on hover. Content is centred both ways, on a
+  three-stop radial gradient: `--overlay-bg-100` (white, fully opaque) at the centre,
+  `--overlay-bg-80` at halfway out, `--overlay-bg-40` toward the corners — still translucent
+  there, never fully transparent, so the image reads through most where the text never reaches. No
+  background blur; legibility comes from the panel's own opacity.
   - **The card itself must not move or resize on hover.** There is no `transform` on the card.
   - **The whole card is the link.** The `view case study →` link is the only anchor; its `::after`
     stretches over `.case-overlay`, which covers the card, so a click anywhere on the card
@@ -152,17 +217,30 @@ is not clipped by its horizontal `overflow`.
 
 ## Page structure
 
-The home page is **Hero → Work → About → Contact**, and no other sections are added. Work holds 3–5
-flagship cases. Lighter, secondary work gets no section, page or UI block anywhere on the site; it
-is at most one sentence inside a flagship case (see
+The home page is **Hero → Work → About → Contact**, and no other sections are added. Its Work
+section is the [work preview](#components): one flat block, not a list, teasing
+[`work.html`](work.html) (see "The work list page" below), which holds the actual 3–5 flagship
+cases and is also linked from the header nav directly. Lighter, secondary work gets no section,
+page or UI block anywhere on the site; it is at most one sentence inside a flagship case (see
 [`CASE-STUDY-TEMPLATE.md`](CASE-STUDY-TEMPLATE.md), "Portfolio architecture"). The navigation is
 therefore `work / about / contact`.
+
+### The work list page (`work.html`)
+
+Built from `src/work.html`, loading `css/case-study.css` in addition to the site-wide sheets, for
+two components it borrows: the Hook (below, without its background-image variant) and Contents.
+After Contents comes the case list: one full-width [work list card](#components) per case,
+identical content to what the (currently unused) home carousel card would have shown, just always
+visible instead of hover-revealed. Adding, removing or reordering a case here needs three edits
+kept in sync: the Contents entry, the `.work-item`, and — for a real case — the actual case study
+page (see README, "Adding a case study").
 
 ## Case study page
 
 Template: [`case-study-template.html`](case-study-template.html), built from
-`src/case-study-template.html` (see README, "Building pages"). Each case on the home carousel has
-its own page: [`ai-assistant-platform.html`](ai-assistant-platform.html) is the first real case,
+`src/case-study-template.html` (see README, "Building pages"). Each case listed on
+[`work.html`](work.html) has its own page:
+[`ai-assistant-platform.html`](ai-assistant-platform.html) is the first real case,
 and `case-study-2.html` … `4.html` are placeholders started from the template. Styles are in
 [`css/case-study.css`](css/case-study.css) (loaded after `style.css`, only by case pages). It
 composes existing tokens and adds no colours or radii; the only new font is the hand-drawn
@@ -180,13 +258,18 @@ full-width divider.
 ### Layout rules
 - **Hook:** the largest type on the page, `--fs-2xl × 1.15`, one or two sentences, directly under
   the nav with a small eyebrow (`case study · year · niche`). Nothing else on the page may be
-  larger (on mobile: `--fs-xl × 1.2`).
+  larger (on mobile: `--fs-xl × 1.2`). Two variants, both `.cs-hook`: the background-image one
+  (`.cs-hook--bg`, "AI Assistant Platform case" below) and a plain one with no image, used by
+  `work.html` — `.cs-hook`'s own padding provides all the spacing there, since the background
+  variant's overlap and scrim rules are scoped to `.cs-hook--bg` specifically.
 - **Quick facts:** a definition list in **columns 1–4** right after the Hook (role, engagement,
-  team, tools). All values share one weight; no row is emphasised.
-- **Contents:** directly under Quick facts, not floating: lowercase links, one per section that has
-  a title (eight: Context & Ownership … Reflection & What's next), scrolling to each section's
-  anchor. **The Hook is not listed**, because it is the top of the page and has no title; its
-  content is unchanged. Entries fill three columns top to bottom. **The numbers are derived, not
+  team, tools). All values share one weight; no row is emphasised. Case study pages only —
+  `work.html`'s Hook goes straight to Contents, since there is no single case's facts to show.
+- **Contents:** directly under the Hook (under Quick facts, on a case study page), not floating:
+  lowercase links scrolling to an anchor further down the same page. On a case study page, one per
+  section that has a title (eight: Context & Ownership … Reflection & What's next); **the Hook is
+  not listed**, because it is the top of the page and has no title. On `work.html`, one per case
+  study card below. Entries fill three columns top to bottom. **The numbers are derived, not
   typed:** a CSS counter numbers the `<li>`s in list order, starting at `01`, so adding, removing
   or reordering an entry never needs manual renumbering.
 - **Text column:** prose sits in **columns 5–10** (6 of 12, `544px` on the 64px grid), which
@@ -332,16 +415,47 @@ opacities, and depth from a hairline border instead of a shadow.
 | `--color-inverse` | `#02040f` |
 | `--shadow-card` | `none` |
 | `--border-card` | `rgba(238, 240, 255, 0.14)` |
-| `--overlay-bg` | `rgba(22, 28, 58, 0.88)` (lighter than the card) |
+| `--overlay-bg-100` | `rgba(22, 28, 58, 1)` |
+| `--overlay-bg-80` | `rgba(22, 28, 58, 0.8)` (lighter than the card) |
+| `--overlay-bg-40` | `rgba(22, 28, 58, 0.4)` |
 
 Computed contrast for this set: text 18.06 / 16.98 on bg / surface, muted 7.63 / 7.47, hover panel
-worst case over any image 10.26 (text) and 5.37 (muted). All pass AA.
+worst case over any image: centre (100%) 14.7 / 6.89, halfway (80%) 7.77 / 4.36, toward the
+corners (40%) 2.19 / 1.7 (text / muted). Both stops past the centre fall under AA for at least one
+of the two, and the 40% stop fails badly for both. Not a live issue — this theme is disabled —
+but the panel would need reworking, not just an opacity bump, if it is ever restored as-is (see
+"Known gaps").
 
 ## Known gaps
 
 These are current facts, not decisions:
 
-- **Borders are decorative-strength.** `--color-border` is about 1.3:1 against the background. That
+- **The carousel component is unused.** `.case-item`, `.case-overlay`, `.carousel`,
+  `.carousel-track` and the prev/next buttons in `css/style.css`, and the matching block in
+  `js/main.js`, no longer render on any page — Work moved off the home page to `work.html`, which
+  uses the work list card (`.work-item`) instead. Kept working (the JS guards itself on
+  `#carousel` not existing) in case a carousel is wanted again; ask before deleting it.
+- **`work.html`'s Hook, and the home page Work preview's sentence, are placeholder copy**, same
+  status as the rest of the site's unfinished text (see README, "To do").
+- **The Work preview's image does not actually rotate yet.** It is a static placeholder with a
+  label saying what it is meant to become; the rotation mechanism (what drives it, how often, from
+  which images) is undecided and not built.
+- **The case card's hover panel fails AA toward the corners.** Its 40% stop (`--overlay-bg-40`),
+  composited over a pure black image, gives 3.37:1 for `--color-text` and 2.46:1 for
+  `--color-text-muted` — both under the 4.5:1 target (see "Contrast"). In practice the card's
+  content is a short, centred block (year, title, niche, description, CTA), so it mostly sits
+  within the 80–100% zone and only its outermost lines risk the 40% zone over a very dark part of
+  an image; this has not been checked against the real project images once they replace the
+  placeholders.
+
+- **The favicon is a full, detailed signature** (`favicon.png`, from the same mark as the header
+  logo), not a simplified mark built for tiny sizes. At the 16–32px a browser tab actually
+  renders, thin cursive strokes are likely to read as a blur rather than a recognisable icon. A
+  favicon-specific simplification (an initial, or a bolder reduction of the mark) would read
+  better small; not done here because it would mean designing new content, not just placing the
+  given file.
+
+- **Borders are decorative-strength.** `--color-border` is about 1.2:1 against the background. That
   is fine for hairline dividers, but form field borders are UI boundaries and would need about 3:1
   under WCAG 1.4.11 if the form becomes a real interaction.
 - **1px frame around images.** `.case-item` has a `1px` transparent border (used by the parked dark
@@ -350,7 +464,6 @@ These are current facts, not decisions:
 - **Values outside the token file:** the `720px` breakpoint, the card width `clamp()`, the form's
   `480px` max width, the `2.25rem` carousel button size, the `50%` radius, the `12px` panel blur and
   the `36ch` description width.
-- **Favicon** (`assets/images/favicon.svg`) still uses `#111111`, not the navy.
 - **Device frames are square-cornered.** The only radius token is `--radius: 2px`, so a phone frame
   cannot have rounded corners without a new radius token.
 - **Case study sizes derived from tokens, not tokens themselves:** the Hook (`--fs-2xl × 1.15`),

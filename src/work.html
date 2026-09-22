@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Work — Kateryna</title>
+  <meta name="description" content="Case studies: UX/UI design and product work." />
+  <link rel="icon" type="image/png" href="assets/images/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600&family=Raleway:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/case-study.css" />
+</head>
+<body>
+
+  <!--
+    Work: every case study, moved off the home page carousel. Reuses the case-study page's Hook
+    (css/case-study.css) without its background-image variant, and the Contents component for
+    quick navigation to each card below. Each row reuses the card's year/title/niche/desc/CTA
+    classes from css/style.css, unchanged, just always visible instead of revealed on hover.
+    The header and footer are shared: edit src/partials/, then run python3 build.py.
+  -->
+
+  <!-- @include header -->
+
+  <main class="cs-main">
+
+    <!-- Hook — no background image here; see DESIGN-SYSTEM.md, "Page structure". -->
+    <section id="hook" class="cs-hook">
+      <div class="cs-hook-inner container">
+        <p class="eyebrow">Work</p>
+        <h1 class="cs-hook-text">
+          <!-- PLACEHOLDER: replace with real framing for the work list. -->
+          A closer look at a few projects.
+        </h1>
+        <p class="cs-hook-subtitle">
+          <!-- PLACEHOLDER -->
+          The problems, the decisions behind the solution, and what shipped.
+        </p>
+      </div>
+    </section>
+
+    <!-- Contents: one entry per case below, same numbered lowercase-link pattern as a case
+         study page's own Contents. -->
+    <div class="cs-intro grid-12">
+      <nav class="cs-toc" aria-labelledby="tocTitle">
+        <h2 class="eyebrow" id="tocTitle">Contents</h2>
+        <ol>
+          <li><a href="#ai-assistant-platform">ai assistant platform</a></li>
+          <li><a href="#case-study-two">case study two</a></li>
+          <li><a href="#case-study-three">case study three</a></li>
+          <li><a href="#case-study-four">case study four</a></li>
+        </ol>
+      </nav>
+    </div>
+
+    <!-- Case studies -->
+    <section class="section">
+      <div class="work-list grid-12">
+
+        <article class="work-item" id="ai-assistant-platform">
+          <div class="work-media">
+            <img src="assets/images/projects/hero-alt.png" width="1440" height="993" loading="lazy" alt="" />
+          </div>
+          <div class="work-content">
+            <span class="case-year">2025</span>
+            <h3 class="case-title">AI Assistant Platform</h3>
+            <p class="case-niche">SaaS Web App / Productivity Tools</p>
+            <p class="case-desc">UX/UI redesign of an AI platform: restructured user flows, improved clarity, and built a clean, responsive design system.</p>
+            <a href="ai-assistant-platform.html" class="case-cta">view case study →</a>
+          </div>
+        </article>
+
+        <article class="work-item" id="case-study-two">
+          <div class="work-media" aria-hidden="true"></div>
+          <div class="work-content">
+            <span class="case-year">2023</span>
+            <h3 class="case-title">Case Study Two</h3>
+            <p class="case-niche">Niche · Platform</p>
+            <p class="case-desc">One or two sentences on the problem and outcome.</p>
+            <a href="case-study-2.html" class="case-cta">view case study →</a>
+          </div>
+        </article>
+
+        <article class="work-item" id="case-study-three">
+          <div class="work-media" aria-hidden="true"></div>
+          <div class="work-content">
+            <span class="case-year">2023</span>
+            <h3 class="case-title">Case Study Three</h3>
+            <p class="case-niche">Niche · Platform</p>
+            <p class="case-desc">One or two sentences on the problem and outcome.</p>
+            <a href="case-study-3.html" class="case-cta">view case study →</a>
+          </div>
+        </article>
+
+        <article class="work-item" id="case-study-four">
+          <div class="work-media" aria-hidden="true"></div>
+          <div class="work-content">
+            <span class="case-year">2022</span>
+            <h3 class="case-title">Case Study Four</h3>
+            <p class="case-niche">Niche · Platform</p>
+            <p class="case-desc">One or two sentences on the problem and outcome.</p>
+            <a href="case-study-4.html" class="case-cta">view case study →</a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- @include footer -->
+
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -4,16 +4,14 @@
   position: sticky;
   top: 0;
   background: var(--color-bg);
-  box-shadow: var(--shadow-card);
   z-index: 10;
-  transition: transform var(--transition), box-shadow var(--transition);
+  transition: transform var(--transition);
 }
 
 /* Slides away while scrolling down and returns on scroll up (js/main.js). It stays visible
    while something inside it has keyboard focus. */
 .site-header.is-hidden:not(:focus-within) {
   transform: translateY(-100%);
-  box-shadow: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -43,15 +41,7 @@
 
 .hero-subtitle {
   font-size: var(--fs-lg);
-  margin-bottom: var(--space-3);
   max-width: 60ch;
-}
-
-.hero-actions {
-  display: flex;
-  gap: var(--space-2);
-  justify-content: flex-start;
-  flex-wrap: wrap;
 }
 
 .section {
@@ -193,6 +183,17 @@
   scroll-snap-align: start;
 }
 
+/* The card image, once a project has one (an empty aria-hidden div until then).
+   The square card crops a landscape image; object-position keeps its focal point
+   (a device mockup, usually right- or centre-weighted) in frame. */
+.case-item > img.case-media {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+}
+
 /* The card is just the image; its content fades in over the whole card on
    hover. Keyboard focus reveals it too, and touch devices (no hover) always
    show it, so the content never depends on a mouse. */
@@ -206,11 +207,16 @@
   gap: 0.35rem;
   padding: var(--space-4);
   text-align: center;
-  /* translucent so the image still shows through; the blur keeps text
-     readable over busy imagery */
-  background: var(--overlay-bg);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
+  /* Radial, three stops by opacity: white at 100% at the centre (where the text sits), 80% at
+     halfway out, 40% toward the corners (never fully transparent, so the panel still separates
+     text from a busy image there too). No background blur: legibility comes from the panel's
+     own opacity alone. */
+  background: radial-gradient(
+    circle,
+    var(--overlay-bg-100) 0%,
+    var(--overlay-bg-80) 50%,
+    var(--overlay-bg-40) 100%
+  );
   color: var(--color-text);
   opacity: 0;
   transition: opacity var(--transition);
@@ -286,6 +292,131 @@
 .case-cta:focus-visible::after {
   outline: 2px solid var(--color-text);
   outline-offset: -2px;
+}
+
+/* Work preview (home page): one full-width card — a teaser for work.html, not any one case. Same
+   card treatment and image/content split as a work list card below. Its CTA reuses .case-cta,
+   the same link (and the same "whole card is the link" mechanism, via position: relative here)
+   as a work list card. */
+.work-preview {
+  position: relative;
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: var(--grid-gap);
+  background: var(--color-card-milk);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+/* Image always on the left, 8 of 12 columns; the 32px gap to the content is the grid's own
+   column-gap, not extra spacing. */
+.work-preview-media {
+  grid-column: 1 / 9;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-surface);
+}
+
+.work-preview-media-label {
+  padding: var(--space-2);
+  font-size: var(--fs-sm);
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+/* The remaining 4 columns. --space-5 (64px) on top and bottom, nothing on the left (the
+   column-gap already separates it from the image), --space-4 (40px, not --space-5) on the
+   right — the narrow column needs the extra width or the CTA wraps as it narrows further.
+   Vertically centred, stretched to fill what that leaves (see .work-content, the same
+   treatment, below). */
+.work-preview-content {
+  grid-column: 9 / 13;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-5) var(--space-4) var(--space-5) 0;
+  text-align: left;
+}
+
+.work-preview-content .section-text {
+  margin: 0;
+  max-width: none;
+}
+
+/* Work list (work.html): every case study, full grid width, content always visible instead of
+   revealed on hover. Each .work-item spans the full row of the outer grid, the same technique
+   .cs-toc uses to sit below .cs-facts, so several stack with .work-list's own row-gap. */
+.work-list {
+  row-gap: var(--space-5);
+}
+
+/* The card itself: image on 8 columns, content on the other 4, its own nested 12-column grid so
+   the split lines up exactly with the page grid. A warm, light "milk" fill (not the neutral
+   --color-surface white used elsewhere) and a thin, light border — no shadow. position: relative
+   is the .case-cta::after link's containing block, so — as with .case-item — the whole card is
+   the link. */
+.work-item {
+  position: relative;
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: var(--grid-gap);
+  background: var(--color-card-milk);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+/* Image always on the left, 8 of 12 columns; the 32px gap to the content is the grid's own
+   column-gap, not extra spacing. */
+.work-media {
+  grid-column: 1 / 9;
+  aspect-ratio: 1 / 1;
+  background: var(--color-surface);
+}
+
+.work-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* The remaining 4 columns. --space-5 (64px) on top and bottom, nothing on the left (the
+   column-gap already separates it from the image), --space-4 (40px, not --space-5) on the
+   right — the narrow column needs the extra width or the CTA wraps as it narrows further.
+   Vertically centred in its own space (as tall as the square image beside it), stretched to
+   fill what that leaves: align-items: stretch, not flex-start, so the title and description
+   each take the full width and wrap from there, rather than shrinking to their own content
+   width. .case-desc's usual 36ch cap is lifted here so its line length follows that stretched
+   width instead. */
+.work-content {
+  grid-column: 9 / 13;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: var(--space-5) var(--space-4) var(--space-5) 0;
+  text-align: left;
+}
+
+.work-content .case-desc {
+  max-width: none;
+}
+
+/* The CTA is the one child that does not stretch: it keeps its own content width, so its
+   underline-on-hover (a { background-size }, sized as a percentage of the link's own box) grows
+   only under "view case study →" — text and arrow — not across the whole stretched column. */
+.work-content .case-cta,
+.work-preview-content .case-cta {
+  align-self: flex-start;
 }
 
 /* CV link (About) */
@@ -395,5 +526,24 @@
 
   .section-aside {
     margin-bottom: var(--space-3);
+  }
+
+  /* .work-list is display: block here too (it is a .grid-12), so spacing between cards comes
+     from margin, not row-gap. */
+  .work-list > * + * {
+    margin-top: var(--space-4);
+  }
+
+  /* The image/content split stacks: image full width above, content below, matching how the
+     rest of the site collapses to one column on a phone. Same for the home page's single
+     preview block. */
+  .work-item,
+  .work-preview {
+    display: block;
+  }
+
+  .work-content,
+  .work-preview-content {
+    padding: var(--space-3);
   }
 }
