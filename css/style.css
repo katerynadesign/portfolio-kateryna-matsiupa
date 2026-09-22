@@ -25,6 +25,25 @@
   text-align: left;
 }
 
+/* Wide screens only: the hero (header + hero) fills nearly the viewport, leaving one --space-5
+   gap of the next section (Work) peeking in below, and its content centres vertically in the
+   taller box. 72px is the header's measured height (not tokenised, see DESIGN-SYSTEM.md, "Known
+   gaps"). Narrow screens keep the content-driven height they already had. */
+@media (min-width: 721px) {
+  .hero {
+    min-height: calc(100vh - 72px - var(--space-5));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+/* Hero content limited to 8 of the 12 grid columns, starting on column 1 (same formula as
+   .cs-hook-inner in css/case-study.css): 8 columns plus 7 gutters, fluid below 1168px. */
+.hero > * {
+  max-width: calc((100% - 11 * var(--grid-gap)) * 8 / 12 + 7 * var(--grid-gap));
+}
+
 .eyebrow {
   font-family: var(--font-heading);
   text-transform: uppercase;
@@ -34,14 +53,21 @@
   font-weight: 600;
 }
 
+/* Hero name line: 1.2x body text, primary colour (inherited from body), Raleway, regular weight
+   (overriding the 600 that h1/h2/h3 get by default). */
 .hero h1 {
-  font-size: var(--fs-2xl);
-  letter-spacing: -0.01em;
+  font-size: calc(var(--fs-base) * 1.2);
+  font-weight: 400;
 }
 
+/* Hero intro paragraphs: 1.4x the name line above, Raleway (overriding the body font), regular
+   weight, same as the name line above, primary colour (overriding the muted colour p gets by
+   default) so the whole hero reads in one colour. */
 .hero-subtitle {
-  font-size: var(--fs-lg);
-  max-width: 60ch;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: calc(var(--fs-base) * 1.2 * 1.4);
+  color: var(--color-text);
 }
 
 .section {
@@ -487,6 +513,12 @@
 
 /* Responsive */
 @media (max-width: 720px) {
+  /* Full width on mobile: the 8-column cap is a desktop grid concept (same as the case study
+     Hook's .cs-hook-inner > *). */
+  .hero > * {
+    max-width: none;
+  }
+
   .nav-toggle {
     display: flex;
   }
@@ -510,10 +542,6 @@
 
   .nav-links li {
     padding: var(--space-1) 0;
-  }
-
-  .hero h1 {
-    font-size: var(--fs-xl);
   }
 
   .case-item {

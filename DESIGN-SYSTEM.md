@@ -76,13 +76,15 @@ from the Figma source it was built to annotate. Not used anywhere else.
 | `--font-handwritten` | `"Solitreo"`, `cursive` | **Accent only, currently unused:** built for the hand-drawn callout labels on the AI Assistant Platform Process diagram's Onboarding flow, now two pairs of real images. Never body copy, headings or navigation. |
 | `--fs-sm` | `0.875rem` | Nav, buttons, labels, card metadata. |
 | `--fs-base` | `1rem` | Body text, form fields. |
-| `--fs-lg` | `1.25rem` | Hero paragraph, case title. |
-| `--fs-xl` | `1.75rem` | Section titles; hero `h1` on mobile. |
-| `--fs-2xl` | `2.75rem` | Hero `h1` on desktop. |
+| `--fs-lg` | `1.25rem` | Case title. |
+| `--fs-xl` | `1.75rem` | Section titles. |
+| `--fs-2xl` | `2.75rem` | Hero `h1` on the case study Hook (desktop). |
 | `--tracking-wide` | `0.08em` | Letter-spacing on uppercase labels (section titles, eyebrow, case year). |
 
 Fonts load from Google Fonts (`Raleway` 500/600/700, `Karla` 400/500/600) via `<link>` in each page;
-nothing is self-hosted. `Solitreo` is loaded only by `ai-assistant-platform.html`.
+nothing is self-hosted. `Solitreo` is loaded only by `ai-assistant-platform.html`. `Raleway` 400
+(regular) is loaded only by `index.html`, for the home hero (see "Hero", below): the only place
+Raleway is set lighter than 600.
 
 ## Spacing, layout, shape, motion tokens
 
@@ -115,7 +117,18 @@ padding so that shadow is not clipped by its horizontal `overflow`.
 2. **Content goes in columns 7–12** (`.section-content`).
 3. **An optional short description goes in columns 1–6**, under the divider (`.section-aside`).
    Use it only where it helps: Contact has one, About does not.
-- **Hero** has no divider and no section title.
+- **Hero** has no divider and no section title. Its content (the name line and the two intro
+  paragraphs) is limited to **8 of the 12 columns** on column 1 on desktop, full width at ≤720px
+  (same formula and mobile override as the case study Hook: `.hero > *` caps `max-width` at 8
+  columns + 7 gutters, fluid below 1168px). The name line is Raleway regular (400) at `1.2×` body
+  size in `--color-text` (inherited, not set explicitly); the two paragraphs below it are also
+  Raleway regular, at `1.4×` the name line's size, and also in `--color-text` (overriding the
+  muted colour `p` gets by default, so the whole hero reads in one colour). Raleway regular is
+  loaded only for this page (see "Typography tokens"). **On screens wider than 720px**, the hero
+  (header + hero) fills nearly the viewport and its content centres vertically: `min-height:
+  calc(100vh - 72px - var(--space-5))`, `72px` being the header's measured height (not tokenised,
+  see "Known gaps"), so the gap left below (before Work starts) is exactly one `--space-5`. At
+  ≤720px the hero keeps its original content-driven height, unchanged.
 
 ### Alignment to the grid
 - The hero and every section title/divider start at the left edge of column 1.
@@ -494,8 +507,9 @@ These are current facts, not decisions:
   theme) over a white fill, so a full-bleed image would show a 1px white edge. Decide how to handle
   this when real images arrive.
 - **Values outside the token file:** the `720px` breakpoint, the card width `clamp()`, the form's
-  `480px` max width, the `2.25rem` carousel button size, the `50%` radius, the `12px` panel blur and
-  the `36ch` description width.
+  `480px` max width, the `2.25rem` carousel button size, the `50%` radius, the `12px` panel blur,
+  the `36ch` description width, and the header's measured `72px` height (used by the hero's
+  `min-height` on wide screens).
 - **Device frames are square-cornered.** The only radius token is `--radius: 2px`, so a phone frame
   cannot have rounded corners without a new radius token.
 - **Case study sizes derived from tokens, not tokens themselves:** the Hook (`--fs-2xl × 1.15`),
