@@ -273,11 +273,13 @@
       </div>
     </section>
 
-    <!-- 6 · SOLUTION — the IA as grouped boxes; Design System and the device showcase follow
-         below. The onboarding screens subsection that used to sit here (real before/after
-         product screenshots, same structure as Process's onboarding) was deleted at the user's
-         request — assets/images/projects/onboarding-real-*.png are unreferenced now, kept on
-         disk in case it's wanted again later. -->
+    <!-- 6 · SOLUTION — the IA as a real diagram (ia-architecture-diagram.png, below); Design
+         System and the device showcase follow below that. Replaces the earlier .cs-ia grouped-
+         boxes layout (still in css/case-study.css, unused — kept, not deleted, in case a
+         layout-only version is wanted again). The onboarding screens subsection that used to sit
+         here (real before/after product screenshots, same structure as Process's onboarding) was
+         deleted at the user's request — assets/images/projects/onboarding-real-*.png are
+         unreferenced now, kept on disk in case it's wanted again later. -->
     <section id="solution" class="section">
       <div class="container">
         <h2 class="section-title">Solution</h2>
@@ -288,20 +290,9 @@
           <p>The solution was a rebuilt information architecture and deliberately redesigned flows. The IA is split into two layers: tools for working with the assistant (Playground, Data Cloud) separated from business tools (Chats, Leads, Integrations, Analytics) — matching the two distinct jobs a business owner has, instead of mixing them into one menu. Every flow follows the same principle: one required path to the goal, with secondary options revealed progressively.</p>
         </div>
 
-        <div class="cs-ia cs-wide">
-          <div class="cs-ia-group cs-ia-group--assistant">
-            <h3 class="cs-ia-title">Assistant tools</h3>
-            <ul class="cs-ia-items"><li>Playground</li><li>Data Cloud</li></ul>
-          </div>
-          <div class="cs-ia-group cs-ia-group--business">
-            <h3 class="cs-ia-title">Business tools</h3>
-            <ul class="cs-ia-items"><li>Chats</li><li>Leads</li><li>Integrations</li><li>Analytics</li></ul>
-          </div>
-          <div class="cs-ia-group cs-ia-group--utility">
-            <h3 class="cs-ia-title">Account / utility</h3>
-            <ul class="cs-ia-items"><li>Notifications</li><li>Support</li><li>Plan &amp; credits</li></ul>
-          </div>
-        </div>
+        <figure class="cs-figure cs-wide">
+          <img src="assets/images/projects/ia-architecture-diagram.png" alt="Information architecture tree diagram: Home branches into Assistant tools (Playground, Data Cloud), Business tools (Chats, Leads, Integrations, Analytics) and Account / utility (Notifications, Support, Plan &amp; Credits), each expanding into its own nested actions" loading="lazy" />
+        </figure>
       </div>
     </section>
 
