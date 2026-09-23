@@ -236,7 +236,7 @@
             <div class="cs-finding" tabindex="0">
               <div class="cs-finding-flip">
                 <div class="cs-finding-flip-face cs-finding-flip-front">
-                  <h3>Low guidance for configuration/testing</h3>
+                  <h3>Low guidance for configuration/<wbr />testing</h3>
                   <p>Users didn't know how to set up or test assistants without external help.</p>
                 </div>
                 <div class="cs-finding-flip-face cs-finding-flip-back">
@@ -288,7 +288,11 @@
       </div>
     </section>
 
-    <!-- 6 · SOLUTION — the IA as grouped boxes; the device showcase below carries the screens -->
+    <!-- 6 · SOLUTION — the IA as grouped boxes; Design System and the device showcase follow
+         below. The onboarding screens subsection that used to sit here (real before/after
+         product screenshots, same structure as Process's onboarding) was deleted at the user's
+         request — assets/images/projects/onboarding-real-*.png are unreferenced now, kept on
+         disk in case it's wanted again later. -->
     <section id="solution" class="section">
       <div class="container">
         <h2 class="section-title">Solution</h2>
@@ -313,6 +317,28 @@
             <ul class="cs-ia-items"><li>Notifications</li><li>Support</li><li>Plan &amp; credits</li></ul>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- DESIGN SYSTEM — a real subsection (title + divider, standard .section rhythm), unlike
+         the device showcase below: this is reference content, not a placeholder loop, so it
+         earns a heading. Not one of the template's nine blocks and not listed in Contents; it
+         supplements Solution. Reference sheet (design-system.png)
+         exported from Figma, shown contained (.cs-figure.cs-wide) like the page's other
+         visuals, not full-bleed. -->
+    <section id="design-system" class="section">
+      <div class="container">
+        <h2 class="section-title">Design System</h2>
+        <hr class="section-divider" />
+      </div>
+      <div class="grid-12 cs-body">
+        <div class="cs-prose">
+          <p>Every screen above draws from one design system I built and maintained throughout the project: consistent colour and opacity tokens, and a shared set of components reused across both the Assistant tools and Business tools sides of the product.</p>
+          <p>Colour and opacity tokens, button anatomy with spacing annotations, and the full state matrix for buttons and inputs — the same components reused across every screen.</p>
+        </div>
+        <figure class="cs-figure cs-wide">
+          <img src="assets/images/projects/design-system.png" alt="Design system reference: color and opacity tokens, button anatomy with spacing annotations, button states across filled, outlined and text styles, and input states" loading="lazy" />
+        </figure>
       </div>
     </section>
 
@@ -378,27 +404,6 @@
       </div>
     </div>
 
-    <!-- DESIGN SYSTEM — a real subsection (title + divider, standard .section rhythm), unlike
-         the device showcase above: this is reference content, not a placeholder loop, so it
-         earns a heading. Not one of the template's nine blocks and not listed in Contents; it
-         supplements Solution. Reference sheet (design-system.png) exported from Figma, shown
-         contained (.cs-figure.cs-wide) like the page's other visuals, not full-bleed. -->
-    <section id="design-system" class="section">
-      <div class="container">
-        <h2 class="section-title">Design System</h2>
-        <hr class="section-divider" />
-      </div>
-      <div class="grid-12 cs-body">
-        <div class="cs-prose">
-          <p>Every screen above draws from one design system I built and maintained throughout the project: consistent colour and opacity tokens, and a shared set of components reused across both the Assistant tools and Business tools sides of the product.</p>
-          <p>Colour and opacity tokens, button anatomy with spacing annotations, and the full state matrix for buttons and inputs — the same components reused across every screen.</p>
-        </div>
-        <figure class="cs-figure cs-wide">
-          <img src="assets/images/projects/design-system.png" alt="Design system reference: color and opacity tokens, button anatomy with spacing annotations, button states across filled, outlined and text styles, and input states" loading="lazy" />
-        </figure>
-      </div>
-    </section>
-
     <!-- 7 · EVOLUTION — text only.
          OPTIONAL, only if screenshots of the white-label product are supplied: one or two screens next to
          the original (evolution-whitelabel-1.png, evolution-whitelabel-2.png) as a .cs-row.cs-wide of
@@ -437,7 +442,7 @@
             <p class="cs-impact-body">time to first assistant</p>
           </div>
           <div class="cs-impact-tile">
-            <p class="cs-impact-lead">7 <span class="cs-impact-arrow">→</span> 6</p>
+            <p class="cs-impact-lead">10 <span class="cs-impact-arrow">→</span> 6</p>
             <p class="cs-impact-body">Mandatory steps</p>
           </div>
           <div class="cs-impact-tile">

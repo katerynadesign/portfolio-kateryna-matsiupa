@@ -4,6 +4,16 @@
   box-sizing: border-box;
 }
 
+/* The native `hidden` attribute is only display: none in the browser's own (UA) stylesheet, at
+   low priority — any author rule that sets `display` on the same element (e.g. .grid-12's own
+   display: grid, loaded after this file) wins at equal specificity by cascade order alone, and
+   a more specific author rule (an id, or two classes) would win regardless of order. !important
+   is the one thing nothing here can accidentally out-rank, so `hidden` stays a reliable "remove
+   from layout" attribute everywhere on the site, not just where nothing else sets display. */
+[hidden] {
+  display: none !important;
+}
+
 html {
   scroll-behavior: smooth;
 }
