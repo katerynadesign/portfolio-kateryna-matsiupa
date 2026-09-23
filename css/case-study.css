@@ -1044,41 +1044,30 @@
   padding-bottom: 0;
 }
 
-/* Impact, third variant: five before → after figures — three across the top row (4 columns
-   each), two across the second (6 columns each): 4+4+4 and 6+6 both fill the 12-column grid
-   exactly, so plain column spans (below) place all five with no explicit row assignment — the
-   third tile finishes row one at column 12, so the fourth wraps to row two on its own. Top-
-   aligned: align-items: start stops a tile's own box being stretched to the row's tallest
-   (grid's default, align-items: stretch, would otherwise do that). The arrangement itself (rows,
-   spans, alignment) is unchanged from the card version this replaces — only each tile's own
-   chrome is different, below. */
+/* Impact, third variant: five before → after figures, one vertical block in the text column
+   (grid-column: 7/13, same as .cs-prose and .cs-quotes above) — the same layout as .cs-quotes
+   in Problem, at the user's request, replacing the earlier two-row 12-column grid (3 tiles at
+   4 columns, 2 at 6). display: grid + row-gap here, display: block + margin-top in its place at
+   mobile, is .cs-quotes' own pattern (below), reused verbatim. */
 .cs-impact--tiles {
-  grid-column: 1 / -1;
+  grid-column: 7 / 13;
   display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  align-items: start;
-  column-gap: var(--grid-gap);
   row-gap: var(--space-4);
 }
 
 /* Pull-quote rule, not a card: .cs-quote's own treatment (border-left, padding-left — see
    above), at the user's request, in place of the earlier .cs-finding-detail-card look
-   (background/radius/shadow/padding, centred text). Left-aligned again, the rule's natural
-   reading direction — centred text against a left border reads oddly. */
+   (background/radius/shadow/padding, centred text). */
 .cs-impact-tile {
-  grid-column: span 4;
   padding-left: var(--space-3);
   border-left: 1px solid var(--color-text);
 }
 
-.cs-impact-tile:nth-child(4),
-.cs-impact-tile:nth-child(5) {
-  grid-column: span 6;
-}
-
+/* 30% smaller than the other tiles variant's --fs-xl, at the user's request, now that five of
+   these read as a single stacked column rather than a 4/6-column grid. */
 .cs-impact--tiles .cs-impact-lead {
   margin-bottom: var(--space-1);
-  font-size: var(--fs-xl);
+  font-size: calc(var(--fs-xl) * 0.7);
   line-height: 1.15;
   letter-spacing: -0.01em;
 }
@@ -1277,15 +1266,13 @@
     margin-top: var(--space-4);
   }
 
-  /* Stacked, one per row, full width — undoes the desktop-only 4/6-column spans above (per the
-     user's request: unchanged from how this already behaved before the two-row desktop layout).
-     Repeats the :nth-child(4)/(5) selectors, not just .cs-impact-tile alone: that pair's own
-     span-6 rule (above) is equally specific (one class + one pseudo-class) and would otherwise
-     still win at this width, since a media query changes nothing about specificity, only
-     whether its block applies at all. */
-  .cs-impact-tile,
-  .cs-impact-tile:nth-child(4),
-  .cs-impact-tile:nth-child(5) {
-    grid-column: 1 / -1;
+  /* .cs-quotes' own mobile pattern (above), reused verbatim: row-gap doesn't apply once the
+     parent grid collapses to block, so adjacent tiles get their spacing from margin-top instead. */
+  .cs-impact--tiles {
+    display: block;
+  }
+
+  .cs-impact-tile + .cs-impact-tile {
+    margin-top: var(--space-4);
   }
 }
