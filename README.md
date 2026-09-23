@@ -127,9 +127,8 @@ GitHub Pages, served from the `main` branch root: Settings → Pages → Source:
 - [ ] Decide how the home page Work preview's image should actually rotate through case study
       thumbnails (currently a static placeholder)
 - [ ] Fill in `case-study-2.html` … `4.html` (placeholders that repeat the template)
-- [ ] Export the images the AI Assistant Platform page is waiting for:
-      `solution-screens-1.png` … `3.png` (and optionally `evolution-whitelabel-1.png` / `2.png`),
-      into `assets/images/projects/`
+- [ ] Export the one image the AI Assistant Platform page is still waiting for, optional:
+      `evolution-whitelabel-1.png` / `2.png`, into `assets/images/projects/`
 - [ ] Add `assets/cv.pdf` (the "download cv" link points at it and the file does not exist yet)
 - [ ] Update the email and social links in Contact
 - [ ] Connect the contact form to a form backend (for example Formspree)

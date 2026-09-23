@@ -25,8 +25,7 @@
     paraphrase it or add facts and numbers; anything new goes through Kateryna first.
     Structure and content rules: CASE-STUDY-TEMPLATE.md. Components: DESIGN-SYSTEM.md.
     The header and footer are shared: edit src/partials/, then run python3 build.py.
-    Placeholders still to replace with exported images:
-    solution-screens-1.png … solution-screens-3.png (and optionally evolution-whitelabel-1/2.png).
+    Placeholder still to replace with an exported image, optional: evolution-whitelabel-1/2.png.
   -->
 
   <header class="site-header">
@@ -50,10 +49,11 @@
     <!-- 1 · HOOK — the hero section. The hero image is its background, shown whole (never cropped)
          at every width. The text starts on the lower part of the laptop and runs down past the
          bottom of the image, on a scrim in the page colour: see css/case-study.css.
-         hero-alt.png is the one in use; hero-desktop.png and hero-mobile.png are currently the
-         same picture and are not referenced. -->
+         hero-alt.webp is the one in use (replaces the old hero-alt.png — same composition, a
+         sharper 2x export, re-encoded as WebP: 258KB vs. the old PNG's 823KB despite 4x the
+         pixels); hero-desktop.png and hero-mobile.png are stale placeholders, still unreferenced. -->
     <section id="hook" class="cs-hook cs-hook--bg">
-      <img class="cs-hook-media" src="assets/images/projects/hero-alt.png" width="1440" height="993" fetchpriority="high" alt="Laptop mockup of the finished product, showing the Leads screen of the platform" />
+      <img class="cs-hook-media" src="assets/images/projects/hero-alt.webp" width="2880" height="1986" fetchpriority="high" alt="Laptop mockup of the finished product, showing the Leads screen of the platform" />
       <div class="cs-hook-inner container">
         <p class="eyebrow">AI Assistant Platform · 2025 · SaaS Web App / Productivity Tools</p>
         <h1 class="cs-hook-text">
@@ -100,7 +100,7 @@
       <div class="grid-12 cs-body">
         <div class="cs-prose">
           <p>Lexicon Lab is a platform for building AI customer-support assistants, aimed at small-business owners with no technical background. I joined as the UX/UI designer on a team of 2 co-founders (technical lead and product-marketing/positioning lead), a frontend developer, and a full-stack developer. I worked under contract, embedded in the product team, for 6 months.</p>
-          <p>I started from a raw MVP: ran a UX/UI audit, built out the design system, defined the information architecture, and rebuilt every core flow in the product — adding new ones where they were missing, starting with onboarding as the user's first touchpoint. I documented everything in a complete Figma file, then validated decisions with real users and iterated.</p>
+          <p>I started from a raw MVP: ran a UX/UI audit, built out the design system, defined the information architecture, and rebuilt every core flow in the product — adding new ones where they were missing, starting with onboarding as the user's first touchpoint. I documented everything in a complete Figma file, then validated decisions with real users and iterated. I owned UX decisions end-to-end — from the initial audit through implementation — checking technical feasibility with the frontend and full-stack developers as flows took shape.</p>
           <p>Technical constraint: linking a created assistant to a specific channel required the user to enter an API key — that step couldn't be skipped. The challenge was making required steps as unobtrusive as possible.</p>
         </div>
       </div>
@@ -146,26 +146,104 @@
         <div class="cs-prose">
           <p>I ran a UX/UI audit, grounded in product analytics and the feedback the team had already been collecting from users. The audit surfaced a systemic problem: navigation lost users between sections, information had no clear hierarchy, and the assistant setup and testing flow gave no clear feedback on progress. Of these findings, onboarding carried the highest cost — it was where the largest share of users was lost — so it became the starting point for the whole redesign.</p>
         </div>
-        <ol class="cs-findings cs-wide">
-          <li class="cs-finding">
-            <h3>Overwhelming onboarding</h3>
-            <p>Users struggled to understand where to begin and what to do next.</p>
+        <!-- "Content overload" gets expanded treatment — evidence, the insight that drove the
+             decision, and the decision itself — always visible, not a flip: there's nothing to
+             hide, each card already shows its one piece of the story. cs-onb-title reused
+             verbatim (the same "label for a group within a section" pattern from Process),
+             lowercase like every other label on this page. Each card's own label (Evidence/
+             Insight/Decision) lives inside the card now, not as a figcaption below it — styled
+             like .eyebrow (uppercase, the same weight) because that's the page's established
+             "small label above something" treatment (the Hook eyebrow, Quick facts, Contents).
+             The row's height comes from its tallest card (Decision), which hugs its own
+             content; the shorter cards stretch to match, on desktop and on the stacked mobile
+             layout alike — see css/case-study.css. A divider (reusing .section-divider, the
+             same rule a section title sits above, just placed differently here) separates this
+             row of 3 from the row of 4 below, on both desktop and mobile. -->
+        <div class="cs-findings-featured cs-wide">
+          <h3 class="cs-onb-title">content overload</h3>
+          <div class="cs-row">
+            <figure class="cs-finding-detail">
+              <div class="cs-finding-detail-card">
+                <p class="eyebrow">Evidence</p>
+                <p class="cs-finding-detail-lead">30% <span class="cs-impact-arrow">→</span> 15%</p>
+                <p class="cs-finding-detail-caption">onboarding drop-off</p>
+              </div>
+            </figure>
+            <figure class="cs-finding-detail">
+              <div class="cs-finding-detail-card">
+                <p class="eyebrow">Insight</p>
+                <p class="cs-finding-detail-quote">“It asked me for everything at once — I didn’t know what was actually required and what I could skip for now.”</p>
+              </div>
+            </figure>
+            <figure class="cs-finding-detail">
+              <div class="cs-finding-detail-card">
+                <p class="eyebrow">Decision</p>
+                <p class="cs-finding-detail-lead">10 <span class="cs-impact-arrow">→</span> 6</p>
+                <p class="cs-finding-detail-caption">mandatory steps — non-essential fields deferred to in-context prompts later in the flow</p>
+              </div>
+            </figure>
+          </div>
+        </div>
+
+        <hr class="section-divider cs-wide" />
+
+        <!-- The remaining findings: each card flips to reveal a synthetic, illustrative quote on
+             the back — on hover/focus on desktop, on tap on mobile (js/main.js toggles
+             .is-flipped for devices without real hover; see css/case-study.css for the matching
+             trigger and the reduced-motion handling). No caption: the flip is discoverable by
+             touch/pointer alone. -->
+        <ol class="cs-findings cs-row cs-wide">
+          <li>
+            <div class="cs-finding" tabindex="0">
+              <div class="cs-finding-flip">
+                <div class="cs-finding-flip-face cs-finding-flip-front">
+                  <h3>Overwhelming onboarding</h3>
+                  <p>Users struggled to understand where to begin and what to do next.</p>
+                </div>
+                <div class="cs-finding-flip-face cs-finding-flip-back">
+                  <p class="cs-finding-flip-quote">“I kept clicking through screens hoping the actual product would show up — by the third one I was checking if I’d even signed up for the right thing.”</p>
+                </div>
+              </div>
+            </div>
           </li>
-          <li class="cs-finding">
-            <h3>Minimal features, yet confusing</h3>
-            <p>Poor navigation and layout made interaction harder despite a limited feature set.</p>
+          <li>
+            <div class="cs-finding" tabindex="0">
+              <div class="cs-finding-flip">
+                <div class="cs-finding-flip-face cs-finding-flip-front">
+                  <h3>Minimal features, yet confusing</h3>
+                  <p>Poor navigation and layout made interaction harder despite a limited feature set.</p>
+                </div>
+                <div class="cs-finding-flip-face cs-finding-flip-back">
+                  <p class="cs-finding-flip-quote">“There isn’t that much to it, honestly, but I still had to guess where everything was.”</p>
+                </div>
+              </div>
+            </div>
           </li>
-          <li class="cs-finding">
-            <h3>Content overload</h3>
-            <p>Too much information presented at once without hierarchy or structure.</p>
+          <li>
+            <div class="cs-finding" tabindex="0">
+              <div class="cs-finding-flip">
+                <div class="cs-finding-flip-face cs-finding-flip-front">
+                  <h3>Unfriendly visuals</h3>
+                  <p>UI lacked consistency, space, and visual clarity.</p>
+                </div>
+                <div class="cs-finding-flip-face cs-finding-flip-back">
+                  <p class="cs-finding-flip-quote">“It felt more like a settings panel than something I was supposed to enjoy using.”</p>
+                </div>
+              </div>
+            </div>
           </li>
-          <li class="cs-finding">
-            <h3>Unfriendly visuals</h3>
-            <p>UI lacked consistency, space, and visual clarity.</p>
-          </li>
-          <li class="cs-finding">
-            <h3>Low guidance for configuration/testing</h3>
-            <p>Users didn't know how to set up or test assistants without external help.</p>
+          <li>
+            <div class="cs-finding" tabindex="0">
+              <div class="cs-finding-flip">
+                <div class="cs-finding-flip-face cs-finding-flip-front">
+                  <h3>Low guidance for configuration/testing</h3>
+                  <p>Users didn't know how to set up or test assistants without external help.</p>
+                </div>
+                <div class="cs-finding-flip-face cs-finding-flip-back">
+                  <p class="cs-finding-flip-quote">“I finished setting it up but had no idea if it actually worked — I had to ask someone to double-check it for me.”</p>
+                </div>
+              </div>
+            </div>
           </li>
         </ol>
       </div>
@@ -210,7 +288,7 @@
       </div>
     </section>
 
-    <!-- 6 · SOLUTION — the IA as grouped boxes, then three real screens in device frames (placeholders) -->
+    <!-- 6 · SOLUTION — the IA as grouped boxes; the device showcase below carries the screens -->
     <section id="solution" class="section">
       <div class="container">
         <h2 class="section-title">Solution</h2>
@@ -235,21 +313,89 @@
             <ul class="cs-ia-items"><li>Notifications</li><li>Support</li><li>Plan &amp; credits</li></ul>
           </div>
         </div>
+      </div>
+    </section>
 
-        <div class="cs-row cs-wide cs-devices">
-          <figure class="cs-figure">
-            <div class="cs-device"><div class="cs-screen" role="img" aria-label="Placeholder: Playground screen"><span class="cs-media-label">solution-screens-1.png</span></div></div>
-            <figcaption>Playground — the assistant tools group</figcaption>
-          </figure>
-          <figure class="cs-figure">
-            <div class="cs-device"><div class="cs-screen" role="img" aria-label="Placeholder: Data Cloud upload screen"><span class="cs-media-label">solution-screens-2.png</span></div></div>
-            <figcaption>Data Cloud upload — one required content type</figcaption>
-          </figure>
-          <figure class="cs-figure">
-            <div class="cs-device"><div class="cs-screen" role="img" aria-label="Placeholder: Business tools screen"><span class="cs-media-label">solution-screens-3.png</span></div></div>
-            <figcaption>Business tools group</figcaption>
-          </figure>
+    <!-- DEVICE SHOWCASE v4 — supplementary visual: two transparent-background device frame
+         PNGs (desktop-frame.png, phone-frame.png — both 2000×1536, same canvas, so they stack
+         directly with no offset math), with two synced screenshot crossfade overlays sized (in
+         css/case-study.css) to each frame's actual screen slot (measured, do not re-measure or
+         eyeball). The phone frame's own transparency means the monitor overlay no longer needs a
+         cut-out for it. Reinforces Solution without adding new narrative, so it carries no
+         section title/divider of its own, sits outside any <section>, and is aria-hidden —
+         nothing here is content beyond what Solution already says in words.
+
+         Real Lexi screens (assets/images/projects/lexi-screens/), one panel per file, in file
+         order: the monitor overlay gets the 14 *-desktop.png shots, the phone overlay the 16
+         *-mobile*.png shots (packets 01 and 06 each have two mobile variants: content/nav and
+         chat-detail/chats-list). The phone overlay's panels are timed evenly (`--i`, its 0-based
+         index, drives its animation-delay in css/case-study.css — add/remove a panel and
+         renumber --i). The monitor overlay is NOT even: packets 01 and 06 each get one desktop
+         shot but two mobile ones, so their desktop panel is marked `cs-device-panel--double` and
+         held on screen twice as long — its own `--d` is a precomputed delay (in
+         --device-panel-duration units, not a simple index) that keeps every packet boundary
+         landing at the same moment on both overlays; see css/case-study.css for how it's
+         derived, and recompute the whole --d column if a monitor panel is added, removed or
+         reordered. -->
+    <div class="grid-12 cs-body">
+      <div class="cs-device-showcase cs-wide" aria-hidden="true">
+        <img class="cs-device-photo cs-device-photo--desktop" src="assets/images/projects/desktop-frame.png" width="2000" height="1536" loading="lazy" alt="" />
+        <div class="cs-device-overlay cs-device-overlay--monitor">
+          <div class="cs-device-panel cs-device-panel--double" style="--d: -14"><img class="cs-device-panel-img" src="assets/images/projects/lexi-screens/01-playground-empty-desktop.png" alt="" loading="lazy" /></div>
+          <div class="cs-device-panel" style="--d: -13"><img class="cs-device-panel-img" src="assets/images/projects/lexi-screens/02-playground-conversation-desktop.png" alt="" loading="lazy" /></div>
+          <div class="cs-device-panel" style="--d: -12"><img class="cs-device-panel-img" src="assets/images/projects/lexi-screens/03-playground-filters-desktop.png" alt="" loading="lazy" /></div>
+          <div class="cs-device-panel" style="--d: -11"><img class="cs-device-panel-img" src="assets/images/projects/lexi-screens/04-behavior-settings-desktop.png" alt="" loading="lazy" /></div>
+          <div class="cs-device-panel" style="--d: -10"><img class="cs-device-panel-img" src="assets/images/projects/lexi-screens/05-voice-call-desktop.png" alt="" loading="lazy" /></div>
+          <div class="cs-device-panel cs-device-panel--double" style="--d: -8"><img class="cs-device-panel-img" src="assets/images/projects/lexi-screens/06-chats-list-desktop.png" alt="" loading="lazy" /></div>
+          <div class="cs-device-panel" style="--d: -7"><img class="cs-device-panel-img" src="assets/images/projects/lexi-screens/07-chats-filtered-desktop.png" alt="" loading="lazy" /></div>
+          <div class="cs-device-panel" style="--d: -6"><img class="cs-device-panel-img" src="assets/images/projects/lexi-screens/08-contact-info-desktop.png" alt="" loading="lazy" /></div>
+          <div class="cs-device-panel" style="--d: -5"><img class="cs-device-panel-img" src="assets/images/projects/lexi-screens/09-takeover-modal-desktop.png" alt="" loading="lazy" /></div>
+          <div class="cs-device-panel" style="--d: -4"><img class="cs-device-panel-img" src="assets/images/projects/lexi-screens/10-leads-list-desktop.png" alt="" loading="lazy" /></div>
+          <div class="cs-device-panel" style="--d: -3"><img class="cs-device-panel-img" src="assets/images/projects/lexi-screens/11-datacloud-text-desktop.png" alt="" loading="lazy" /></div>
+          <div class="cs-device-panel" style="--d: -2"><img class="cs-device-panel-img" src="assets/images/projects/lexi-screens/12-datacloud-files-desktop.png" alt="" loading="lazy" /></div>
+          <div class="cs-device-panel" style="--d: -1"><img class="cs-device-panel-img" src="assets/images/projects/lexi-screens/13-integrations-desktop.png" alt="" loading="lazy" /></div>
+          <div class="cs-device-panel" style="--d: 0"><img class="cs-device-panel-img" src="assets/images/projects/lexi-screens/14-integration-website-setup-desktop.png" alt="" loading="lazy" /></div>
         </div>
+        <img class="cs-device-photo cs-device-photo--phone" src="assets/images/projects/phone-frame.png" width="2000" height="1536" loading="lazy" alt="" />
+        <div class="cs-device-overlay cs-device-overlay--phone">
+          <div class="cs-device-panel" style="--i: 0"><img class="cs-device-panel-img" src="assets/images/projects/lexi-screens/01-playground-empty-mobile-content.png" alt="" loading="lazy" /></div>
+          <div class="cs-device-panel" style="--i: 1"><img class="cs-device-panel-img" src="assets/images/projects/lexi-screens/01-playground-empty-mobile-nav.png" alt="" loading="lazy" /></div>
+          <div class="cs-device-panel" style="--i: 2"><img class="cs-device-panel-img" src="assets/images/projects/lexi-screens/02-playground-conversation-mobile.png" alt="" loading="lazy" /></div>
+          <div class="cs-device-panel" style="--i: 3"><img class="cs-device-panel-img" src="assets/images/projects/lexi-screens/03-playground-filters-mobile.png" alt="" loading="lazy" /></div>
+          <div class="cs-device-panel" style="--i: 4"><img class="cs-device-panel-img" src="assets/images/projects/lexi-screens/04-behavior-settings-mobile.png" alt="" loading="lazy" /></div>
+          <div class="cs-device-panel" style="--i: 5"><img class="cs-device-panel-img" src="assets/images/projects/lexi-screens/05-voice-call-mobile.png" alt="" loading="lazy" /></div>
+          <div class="cs-device-panel" style="--i: 6"><img class="cs-device-panel-img" src="assets/images/projects/lexi-screens/06-chat-detail-mobile.png" alt="" loading="lazy" /></div>
+          <div class="cs-device-panel" style="--i: 7"><img class="cs-device-panel-img" src="assets/images/projects/lexi-screens/06-chats-list-mobile.png" alt="" loading="lazy" /></div>
+          <div class="cs-device-panel" style="--i: 8"><img class="cs-device-panel-img" src="assets/images/projects/lexi-screens/07-chats-filtered-mobile.png" alt="" loading="lazy" /></div>
+          <div class="cs-device-panel" style="--i: 9"><img class="cs-device-panel-img" src="assets/images/projects/lexi-screens/08-contact-info-mobile.png" alt="" loading="lazy" /></div>
+          <div class="cs-device-panel" style="--i: 10"><img class="cs-device-panel-img" src="assets/images/projects/lexi-screens/09-takeover-modal-mobile.png" alt="" loading="lazy" /></div>
+          <div class="cs-device-panel" style="--i: 11"><img class="cs-device-panel-img" src="assets/images/projects/lexi-screens/10-leads-list-mobile.png" alt="" loading="lazy" /></div>
+          <div class="cs-device-panel" style="--i: 12"><img class="cs-device-panel-img" src="assets/images/projects/lexi-screens/11-datacloud-text-mobile.png" alt="" loading="lazy" /></div>
+          <div class="cs-device-panel" style="--i: 13"><img class="cs-device-panel-img" src="assets/images/projects/lexi-screens/12-datacloud-files-mobile.png" alt="" loading="lazy" /></div>
+          <div class="cs-device-panel" style="--i: 14"><img class="cs-device-panel-img" src="assets/images/projects/lexi-screens/13-integrations-mobile.png" alt="" loading="lazy" /></div>
+          <div class="cs-device-panel" style="--i: 15"><img class="cs-device-panel-img" src="assets/images/projects/lexi-screens/14-integration-website-setup-mobile.png" alt="" loading="lazy" /></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DESIGN SYSTEM — a real subsection (title + divider, standard .section rhythm), unlike
+         the device showcase above: this is reference content, not a placeholder loop, so it
+         earns a heading. Not one of the template's nine blocks and not listed in Contents; it
+         supplements Solution. Reference sheet (design-system.png) exported from Figma, shown
+         contained (.cs-figure.cs-wide) like the page's other visuals, not full-bleed. -->
+    <section id="design-system" class="section">
+      <div class="container">
+        <h2 class="section-title">Design System</h2>
+        <hr class="section-divider" />
+      </div>
+      <div class="grid-12 cs-body">
+        <div class="cs-prose">
+          <p>Every screen above draws from one design system I built and maintained throughout the project: consistent colour and opacity tokens, and a shared set of components reused across both the Assistant tools and Business tools sides of the product.</p>
+          <p>Colour and opacity tokens, button anatomy with spacing annotations, and the full state matrix for buttons and inputs — the same components reused across every screen.</p>
+        </div>
+        <figure class="cs-figure cs-wide">
+          <img src="assets/images/projects/design-system.png" alt="Design system reference: color and opacity tokens, button anatomy with spacing annotations, button states across filled, outlined and text styles, and input states" loading="lazy" />
+        </figure>
       </div>
     </section>
 
@@ -284,7 +430,7 @@
         <div class="cs-impact cs-impact--tiles">
           <div class="cs-impact-tile">
             <p class="cs-impact-lead">30% <span class="cs-impact-arrow">→</span> 15%</p>
-            <p class="cs-impact-body">users lost during onboarding</p>
+            <p class="cs-impact-body">Onboarding drop-off</p>
           </div>
           <div class="cs-impact-tile">
             <p class="cs-impact-lead">15–20 min <span class="cs-impact-arrow">→</span> 5–7 min</p>
@@ -292,7 +438,7 @@
           </div>
           <div class="cs-impact-tile">
             <p class="cs-impact-lead">7 <span class="cs-impact-arrow">→</span> 6</p>
-            <p class="cs-impact-body">mandatory onboarding steps</p>
+            <p class="cs-impact-body">Mandatory steps</p>
           </div>
           <div class="cs-impact-tile">
             <p class="cs-impact-lead">Same system, second product</p>

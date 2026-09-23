@@ -22,7 +22,7 @@
 
 /* Subtitle under the Hook: body face at the hero paragraph size, so the Hook stays the largest type. */
 .cs-hook-subtitle {
-  margin: var(--space-3) 0 0;
+  margin: calc(var(--space-2) / 1.5) 0 0; /* --space-3 (24px) / 1.5 / 1.5 = 10.67px, no token match */
   font-size: var(--fs-lg);
 }
 
@@ -82,8 +82,16 @@
   row-gap: var(--space-5);
 }
 
+/* The box hugs its own content instead of being forced to a fixed column span: grid-column is
+   the full row (so the track is never the limit), and width: fit-content sizes the box to its
+   content's natural width (longest value, e.g. Team) and keeps that width as the viewport
+   narrows. Only once the row itself gets narrower than that content width does the box start
+   shrinking with it, 1:1, until the value text has nowhere left to go but wrap. Applies at every
+   width, including the mobile stack, where grid-column stops applying but width does not. */
 .cs-facts {
-  grid-column: 1 / 5; /* columns 1–4 */
+  grid-column: 1 / -1;
+  width: fit-content;
+  justify-self: start;
 }
 
 .cs-facts-list {
@@ -349,6 +357,194 @@
   font-weight: 600;
 }
 
+/* Solution: device showcase v4 — two transparent-background frame PNGs (desktop-frame.png,
+   phone-frame.png, both 2000×1536 on the same canvas, so they stack with inset: 0 and no offset
+   math), sitting directly after Solution's own content, before Evolution. Supplementary
+   reinforcement of Solution, not new narrative, so it carries no section title of its own (see
+   the markup comment in ai-assistant-platform.html) and is aria-hidden, since nothing here is
+   content beyond what Solution already says in words. Two overlays crossfade the real Lexi
+   screenshots inside each frame's actual screen.
+
+   Stacking, bottom to top: desktop-frame.png, the monitor's screenshot overlay, phone-frame.png,
+   the phone's screenshot overlay. Because the phone frame is its own image with a transparent
+   background (not a shared photo), it only ever paints its own device pixels — the monitor
+   overlay needs no cut-out for it (unlike an earlier, photo-based pass): phone-frame.png simply
+   sits on top and covers whatever's beneath it wherever it has ink. */
+.cs-device-showcase {
+  --device-panel-duration: 2.1s; /* how long one screenshot gets before crossfading to the next (3s × 0.7, 30% faster) */
+  position: relative;
+  aspect-ratio: 2000 / 1536; /* both frame images are position: absolute, so the wrapper itself
+                                 carries the ratio their normal-flow predecessor used to. */
+}
+
+.cs-device-photo {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.cs-device-photo--desktop {
+  z-index: 0;
+}
+
+.cs-device-photo--phone {
+  z-index: 2;
+}
+
+/* Each overlay's box is sized to its ACTUAL screen slot (top/left/width/height below), not to
+   the full showcase — that's the fix for a real bug: with the earlier inset:0 + clip-path
+   approach, the overlay's layout box was still the full 886×680-ish showcase (clip-path only
+   changes what paints, not the box itself), so every screenshot's object-fit: cover computed
+   its crop against that full, wrong-aspect-ratio box instead of the slot's own small one —
+   the monitor screen showed only a sliver of a way-too-zoomed-in crop, and the phone (a tall,
+   narrow slot) got a screenshot scaled against a wide landscape box, in effect blowing it up.
+   Sizing the box itself to the slot means object-fit: cover on the <img> inside (in the
+   .cs-device-panel-img rule below) crops correctly, and overflow: hidden + border-radius
+   (rather than clip-path) crop and round it — simpler, and clips real layout content instead of
+   only what paints. */
+.cs-device-overlay {
+  position: absolute;
+  overflow: hidden;
+}
+
+/* The monitor's own screen boundary, measured as % of the full 2000×1536 canvas, verified
+   against desktop-frame.png directly (not eyeballed, not reused from the old photo): top 2.995%,
+   left 2.35%, width 95.25%, height 69.987% (100% minus the right/bottom insets that measurement
+   gave). border-radius is 20px at the original 2000×1536 canvas size, re-expressed as % of this
+   box's OWN width/height (1905×1075px at that scale) rather than the full canvas, since
+   percentage border-radius resolves against the element's own box: 20/1905 and 20/1536×… — kept
+   as two axis-specific percentages, not one, so it scales as a true circle instead of an ellipse
+   (this box's own width and height aren't in the same proportion as the full canvas). */
+.cs-device-overlay--monitor {
+  z-index: 1;
+  top: 2.995%;
+  left: 2.35%;
+  width: 95.25%;
+  height: 69.987%;
+  border-radius: 1.05% / 1.86%;
+}
+
+/* The phone's own screen boundary, measured the same way against phone-frame.png, clearing its
+   camera cut-out at the top: top 41.406%, left 70.2%, width 21.05%, height 56.12%. Highest
+   z-index: the phone sits in front of the monitor. Square top corners, rounded bottom corners
+   only — border-radius corner order is top-left top-right bottom-right bottom-left, so the
+   first two of each axis pair are 0. The bottom radius is 50px at the original canvas size,
+   re-expressed (same reasoning as the monitor above) as % of this slot's own, much smaller box
+   (421×862px at that scale): 11.876% / 5.8%. */
+.cs-device-overlay--phone {
+  z-index: 3;
+  top: 41.406%;
+  left: 70.2%;
+  width: 21.05%;
+  height: 56.12%;
+  border-radius: 0 0 11.876% 11.876% / 0 0 5.8% 5.8%;
+}
+
+/* One panel per real Lexi screenshot (14 in the monitor overlay, 16 in the phone overlay — see
+   the markup comment in ai-assistant-platform.html), crossfading in place. Each overlay's own
+   sizing above fixes its box shape; the panels here just fill it, so the crossfade causes no
+   layout shift. */
+.cs-device-panel {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+.cs-device-panel-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Mobile screenshots are anchored to the bottom of their slot, not centred: cover-cropping then
+   trims from the top first, keeping each screen's bottom (nav bar, last list row, …) in frame.
+   The monitor keeps the default centred crop. */
+.cs-device-overlay--phone .cs-device-panel-img {
+  object-position: center bottom;
+}
+
+/* The phone overlay's 16 panels are evenly timed: --i (0-based file order) drives its
+   animation-delay directly, one slot each — add/remove a panel and renumber --i, nothing else
+   changes. See the "negative delay" note below for why it's inverted (15 − --i). */
+.cs-device-overlay--phone .cs-device-panel {
+  animation: cs-device-crossfade-phone calc(var(--device-panel-duration) * 16) linear infinite;
+  animation-delay: calc(var(--device-panel-duration) * -1 * (15 - var(--i)));
+}
+
+/* The monitor overlay is NOT evenly timed. Packets 01 and 06 each have one desktop shot but two
+   mobile ones (see the phone overlay's file list); to keep every packet switching on both
+   overlays at the same moment, the 01 and 06 desktop panels (.cs-device-panel--double) are held
+   for 2 slot-units instead of 1 — so the monitor's 14 panels add up to 12×1 + 2×2 = 16 units,
+   exactly matching the phone's 16 even ones, and both overlays share one 16-unit total duration.
+   Because the units are no longer even, delay can't be a simple formula on --i any more: each
+   panel's --d is precomputed (see the table in the markup comment) as (start of the NEXT
+   panel's unit, wrapping past the last back to 0) − 16, which is what keeps every packet
+   boundary landing at the same instant on both overlays. Recompute the whole --d column if a
+   monitor panel is ever added, removed or reordered. */
+.cs-device-overlay--monitor .cs-device-panel {
+  animation: cs-device-crossfade-monitor calc(var(--device-panel-duration) * 16) linear infinite;
+  animation-delay: calc(var(--device-panel-duration) * var(--d));
+}
+
+.cs-device-overlay--monitor .cs-device-panel--double {
+  animation-name: cs-device-crossfade-monitor-double;
+}
+
+/* Why the delay is negative: a positive delay means the animation hasn't started yet at page
+   load, so every panel but one would sit at its unanimated opacity: 0 (the dark, blank frame)
+   for up to 15 panel-durations before joining in. A negative delay instead treats every panel's
+   animation as already under way at t = 0, so the whole crossfade is mid-cycle and never blank
+   from the first paint — which is also why the phone's delay above inverts --i (15 − --i): a
+   negative delay plays a panel's pulse *sooner* the larger its magnitude, so the index needs
+   flipping to still advance in ascending file order (0, 1, 2, …) rather than backwards. */
+
+/* Each single-unit panel's own pulse (rise, hold, fall) is wider than its 1/16th unit by 0.175
+   units on either side, so it overlaps the panels immediately before and after it — that overlap
+   is the crossfade itself, and it's why no two panels are ever both at opacity 0 at once (the
+   old bug: panels that only ever touched at a single instant left a moment where the outgoing
+   one had reached 0 and the incoming one hadn't yet left 0, showing the bare frame). 0.175 (half
+   of the original 0.35) is a deliberately snappier switch: the fade itself covers 2×0.175 = 0.35
+   of a unit's time — half what it did before — with the rest of the unit held at full opacity,
+   so screens change over noticeably faster without changing how long each one stays on screen.
+   Centred on 50% purely so the numbers read cleanly; the actual on-screen order comes from each
+   panel's animation-delay, not from where its pulse sits in this shared keyframe. unit = 100/16. */
+@keyframes cs-device-crossfade-monitor {
+  0%, 45.78125%, 54.21875%, 100% { opacity: 0; }
+  47.96875%, 52.03125% { opacity: 1; }
+}
+
+/* Same shape, but for a .cs-device-panel--double: its pulse is as much wider (spanning 2 units,
+   not 1) as its held time is longer, using the same 0.175-unit overlap on each side. */
+@keyframes cs-device-crossfade-monitor-double {
+  0%, 41.5625%, 58.4375%, 100% { opacity: 0; }
+  45.9375%, 54.0625% { opacity: 1; }
+}
+
+/* Same shape as the monitor's single-unit panels above, at the phone's own 1/16th unit (both
+   overlays share the same 16-unit cycle, so the numbers are identical). */
+@keyframes cs-device-crossfade-phone {
+  0%, 45.78125%, 54.21875%, 100% { opacity: 0; }
+  47.96875%, 52.03125% { opacity: 1; }
+}
+
+/* Same pattern as .cs-finding-flip in Discovery: reduced motion freezes the component instead
+   of animating it. Here that means every panel stops on the first screenshot in each overlay —
+   :first-child rather than an --i match, since the monitor's panels no longer
+   carry --i at all. */
+@media (prefers-reduced-motion: reduce) {
+  .cs-device-panel {
+    animation: none;
+    opacity: 0;
+  }
+
+  .cs-device-panel:first-child {
+    opacity: 1;
+  }
+}
+
 /* Evolution: a flat, horizontal timeline. Deliberately unlike Solution (no frames). */
 .cs-timeline {
   list-style: none;
@@ -507,34 +703,117 @@
   max-width: 52ch;
 }
 
-/* Discovery: key findings as numbered cards. */
+/* Discovery: "Content overload" gets expanded treatment — evidence, the insight that drove the
+   decision, and the decision itself, always visible (see the markup comment). .cs-row (the
+   existing "single row on desktop, stacked on a phone" pattern already used for Process
+   variants, Solution screens and Evolution milestones) supplies the layout for both this row
+   and the findings list below; nothing new to build there. On desktop, .cs-row's default
+   align-items: stretch is what we want here (deliberately not overridden): the row's height
+   comes from its tallest card, which hugs its own content, and the shorter cards stretch to
+   match — height: 100% on the card itself (below) is what lets it actually fill that stretched
+   figure instead of just sitting at its own natural height inside it. On a phone, .cs-row
+   switches to one column per row (grid-auto-flow: row), so there's nothing to stretch to in the
+   first place — the same rule, no override needed, already does the right thing there too. */
+
+/* Separates the featured row from the numbered findings below it. .section-divider is normally
+   only ever seen inside .container (under a section title); .cs-body > .section-divider gives
+   it symmetric spacing for this different placement, and beats the base rule's own margin on
+   specificity (two classes vs. one) regardless of source order. Same on a phone: nothing about
+   a plain <hr> depends on the row/stack layout above or below it. */
+.cs-body > .section-divider {
+  margin: var(--space-4) 0;
+}
+
+.cs-finding-detail {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+/* Top-aligned, including Insight's quote — the natural reading order, and consistent with the
+   four flip cards below (front face: also top-aligned; see .cs-finding-flip-face). */
+.cs-finding-detail-card {
+  height: 100%;
+  padding: var(--space-3);
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Reuses .eyebrow verbatim (uppercase, the same weight) — the page's established "small label
+   above something" treatment (the Hook eyebrow, Quick facts, Contents) — for each card's own
+   Evidence/Insight/Decision label, now inside the card instead of a figcaption below it. */
+.cs-finding-detail-card .eyebrow {
+  margin: 0 0 var(--space-2);
+}
+
+.cs-finding-detail-lead {
+  margin: 0 0 var(--space-1);
+  font-size: var(--fs-lg);
+  color: var(--color-text);
+}
+
+.cs-finding-detail-caption {
+  margin: 0;
+  font-size: var(--fs-sm);
+  color: var(--color-text);
+}
+
+.cs-finding-detail-quote {
+  margin: 0;
+  font-size: var(--fs-sm);
+  line-height: 1.45;
+  font-style: italic;
+  color: var(--color-text);
+}
+
+/* Discovery: the remaining findings, one card per finding. */
 .cs-findings {
   list-style: none;
   margin: 0;
   padding: 0;
   counter-reset: finding;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
-  gap: var(--space-3) var(--grid-gap);
 }
 
+.cs-findings > li {
+  display: flex;
+  flex-direction: column;
+}
+
+/* height: 100% mirrors .cs-finding-detail-card above: .cs-findings > li is stretched to the row's
+   tallest card by .cs-row's default align-items: stretch, and this is what lets .cs-finding
+   itself actually fill that stretched height (min-height stays as a floor for the stacked mobile
+   layout, where there's no row to stretch to). */
 .cs-finding {
+  position: relative;
   counter-increment: finding;
   padding: var(--space-3);
   background: var(--color-surface);
   border-radius: var(--radius);
   box-shadow: var(--shadow-card);
+  min-height: 10.5rem;
+  height: 100%;
+  perspective: 60rem;
 }
 
-.cs-finding::before {
+/* The counter lives on the front face specifically, not on .cs-finding itself: both faces are
+   opaque (below), so a pseudo-element on the non-flipping outer card would just sit permanently
+   hidden underneath whichever face is on top. counter-increment stays on .cs-finding — one
+   count per real card, regardless of which of its children displays it. Same text style as
+   .eyebrow (the Evidence/Insight/Decision labels above), reused verbatim rather than by class
+   since a pseudo-element can't carry one. */
+.cs-finding-flip-front::before {
   content: counter(finding, decimal-leading-zero);
   display: block;
   margin-bottom: var(--space-1);
   font-family: var(--font-heading);
-  font-size: var(--fs-sm);
-  font-weight: 600;
+  text-transform: uppercase;
   letter-spacing: var(--tracking-wide);
+  font-size: var(--fs-sm);
   color: var(--color-text-muted);
+  font-weight: 600;
 }
 
 .cs-finding h3 {
@@ -546,6 +825,68 @@
   margin: 0;
   font-size: var(--fs-sm);
   color: var(--color-text);
+}
+
+/* Each finding card flips on hover/focus to reveal a synthetic, illustrative quote on the back —
+   deliberately separate from .cs-quote (Problem), which carries real, attributed research.
+   Keyboard users reach it the same way mouse users do: the card is focusable (tabindex) and
+   :focus / :focus-within trigger the same flip as :hover. Only the back face is taken out of
+   flow (position: absolute, below) to overlay the front; the front stays in normal flow so its
+   real content — not an arbitrary fixed box — sets .cs-finding-flip's height, which is what lets
+   the tallest card's front face determine the row's height and the shorter cards' fronts stretch
+   to match (height: 100%, cascading down from .cs-finding, same mechanism as the 3-card row
+   above). Both faces are opaque and backface-hidden, so neither ever shows through the other —
+   only .cs-finding-flip's own transform changes. perspective lives on .cs-finding (the static
+   parent), not on the rotating element itself. */
+.cs-finding-flip {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.5s ease;
+}
+
+/* .is-flipped: a tap-to-toggle class js/main.js applies on devices without real hover (phones,
+   tablets — see its own comment for why), so the flip is reachable by touch, not just a mouse. */
+.cs-finding:hover .cs-finding-flip,
+.cs-finding:focus .cs-finding-flip,
+.cs-finding:focus-within .cs-finding-flip,
+.cs-finding.is-flipped .cs-finding-flip {
+  transform: rotateY(180deg);
+}
+
+/* Top-aligned by default: the front face (number, heading, body text) reads top-down, the same
+   as the Evidence/Decision/Insight cards above. .cs-finding-flip-back overrides to centre instead
+   — a single quote on the back reads better centred than pinned to the top of empty space. */
+.cs-finding-flip-face {
+  width: 100%;
+  height: 100%;
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  backface-visibility: hidden;
+}
+
+.cs-finding-flip-back {
+  position: absolute;
+  inset: 0;
+  transform: rotateY(180deg);
+  justify-content: center;
+}
+
+.cs-finding-flip-quote {
+  margin: 0;
+  font-size: var(--fs-sm);
+  line-height: 1.45;
+  font-style: italic;
+  color: var(--color-text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-finding-flip {
+    transition: none;
+  }
 }
 
 /* Process: the Onboarding flow, before and after — two pairs of real exported images (a wide
@@ -830,6 +1171,16 @@
   .cs-devices > figure {
     flex: 0 0 min(16rem, calc(100vw - var(--space-2) - var(--space-3) - var(--space-5)));
     scroll-snap-align: start;
+  }
+
+  /* Monitor corners on a phone: square off the top corners entirely and halve the bottom ones
+     (half of the desktop 20px is 10px, re-expressed as % of this box's own 1905×1075px — same
+     reasoning as its base rule above). border-radius corner order is top-left top-right
+     bottom-right bottom-left, so only the last two of each axis pair carry a radius. The phone
+     overlay already gets this same top-square/bottom-halved treatment at every width (see its
+     base rule above), so it needs no separate mobile override here. */
+  .cs-device-overlay--monitor {
+    border-radius: 0 0 0.525% 0.525% / 0 0 0.93% 0.93%;
   }
 
   /* Timeline turns vertical. */

@@ -37,10 +37,11 @@ if (siteHeader) {
 }
 
 // Nav active state: underline the link for the current page (persistently, the same look
-// hover already has — see .nav-links a.is-active in css/components.css). "work" covers
-// work.html and every case study page, since they all live under Work; "about"/"contact" only
-// apply on the home page, and between the two follow scroll position (the Hero counts as
-// neither).
+// hover already has — see .nav-links a.is-active in css/components.css). "work" covers only
+// work.html itself, not the case study pages branching off it — a case study is a child of
+// Work, not Work itself, so its nav shows no active item, the same as the Hero on the home
+// page. "about"/"contact" only apply on the home page, and between the two follow scroll
+// position (the Hero counts as neither).
 const navLinksForActive = document.querySelectorAll(".nav-links a[data-nav]");
 
 if (navLinksForActive.length) {
@@ -51,15 +52,8 @@ if (navLinksForActive.length) {
   };
 
   const page = location.pathname.split("/").pop() || "index.html";
-  const caseStudyPages = [
-    "ai-assistant-platform.html",
-    "case-study-2.html",
-    "case-study-3.html",
-    "case-study-4.html",
-    "case-study-template.html",
-  ];
 
-  if (page === "work.html" || caseStudyPages.includes(page)) {
+  if (page === "work.html") {
     setActiveNav("work");
   } else if (page === "index.html" || page === "") {
     const about = document.getElementById("about");
@@ -130,3 +124,18 @@ if (carousel) {
   window.addEventListener("resize", updateCarouselButtons);
   updateCarouselButtons();
 }
+
+// Discovery finding cards (case study pages): flip on hover where a device has real hover
+// (desktop — CSS handles that on its own), on tap where it doesn't (phones, tablets — the same
+// (hover: none) signal already used elsewhere on the site for this distinction). A toggle, not
+// one-shot: tapping a flipped card again turns it back. The listener is always attached, but
+// only acts on a hover: none device — checked at click time, not once at load, since a device's
+// emulated or actual touch capability isn't guaranteed to be settled yet the instant this script
+// first runs, and by the time someone actually taps, it always is.
+document.querySelectorAll(".cs-finding").forEach((card) => {
+  card.addEventListener("click", () => {
+    if (window.matchMedia("(hover: none)").matches) {
+      card.classList.toggle("is-flipped");
+    }
+  });
+});
