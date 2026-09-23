@@ -899,6 +899,15 @@
   grid-column: 1 / -1;
 }
 
+/* Process's "onboarding" label only — .cs-onb-title's own border-bottom (below) reads as a
+   divider under the label, and it's not wanted here; Discovery's "content overload" reuses
+   .cs-onb-title too (inside .cs-findings-featured, not .cs-onboarding) and keeps its divider, so
+   this is scoped to Process specifically rather than changing the shared class. */
+.cs-onboarding .cs-onb-title {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
 /* 25% smaller than a section title (--fs-xl), same weight, lowercase (not the uppercase a
    section title gets: this is a label inside Process, not a section of its own). */
 .cs-onb-title {
