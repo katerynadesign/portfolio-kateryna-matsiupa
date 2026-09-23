@@ -139,3 +139,22 @@ document.querySelectorAll(".cs-finding").forEach((card) => {
     }
   });
 });
+
+// Scroll-to-top button (every page: js/main.js and the button markup are both shared partials).
+// Appears once the hero — main > section, the first one, whatever its own id/class turns out to
+// be (id="top" on the home page, id="hook" everywhere else) — has scrolled out of the viewport;
+// hides again once scrolled back up into it. IntersectionObserver, the same technique already
+// used above for the home page's active-nav tracking, rather than a scroll listener.
+const scrollTopBtn = document.getElementById("scrollTop");
+const heroSection = document.querySelector("main > section");
+
+if (scrollTopBtn && heroSection && "IntersectionObserver" in window) {
+  const heroObserver = new IntersectionObserver(([entry]) => {
+    scrollTopBtn.classList.toggle("is-visible", !entry.isIntersecting);
+  });
+  heroObserver.observe(heroSection);
+
+  scrollTopBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+}

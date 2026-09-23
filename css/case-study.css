@@ -159,10 +159,14 @@
   row-gap: var(--space-4);
 }
 
-/* Columns 5–10 (6 of 12): measured at about 68–71 characters per line in Karla 16px.
-   Seven columns measured 79–84, which is too long to read comfortably. */
+/* Columns 7–12 (6 of 12, matching .section-content on the home page — see "Section anatomy" in
+   DESIGN-SYSTEM.md): measured at about 68–71 characters per line in Karla 16px, same as the
+   previous 5–10 position (still 6 of 12 columns, just shifted right, so the character count is
+   unchanged). Seven columns measured 79–84, which is too long to read comfortably. Cards and
+   figures are unaffected — .cs-wide, .cs-row and .cs-body > .cs-figure keep their own
+   grid-column, so only the plain text body moved. */
 .cs-prose {
-  grid-column: 5 / 11;
+  grid-column: 7 / 13;
 }
 
 .cs-prose p {
@@ -594,9 +598,12 @@
      .cs-impact--metric    there is a number: the figure, what it measures, how it was measured.
      .cs-impact--evidence  there is no number: a short claim, an honest statement of what can be
                            confirmed, and a note on why that is the proof available.
-   Both share the same slots (lead, body, note) and the same width. */
+   Both share the same slots (lead, body, note) and the same width as .cs-prose (columns 7–12,
+   moved there along with it at the user's request) — not .cs-figure's wider 5–12, since this is
+   text following the prose above it, not a visual. .cs-impact--tiles (Impact section) overrides
+   this back to full width via its own, more specific rule below. */
 .cs-impact {
-  grid-column: 5 / 13;
+  grid-column: 7 / 13;
 }
 
 /* Evidence only: names which kind of proof this is (continued engagement, adoption, quote, in production). */
@@ -691,9 +698,10 @@
 
 /* ---------- Components used by the AI Assistant Platform case ---------- */
 
-/* Problem: two user-research quotes, stacked. */
+/* Problem: two user-research quotes, stacked. Same column position as .cs-prose (7–12, moved
+   there along with it at the user's request). */
 .cs-quotes {
-  grid-column: 5 / 13;
+  grid-column: 7 / 13;
   display: grid;
   row-gap: var(--space-4);
 }
@@ -899,21 +907,13 @@
   grid-column: 1 / -1;
 }
 
-/* Process's "onboarding" label only — .cs-onb-title's own border-bottom (below) reads as a
-   divider under the label, and it's not wanted here; Discovery's "content overload" reuses
-   .cs-onb-title too (inside .cs-findings-featured, not .cs-onboarding) and keeps its divider, so
-   this is scoped to Process specifically rather than changing the shared class. */
-.cs-onboarding .cs-onb-title {
-  padding-bottom: 0;
-  border-bottom: none;
-}
-
 /* 25% smaller than a section title (--fs-xl), same weight, lowercase (not the uppercase a
-   section title gets: this is a label inside Process, not a section of its own). */
+   section title gets: this is a label inside a section, not a section of its own). No divider
+   under it — both reuses (Process's "onboarding", Discovery's "content overload", inside
+   .cs-findings-featured) had one at first, but neither wants it now, so it lives here on the
+   shared class rather than as two identical scoped overrides. */
 .cs-onb-title {
   margin: 0 0 var(--space-3);
-  padding-bottom: var(--space-2);
-  border-bottom: 1px solid var(--color-border);
   font-size: calc(var(--fs-xl) * 0.75);
   color: var(--color-text);
 }
@@ -1044,13 +1044,36 @@
   padding-bottom: 0;
 }
 
-/* Impact, third variant: several before → after figures side by side. */
+/* Impact, third variant: five before → after figures — three across the top row (4 columns
+   each), two across the second (6 columns each): 4+4+4 and 6+6 both fill the 12-column grid
+   exactly, so plain column spans (below) place all five with no explicit row assignment — the
+   third tile finishes row one at column 12, so the fourth wraps to row two on its own. Top-
+   aligned: align-items: start stops a tile's own box being stretched to the row's tallest
+   (grid's default, align-items: stretch, would otherwise do that). The arrangement itself (rows,
+   spans, alignment) is unchanged from the card version this replaces — only each tile's own
+   chrome is different, below. */
 .cs-impact--tiles {
   grid-column: 1 / -1;
   display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(0, 1fr);
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  align-items: start;
   column-gap: var(--grid-gap);
+  row-gap: var(--space-4);
+}
+
+/* Pull-quote rule, not a card: .cs-quote's own treatment (border-left, padding-left — see
+   above), at the user's request, in place of the earlier .cs-finding-detail-card look
+   (background/radius/shadow/padding, centred text). Left-aligned again, the rule's natural
+   reading direction — centred text against a left border reads oddly. */
+.cs-impact-tile {
+  grid-column: span 4;
+  padding-left: var(--space-3);
+  border-left: 1px solid var(--color-text);
+}
+
+.cs-impact-tile:nth-child(4),
+.cs-impact-tile:nth-child(5) {
+  grid-column: span 6;
 }
 
 .cs-impact--tiles .cs-impact-lead {
@@ -1254,8 +1277,15 @@
     margin-top: var(--space-4);
   }
 
-  .cs-impact--tiles {
-    grid-auto-flow: row;
-    row-gap: var(--space-4);
+  /* Stacked, one per row, full width — undoes the desktop-only 4/6-column spans above (per the
+     user's request: unchanged from how this already behaved before the two-row desktop layout).
+     Repeats the :nth-child(4)/(5) selectors, not just .cs-impact-tile alone: that pair's own
+     span-6 rule (above) is equally specific (one class + one pseudo-class) and would otherwise
+     still win at this width, since a media query changes nothing about specificity, only
+     whether its block applies at all. */
+  .cs-impact-tile,
+  .cs-impact-tile:nth-child(4),
+  .cs-impact-tile:nth-child(5) {
+    grid-column: 1 / -1;
   }
 }
