@@ -191,11 +191,27 @@
           <p><em>Trade-off:</em> extra screen transitions in return for one decision at a time on a small screen.</p>
         </div>
 
-        <figure class="cs-figure">
-          <!-- PLACEHOLDER: 05-three-steps.png not exported yet (Figma frames 1:1430, 1:1805, 1:1818). -->
-          <img src="assets/images/projects/invoicer/05-three-steps.png" alt="Three iPhone screens of the invoice flow: Step 1 with a client selected, Step 2 with items and the pinned Subtotal, Tax and Total, Step 3 with dates and payment" loading="lazy" />
-          <figcaption>Step 1 client, Step 2 items, Step 3 payment.</figcaption>
-        </figure>
+        <!-- Decision 1 screens: the three steps and the Preview they lead to. Every screen row
+             on this page is .cs-devices--quarter: each screen one quarter of the row (four per
+             row), fewer screens centred, all the same size; .cs-devices turns it into the
+             existing horizontal snapping strip on a phone. No captions under screens, at
+             Kateryna's request. -->
+        <div class="cs-figure cs-wide">
+          <div class="cs-row cs-devices cs-devices--quarter">
+            <figure class="cs-figure">
+              <img src="assets/images/projects/invoicer/05-step-1-client.png" width="750" height="1624" alt="Step 1 of 3, Bill to: a saved client selected and the currency set to USD, with a Next button" loading="lazy" class="cs-screenshot" />
+            </figure>
+            <figure class="cs-figure">
+              <img src="assets/images/projects/invoicer/05-step-2-items.png" width="750" height="1624" alt="Step 2 of 3, Items: two items and an Add item button, with Subtotal, Tax and Total pinned above the Next button" loading="lazy" class="cs-screenshot" />
+            </figure>
+            <figure class="cs-figure">
+              <img src="assets/images/projects/invoicer/05-step-3-payment.png" width="750" height="1624" alt="Step 3 of 3: the invoice number and invoice date already filled in, the payment date, payment-method toggles, a payment instruction field and a Generate invoice button" loading="lazy" class="cs-screenshot" />
+            </figure>
+            <figure class="cs-figure">
+              <img src="assets/images/projects/invoicer/05-preview.png" width="750" height="1624" alt="Invoice preview: the generated invoice page, with Email and Share buttons below it" loading="lazy" class="cs-screenshot" />
+            </figure>
+          </div>
+        </div>
 
         <div class="cs-prose">
           <h3>Decision 2 — "Saved" as a reusable library</h3>
@@ -204,17 +220,42 @@
           <p><em>Trade-off:</em> one extra tab in the navigation.</p>
         </div>
 
-        <figure class="cs-figure">
-          <!-- PLACEHOLDER: 06-saved.png not exported yet (Figma frames 1:2098, 1:1508, 1:2195). -->
-          <img src="assets/images/projects/invoicer/06-saved.png" alt="Three iPhone screens: the saved clients list, the saved items list and the New Client modal" loading="lazy" />
-          <figcaption>Saved clients, saved items and the New Client modal.</figcaption>
-        </figure>
+        <!-- Decision 2 screens: the same .cs-row.cs-devices pattern as Decision 1. -->
+        <div class="cs-figure cs-wide">
+          <div class="cs-row cs-devices cs-devices--quarter">
+            <figure class="cs-figure">
+              <img src="assets/images/projects/invoicer/06-new-client-empty.png" width="750" height="1624" alt="Step 1 of 3 with a new client being entered: the name, street and city typed in, the remaining billing address and contact details fields still empty, and Add to saved switched off" loading="lazy" class="cs-screenshot" />
+            </figure>
+            <figure class="cs-figure">
+              <img src="assets/images/projects/invoicer/06-new-client-filled.png" width="750" height="1624" alt="The same new-client form filled in: billing address and contact details completed, and Add to saved switched on" loading="lazy" class="cs-screenshot" />
+            </figure>
+            <figure class="cs-figure">
+              <img src="assets/images/projects/invoicer/06-clients.png" width="750" height="1624" alt="Saved clients list: each client with a contact email, an add button, and the tab bar with Saved selected" loading="lazy" class="cs-screenshot" />
+            </figure>
+          </div>
+        </div>
 
         <div class="cs-prose">
           <h3>Decision 3 — Three tabs: Invoices, Saved, Account</h3>
           <p>Earnings live under Account, so the home tab stays on the invoice list and the create action. The first-run empty state ("No invoices yet") leads straight to creation.</p>
           <p><em>Alternative:</em> a dashboard as the home screen.</p>
           <p><em>Trade-off:</em> the earnings overview sits one tap away, under Account.</p>
+        </div>
+
+        <!-- Decision 3 screens: one per tab, in tab-bar order (Invoices, Saved, Account), the same
+             .cs-row.cs-devices pattern as Decisions 1 and 2. -->
+        <div class="cs-figure cs-wide">
+          <div class="cs-row cs-devices cs-devices--quarter">
+            <figure class="cs-figure">
+              <img src="assets/images/projects/invoicer/07-tab-invoices.png" width="750" height="1624" alt="Invoices tab: the invoice list filtered by All, Open and Paid, grouped by Today and This month, with a create button and the tab bar" loading="lazy" class="cs-screenshot" />
+            </figure>
+            <figure class="cs-figure">
+              <img src="assets/images/projects/invoicer/07-tab-saved.png" width="750" height="1624" alt="Saved tab: saved items with SKU and price, a switch between Items and Clients, and a create button" loading="lazy" class="cs-screenshot" />
+            </figure>
+            <figure class="cs-figure">
+              <img src="assets/images/projects/invoicer/07-tab-account.png" width="750" height="1624" alt="Account tab: a weekly earnings chart, the Your plan and Restore purchases rows, and the tab bar" loading="lazy" class="cs-screenshot" />
+            </figure>
+          </div>
         </div>
 
         <figure class="cs-figure cs-wide">
@@ -260,7 +301,6 @@
         <figure class="cs-figure">
           <!-- PLACEHOLDER: 09-states.png not exported yet (Figma frames 1:1620, 1:1493, 1:1857, 1:1980). -->
           <img src="assets/images/projects/invoicer/09-states.png" alt="Four iPhone screens: currency search, the drafts list, the date picker and the invoice preview" loading="lazy" />
-          <figcaption>Currencies, Drafts, Date Picker and invoice Preview.</figcaption>
         </figure>
       </div>
     </section>

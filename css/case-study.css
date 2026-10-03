@@ -361,6 +361,26 @@
   font-weight: 600;
 }
 
+/* Real app screenshots in a row (Invoicer). .cs-devices--quarter fixes every screen at one
+   quarter of the row — the size four screens get side by side — so rows of three are the same
+   size as rows of four instead of stretching wider, and centres a shorter row. Desktop only:
+   on a phone .cs-devices is already a horizontal strip of equal-width screens (see "Mobile").
+   Scoped to its own modifier because the placeholder case studies' .cs-devices rows hold five
+   framed screens, which a quarter width would overflow. */
+@media (min-width: 721px) {
+  .cs-row.cs-devices--quarter {
+    grid-auto-columns: calc((100% - 3 * var(--grid-gap)) / 4);
+    justify-content: center;
+  }
+}
+
+/* An iPhone screenshot's own display corners, proportional to its size: 39pt on a 375 × 812pt
+   screen (the 750 × 1624px exports at 2×), so 10.4% of the width / 4.8% of the height — a
+   circular corner at any rendered size. */
+.cs-screenshot {
+  border-radius: 10.4% / 4.8%;
+}
+
 /* Solution: device showcase v4 — two transparent-background frame PNGs (desktop-frame.png,
    phone-frame.png, both 2000×1536 on the same canvas, so they stack with inset: 0 and no offset
    math), sitting directly after Solution's own content, before Evolution. Supplementary

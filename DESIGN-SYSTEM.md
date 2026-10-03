@@ -472,10 +472,29 @@ existing components — no new CSS — with these differences from the reference
   section's background — not `.cs-device-showcase`, which only fits the Lexi desktop + phone
   frames. `.cs-hook--bg`'s scrim (`aspect-ratio: 1440 / 993`) and `--hook-overlap: 24%` are sized
   for the Lexi image; this one's ratio (1.460 vs 1.450) is within 1% of it, so the scrim lines up
-  with no CSS change. Also used as the image of the Invoicer card on `work.html`.
+  with no CSS change. The Invoicer card on `work.html` has its own square image,
+  `00-card.webp` (2000 × 2000, the same phone without the fade), since the card shows a 1:1 crop.
 - **Quick facts** has four rows (role, format, platform, duration); Context is prose only.
 - **Key decisions:** each decision is a `.cs-prose` block (an `h3`, the text, *Alternative* and
-  *Trade-off* lines) followed by its figure, all in one `.cs-body`.
+  *Trade-off* lines) followed by its screens, all in one `.cs-body`. Each decision's screens are
+  real app screenshots (750 × 1624, an iPhone at 2×) in a `.cs-row.cs-devices.cs-devices--quarter`
+  inside a `div.cs-figure.cs-wide`, **with no captions under screens**, at Kateryna's request:
+  - Decision 1: `05-step-1-client.png`, `05-step-2-items.png`, `05-step-3-payment.png`,
+    `05-preview.png` (the Preview sits here at Kateryna's request, though the brief's image
+    table lists it under IMG 09).
+  - Decision 2: `06-new-client-empty.png`, `06-new-client-filled.png`, `06-clients.png`.
+  - Decision 3: `07-tab-invoices.png`, `07-tab-saved.png`, `07-tab-account.png` (tab-bar
+    order), above the IA diagram placeholder.
+- **`.cs-devices--quarter`** (new, `css/case-study.css`): on desktop every screen is one quarter
+  of the row — 256px on the 1120px grid, the size four screens get side by side — so rows of
+  three match rows of four instead of stretching to 352px, and a shorter row is centred
+  (`justify-content: center`; measured at 1400px: 144px either side of a row of three). On a
+  phone `.cs-devices`' own horizontal strip applies unchanged (256px screens). A modifier, not a
+  change to `.cs-devices`, because the placeholder case studies' rows hold five framed screens.
+- **`.cs-screenshot`** (new): an iPhone screenshot's display corners, `border-radius: 10.4% /
+  4.8%` — 39pt on a 375 × 812pt screen as a share of width and height, so the corner stays
+  circular and in proportion at any rendered size.
+- IMG 09's caption was removed too, since it is a row of screens.
 - **Two paths (IMG 08):** one `.cs-onb-flow` inside `.cs-onboarding` (both paths in one image,
   `08-paths-horizontal.png` / `-vertical.png`, the same `<picture>` swap as Process on the
   reference page), with no `.cs-onb-title`.
