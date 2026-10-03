@@ -39,7 +39,9 @@ portfolio-site/
 │       ├── logo-mark.png       logo.png cropped tight and recoloured navy, used in the header
 │       ├── favicon.png         the favicon (logo-mark.png centred on a square canvas)
 │       ├── favicon.svg         unused now; kept, not referenced by any page
-│       └── projects/           project images go here
+│       └── projects/           project images, one folder per case study:
+│           ├── ai-assistant-platform/   every image of that case (lexi-screens/ inside)
+│           └── invoicer/                Invoicer images (not exported yet)
 ├── DESIGN-SYSTEM.md            tokens, layout and typography rules, components
 └── CASE-STUDY-TEMPLATE.md      what a case study contains and which projects get one
 ```
@@ -130,9 +132,9 @@ GitHub Pages, served from the `main` branch root: Settings → Pages → Source:
       thumbnails (currently a static placeholder)
 - [ ] Fill in `case-study-2.html` … `4.html` (placeholders that repeat the template)
 - [ ] Export the one image the AI Assistant Platform page is still waiting for, optional:
-      `evolution-whitelabel-1.png` / `2.png`, into `assets/images/projects/`
+      `evolution-whitelabel-1.png` / `2.png`, into `assets/images/projects/ai-assistant-platform/`
 - [ ] Export the Invoicer images (`01-hero.png` … `11-spec.png`, plus `08-paths-horizontal.png` /
-      `-vertical.png`) into `assets/images/projects/`; the page already points at every filename
+      `-vertical.png`) into `assets/images/projects/invoicer/`; the page already points at every filename
       (list and Figma frames in its `PLACEHOLDER` comments), and its `work.html` card has no image
       until `01-hero.png` exists
 - [ ] Add `assets/cv.pdf` (the "download cv" link points at it and the file does not exist yet)
