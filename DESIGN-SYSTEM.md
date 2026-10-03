@@ -408,7 +408,7 @@ first). Components built for it, all in `css/case-study.css`:
 | Component | Where | What it is |
 |---|---|---|
 | `.cs-hook-subtitle` | under the Hook | Optional subtitle: Karla at `--fs-lg` in the muted colour (the hero paragraph style), so the Hook stays the largest type. The Hook headline is the first sentence; the subtitle carries the rest of the approved hook copy. |
-| `.cs-hook--bg` | the Hook section | The hero image (`hero-alt.webp`, 2880×1986, blue gradient fading to white at the bottom) is the **background of the Hook section**, the same at every width. It is in normal flow at its own aspect ratio, so its height follows the width (259px at 375px, 965px at 1400px, 1324px at 1920px) and it is **never cropped**. The text block is pulled up over it (`--hook-overlap: 24%` of the width, so it scales with the picture): it starts at 65% of the image height, on the lower part of the laptop, on column 1 and limited to **8 of the 12 columns** on desktop (full width at ≤720px), and runs down past the bottom of the image. A scrim in the page background colour (`--color-bg` at the bottom of the image, opaque up to 30%, transparent at 65%; never white) keeps the text readable over the laptop and joins the image to the page below. `hero-desktop.png` and `hero-mobile.png` currently hold the same picture and are not referenced. |
+| `.cs-hook--bg` | the Hook section | The hero image (`hero-alt.webp`, 2880×1986, blue gradient fading to white at the bottom) is the **background of the Hook section**, the same at every width. It is in normal flow at its own aspect ratio, so its height follows the width (259px at 375px, 965px at 1400px, 1324px at 1920px) and it is **never cropped**. The section has `overflow: hidden`: on wide screens the overlap outgrows the text block, so without it the image and scrim spilled past the section and painted over Quick facts (measured at 1950px); what gets clipped is only the scrim's opaque bottom. The text block is pulled up over it (`--hook-overlap: 24%` of the width, so it scales with the picture): it starts at 65% of the image height, on the lower part of the laptop, on column 1 and limited to **8 of the 12 columns** on desktop (full width at ≤720px), and runs down past the bottom of the image. A scrim in the page background colour (`--color-bg` at the bottom of the image, opaque up to 30%, transparent at 65%; never white) keeps the text readable over the laptop and joins the image to the page below. `hero-desktop.png` and `hero-mobile.png` currently hold the same picture and are not referenced. |
 | Quick facts | after the Hook | The four facts of the Context brief (role, team, duration, engagement). It is not repeated as a second fact strip in Context. |
 | `.cs-quotes` | Problem | Two user-research quotes stacked in columns 7–12 (moved from 5–12 along with `.cs-prose` and `.cs-impact`, at the user's request — see "Text column" above), attributed "User research". |
 | `.cs-findings-featured` | Discovery | "content overload" (lowercase, like every other label on the page — `.cs-onb-title`, reused verbatim; not one of Contents' nine sections on this page), the finding that earns expanded treatment: three cards, always visible, in a `.cs-row` — Evidence (a stat), Insight (the user quote that drove the decision) and Decision (what changed, "10 → 6"). Each card's own label sits inside it, not in a caption below: `.eyebrow`, reused verbatim (uppercase, the same weight) — the page's established "small label above something" treatment (the Hook eyebrow, Quick facts, Contents). On desktop the row uses `.cs-row`'s default `align-items: stretch`, so the tallest card (Decision, with the most content) hugs its own height and the other two stretch to match it — a single shared card height across the row, not each card sized to its own content. All three top-align their content, including Insight's quote, the natural reading order (matches the flip cards' front face below). On mobile the row stacks to one column, where stretch is a no-op, so each card is exactly as tall as its own content. A `<hr class="section-divider cs-wide">` separates this three-card row from the four-card `.cs-findings` row below, at every width. |
@@ -482,7 +482,7 @@ existing components — no new CSS — with these differences from the reference
   - Decision 1: `05-step-1-client.png`, `05-step-2-items.png`, `05-step-3-payment.png`.
   - Decision 2: `06-new-client-empty.png`, `06-new-client-filled.png`, `06-clients.png`.
   - Decision 3: `07-tab-invoices.png`, `07-tab-saved.png`, `07-tab-account.png` (tab-bar
-    order), under the IA diagram (`07-ia.png`, 1098 × 864, a `.cs-figure.cs-figure--9`, no
+    order), under the IA diagram (`07-ia.webp`, 2000 × 1574, transparent background, sharp on retina at its 832px width; a `.cs-figure.cs-figure--9`, no
     caption), which comes first.
 - **`.cs-devices--quarter`** (new, `css/case-study.css`): on desktop every screen is one quarter
   of the row — 256px on the 1120px grid, the size four screens get side by side — so rows of
@@ -490,9 +490,11 @@ existing components — no new CSS — with these differences from the reference
   (`justify-content: center`; measured at 1400px: 144px either side of a row of three). On a
   phone `.cs-devices`' own horizontal strip applies unchanged (256px screens). A modifier, not a
   change to `.cs-devices`, because the placeholder case studies' rows hold five framed screens.
-- **`.cs-figure--9`** (new): a figure nine columns wide (4–12, `832px` on the 64px grid), between
-  the default figure (5–12) and `.cs-wide`, ending on the text column's right edge; height
-  follows the image's own ratio. Used for the IA diagram. No effect on a phone (one column).
+- **`.cs-figure--9`** (new): a figure nine columns wide (`832px` on the 64px grid: nine columns
+  plus eight gutters, fluid below 1168px), **centred horizontally** on the row rather than placed
+  on grid lines, since nine of twelve columns cannot be centred on whole columns; height follows
+  the image's own ratio. Used for the empathy map (`03-empathy-map.webp`, 2000 × 1900, Research,
+  no caption) and the IA diagram. Full width on a phone.
 - **`.cs-screenshot`** (new): an iPhone screenshot's display corners, `border-radius: 10.4% /
   4.8%` — 39pt on a 375 × 812pt screen as a share of width and height, so the corner stays
   circular and in proportion at any rendered size.

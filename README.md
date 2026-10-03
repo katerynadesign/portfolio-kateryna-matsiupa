@@ -133,7 +133,7 @@ GitHub Pages, served from the `main` branch root: Settings → Pages → Source:
 - [ ] Fill in `case-study-2.html` … `4.html` (placeholders that repeat the template)
 - [ ] Export the one image the AI Assistant Platform page is still waiting for, optional:
       `evolution-whitelabel-1.png` / `2.png`, into `assets/images/projects/ai-assistant-platform/`
-- [ ] Export the remaining Invoicer images (`03-empathy-map.png`, `04-scope.png`,
+- [ ] Export the remaining Invoicer images (`04-scope.png`,
       `10-ui-kit.png`, `11-spec.png`) into `assets/images/projects/invoicer/`; the
       page already points at every filename (list and Figma frames in its `PLACEHOLDER` comments).
       The hero, `01-hero.webp`, is in place
