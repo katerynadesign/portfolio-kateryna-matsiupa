@@ -502,7 +502,7 @@ existing components — no new CSS — with these differences from the reference
   read as belonging to it rather than to the next one.
 - **`.cs-points`** (new): a dot list inside `.cs-prose` for key points (Research's three
   patterns), at the pull quote's size and colour (`--fs-lg`, `--color-text`), one step up from
-  body text.
+  body text, with 1.5× the paragraph gap above and below (`--space-2 × 1.5`, 24px).
 - **`.cs-screenshot`** (new): an iPhone screenshot's display corners, `border-radius: 10.4% /
   4.8%` — 39pt on a 375 × 812pt screen as a share of width and height, so the corner stays
   circular and in proportion at any rendered size.

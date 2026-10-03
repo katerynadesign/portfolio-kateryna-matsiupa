@@ -224,7 +224,7 @@
    pull quote's size and colour (.cs-quote p: --fs-lg, --color-text), so the findings read as
    emphasis rather than as more body copy. */
 .cs-points {
-  margin: 0 0 var(--space-2);
+  margin: calc(var(--space-2) * 1.5) 0; /* 1.5× the paragraph gap above and below, setting the points apart */
   padding-left: 1.25em;
   list-style: disc;
 }
