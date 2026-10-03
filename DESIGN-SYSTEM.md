@@ -90,7 +90,7 @@ Raleway is set lighter than 600.
 
 | Token | Value | Role |
 |---|---|---|
-| `--space-1` … `--space-6` | `0.5rem`, `1rem`, `1.5rem`, `2.5rem`, `4rem`, `6rem` | Spacing scale. `--space-3` is the page side gutter. `--space-6` is the vertical padding of every section. |
+| `--space-1` … `--space-6` | `0.5rem`, `1rem`, `1.5rem`, `2.5rem`, `4rem`, `6rem` — **÷1.5 at ≤720px** (`calc(<value> / 1.5)`, e.g. `--space-3` becomes `1rem`), at the user's request | Spacing scale. `--space-3` is the page side gutter. `--space-6` is the vertical padding of every section. One override in `css/variables.css` tightens section padding, row-gaps, card padding and every other margin/padding built on the scale everywhere on the site for mobile, rather than touching each component's own rule. `--grid-gap` (column gutters) is a separate layout token and is not reduced. |
 | `--container-width` | `1120px` | Content width: 12 × 64px columns + 11 × 32px gutters. |
 | `--container-max` | `calc(--container-width + 2 × --space-3)` = `1168px` | The containers' `max-width`, which includes their side gutters. |
 | `--grid-gap` | `32px` | Column gutter of the 12-column grid. |
@@ -276,7 +276,8 @@ Template: [`case-study-template.html`](case-study-template.html), built from
 `src/case-study-template.html` (see README, "Building pages"). Each case listed on
 [`work.html`](work.html) has its own page:
 [`ai-assistant-platform.html`](ai-assistant-platform.html) is the first real case,
-and `case-study-2.html` … `4.html` are placeholders started from the template. Styles are in
+[`invoicer.html`](invoicer.html) the second (see "Invoicer case"), and `case-study-2.html` …
+`4.html` are placeholders started from the template. Styles are in
 [`css/case-study.css`](css/case-study.css) (loaded after `style.css`, only by case pages). It
 composes existing tokens and adds no colours or radii; the only new font is the hand-drawn
 callout face (see "AI Assistant Platform case"). The header, footer and section
@@ -455,6 +456,37 @@ group titles label it and the Solution paragraph explains it. The Solution scree
 placeholder left is optional: `evolution-whitelabel-1.png` / `2.png` (Evolution stays text-only
 until those exist).
 
+### Invoicer case
+
+[`invoicer.html`](invoicer.html) uses the approved copy from Kateryna's brief verbatim (same rule
+as the AI Assistant Platform case: do not paraphrase it or add facts). It is built only from
+existing components — no new CSS — with these differences from the reference page:
+
+- **Its own section set, at Kateryna's request**, not the template's nine: Context, Problem,
+  Research, Scoping, Key decisions, Solution, Design system & handoff, Outcome. All eight are in
+  Contents; Design system & handoff sits after Solution with its own entry, the same way
+  `#design-system` does on `ai-assistant-platform.html`.
+- **Plain Hook** (no `.cs-hook--bg`: its scrim is tied to the Lexi image's 1440 / 993 ratio).
+  The hero is one pre-composed image (`01-hero.png`, three iPhone screens) as a
+  `.cs-figure.cs-wide`, not `.cs-device-showcase`, which only fits the Lexi desktop + phone
+  frames. It shares one grid with Quick facts and Contents — `cs-intro grid-12 cs-body`, so
+  `.cs-wide` applies — which means the gaps there are `.cs-body`'s `--space-4` row gap (it comes
+  later in `case-study.css` than `.cs-intro`'s `--space-5`), not `--space-5` as on the reference
+  page. A separate grid for the hero would sit flush against the intro.
+- **Quick facts** has four rows (role, format, platform, duration); Context is prose only.
+- **Key decisions:** each decision is a `.cs-prose` block (an `h3`, the text, *Alternative* and
+  *Trade-off* lines) followed by its figure, all in one `.cs-body`.
+- **Two paths (IMG 08):** one `.cs-onb-flow` inside `.cs-onboarding` (both paths in one image,
+  `08-paths-horizontal.png` / `-vertical.png`, the same `<picture>` swap as Process on the
+  reference page), with no `.cs-onb-title`.
+- **Design system & handoff:** the UI kit sheet (`10-ui-kit.png`) is `.cs-figure--bleed`, placed
+  **last** in the section, after the spec page (`11-spec.png`), though the brief lists it first:
+  a grid placed after a bleed figure sits flush against its caption, while a bleed figure that
+  ends a section is spaced by the section's own bottom padding.
+- **Images are not exported yet.** Every `<img>` already points at its final filename, each
+  marked with a `PLACEHOLDER` comment (filename and Figma frames); until then the browser shows
+  the alt text.
+
 ### Mobile (≤ 720px)
 One column. The reading gutter is `--space-2` (the rest of the site uses `--space-3`) and the text
 runs the full available width. Images go edge to edge. Options in Process stack vertically.
@@ -554,10 +586,14 @@ These are current facts, not decisions:
 - **The Impact lead is at most `--fs-2xl`** (the number) or `--fs-xl` (an evidence claim), smaller
   than a "hero stat" usually is. A larger one would outrank the Hook, which must stay the largest
   type on the page.
-- **Three of the four case pages are placeholders** (`case-study-2.html` … `4.html`): copies of the
+- **Three of the five case pages are placeholders** (`case-study-2.html` … `4.html`): copies of the
   template with a different title, year and eyebrow, repeating the same placeholder text. They are
   published and linked, so they show that text to visitors. The AI Assistant Platform page is real,
-  apart from its image placeholders.
+  apart from its optional Evolution images; the Invoicer page is real copy with none of its images
+  exported yet.
+- **A numbered list in `.cs-prose` (Invoicer, Research) is full-strength `--color-text`**, while
+  the paragraphs around it are `--color-text-muted`: `.cs-prose p` sets the muted colour and
+  nothing sets it on `ol li`. Left as is for now, at Kateryna's request.
 - **The AI Assistant Platform Impact has no "how it was measured" note**, because the brief supplies
   none and the copy may not be invented. Add one when the method is known.
 - **Head is not shared.** Only the header and footer come from partials. Each page keeps its own

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Invoicer — Kateryna</title>
+  <meta name="description" content="Turned a one-line brief into a focused iOS invoicing MVP: three steps from client to invoice, approved by the client and handed to a developer with a full UI kit." />
+  <link rel="icon" type="image/png" href="assets/images/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600&family=Raleway:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/case-study.css" />
+</head>
+<body>
+
+  <!--
+    Invoicer case study. The copy is taken verbatim from Kateryna's brief
+    (invoicer-case-study-en.md): do not paraphrase it or add facts and numbers; anything new goes
+    through Kateryna first. Structure follows ai-assistant-platform.html, with this case's own
+    section set (Context, Problem, Research, Scoping, Key decisions, Solution, Design system &
+    handoff, Outcome). Components: DESIGN-SYSTEM.md.
+    The header and footer are shared: edit src/partials/, then run python3 build.py.
+
+    IMAGES NOT EXPORTED YET: every <img> below already points at its final filename in
+    assets/images/projects/ (01–11, from the brief's image table, Figma file
+    XsHDluztaADT3D7OSYNj5g); each is marked with a PLACEHOLDER comment until the file exists.
+  -->
+
+  <!-- @include header -->
+
+  <main class="cs-main">
+
+    <!-- HOOK — plain variant (no background image). -->
+    <section id="hook" class="cs-hook">
+      <div class="cs-hook-inner container">
+        <p class="eyebrow">Invoicer · 2024 · Fintech</p>
+        <h1 class="cs-hook-text">
+          Turned a one-line brief into a focused iOS invoicing MVP: three steps from client to invoice, approved by the client and handed to a developer with a full UI kit.
+        </h1>
+      </div>
+    </section>
+
+    <!-- HERO (IMG 01), Quick facts and Contents. The hero is one pre-composed image of three iPhone screens,
+         full grid width, right after the Hook; not .cs-device-showcase, which is built around the
+         Lexi desktop + phone frames (see DESIGN-SYSTEM.md). It shares the intro grid with
+         Contents so the two get the .cs-body row gap between them (a separate grid would sit
+         flush against Contents). Quick facts and Contents follow, as on ai-assistant-platform.html;
+         Contents numbers come from the CSS counter. -->
+    <div class="cs-intro grid-12 cs-body">
+      <figure class="cs-figure cs-wide">
+        <!-- PLACEHOLDER: 01-hero.png not exported yet (Figma frames 1:1805, 1:1818, 1:2098). -->
+        <img src="assets/images/projects/01-hero.png" alt="Three iPhone screens of Invoicer: Step 2 with items and the running total, Step 3 with dates and payment, and the Saved tab" fetchpriority="high" />
+      </figure>
+
+      <section class="cs-facts" aria-labelledby="factsTitle">
+        <h2 class="eyebrow" id="factsTitle">Quick facts</h2>
+        <dl class="cs-facts-list">
+          <div><dt>Role</dt><dd>UX/UI designer, sole designer on the project</dd></div>
+          <div><dt>Format</dt><dd>freelance commission</dd></div>
+          <div><dt>Platform</dt><dd>iOS</dd></div>
+          <div><dt>Duration</dt><dd>5 weeks</dd></div>
+        </dl>
+      </section>
+
+      <nav class="cs-toc" aria-labelledby="tocTitle">
+        <h2 class="eyebrow" id="tocTitle">Contents</h2>
+        <ol>
+          <li><a href="#context">context</a></li>
+          <li><a href="#problem">problem</a></li>
+          <li><a href="#research">research</a></li>
+          <li><a href="#scoping">scoping</a></li>
+          <li><a href="#key-decisions">key decisions</a></li>
+          <li><a href="#solution">solution</a></li>
+          <li><a href="#design-system">design system &amp; handoff</a></li>
+          <li><a href="#outcome">outcome</a></li>
+        </ol>
+      </nav>
+    </div>
+
+    <!-- CONTEXT — text only (the fact strip is Quick facts, above) -->
+    <section id="context" class="section">
+      <div class="container">
+        <h2 class="section-title">Context</h2>
+        <hr class="section-divider" />
+      </div>
+      <div class="grid-12 cs-body">
+        <div class="cs-prose">
+          <p>Invoicer is a mobile invoicing app for freelancers and small businesses, in the fintech space. I took the project on as a freelance commission and worked as the sole designer, from a one-line brief to a developer handoff. In five weeks I shaped the idea into an iOS MVP, defined its flow and structure, designed the screens and built the UI kit that the client's developer picked up.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROBLEM — text and two quotes (IMG 02 is text, not an image) -->
+    <section id="problem" class="section">
+      <div class="container">
+        <h2 class="section-title">Problem</h2>
+        <hr class="section-divider" />
+      </div>
+      <div class="grid-12 cs-body">
+        <div class="cs-prose">
+          <p>Small businesses and freelancers without an accountant issue their own invoices. Each invoice costs time in three places: finding the right template, working out which fields to replace, and typing a returning customer's details again. A sloppy invoice costs credibility with the client.</p>
+        </div>
+
+        <div class="cs-quotes">
+          <blockquote class="cs-quote">
+            <p>“Why do I need to enter the same information repeatedly?”</p>
+            <footer>Source: empathy map, secondary research.</footer>
+          </blockquote>
+          <blockquote class="cs-quote">
+            <p>“I don't want to lose track of my payments or clients.”</p>
+            <footer>Source: empathy map, secondary research.</footer>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESEARCH -->
+    <section id="research" class="section">
+      <div class="container">
+        <h2 class="section-title">Research</h2>
+        <hr class="section-divider" />
+      </div>
+      <div class="grid-12 cs-body">
+        <div class="cs-prose">
+          <p>I studied reviews of established invoicing apps and discussions on social media. Three patterns repeated:</p>
+          <ol>
+            <li>A simple task sits behind many options and pages.</li>
+            <li>Repeated data entry stays part of the routine.</li>
+            <li>Multi-currency and drafts stay thin.</li>
+          </ol>
+          <p>These patterns became three design principles: one focus per screen, enter data once, keep work in progress safe.</p>
+        </div>
+
+        <figure class="cs-figure cs-wide">
+          <!-- PLACEHOLDER: 03-empathy-map.png not exported yet (rebuilt from the Behance source, without the stock photo). -->
+          <img src="assets/images/projects/03-empathy-map.png" alt="Empathy map in four quadrants, Says, Thinks, Does and Feels, built from reviews of invoicing apps and social media discussions" loading="lazy" />
+          <figcaption>Empathy map built from reviews and discussions.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- SCOPING -->
+    <section id="scoping" class="section">
+      <div class="container">
+        <h2 class="section-title">Scoping</h2>
+        <hr class="section-divider" />
+      </div>
+      <div class="grid-12 cs-body">
+        <div class="cs-prose">
+          <p>The client arrived with several ideas and no shared picture of the finished product. I put the brief and the research side by side, grouped every proposed feature by the user problem it solves, and cut the set down to an MVP: create an invoice, reuse saved clients and items, and put payment details on the page. The client approved that scope and the design that grew from it.</p>
+          <p>Moved to a later release: recurring invoices, payment reminders, time tracking, payment-gateway integration.</p>
+          <p>Subscription pricing ($5.99 monthly, $59.99 yearly) came from the research and was agreed with the client.</p>
+        </div>
+
+        <figure class="cs-figure">
+          <!-- PLACEHOLDER: 04-scope.png not drawn yet. -->
+          <img src="assets/images/projects/04-scope.png" alt="Scope diagram in three columns: the client's ideas, the same ideas grouped by the user problem they solve, and the MVP; a lower row lists the four features moved to a later release" loading="lazy" />
+          <figcaption>From the client's ideas to the MVP.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- KEY DECISIONS — three decisions, each followed by its image -->
+    <section id="key-decisions" class="section">
+      <div class="container">
+        <h2 class="section-title">Key decisions</h2>
+        <hr class="section-divider" />
+      </div>
+      <div class="grid-12 cs-body">
+        <div class="cs-prose">
+          <h3>Decision 1 — Three steps in place of one long form</h3>
+          <p>Creating an invoice is split into Client, Items and Payment, with a "Step 2 of 3" header on each screen. The Items step pins Subtotal, Tax and Total above the primary button, so the amount stays visible while items are added.</p>
+          <p><em>Alternative:</em> one scrolling form with every field visible.</p>
+          <p><em>Trade-off:</em> extra screen transitions in return for one decision at a time on a small screen.</p>
+        </div>
+
+        <figure class="cs-figure">
+          <!-- PLACEHOLDER: 05-three-steps.png not exported yet (Figma frames 1:1430, 1:1805, 1:1818). -->
+          <img src="assets/images/projects/05-three-steps.png" alt="Three iPhone screens of the invoice flow: Step 1 with a client selected, Step 2 with items and the pinned Subtotal, Tax and Total, Step 3 with dates and payment" loading="lazy" />
+          <figcaption>Step 1 client, Step 2 items, Step 3 payment.</figcaption>
+        </figure>
+
+        <div class="cs-prose">
+          <h3>Decision 2 — "Saved" as a reusable library</h3>
+          <p>Clients and items live in their own tab. The invoice flow picks from that library, or creates a new entry inline through modals. This answers the "enter it once" pain directly.</p>
+          <p><em>Alternative:</em> a client field typed fresh in every invoice.</p>
+          <p><em>Trade-off:</em> one extra tab in the navigation.</p>
+        </div>
+
+        <figure class="cs-figure">
+          <!-- PLACEHOLDER: 06-saved.png not exported yet (Figma frames 1:2098, 1:1508, 1:2195). -->
+          <img src="assets/images/projects/06-saved.png" alt="Three iPhone screens: the saved clients list, the saved items list and the New Client modal" loading="lazy" />
+          <figcaption>Saved clients, saved items and the New Client modal.</figcaption>
+        </figure>
+
+        <div class="cs-prose">
+          <h3>Decision 3 — Three tabs: Invoices, Saved, Account</h3>
+          <p>Earnings live under Account, so the home tab stays on the invoice list and the create action. The first-run empty state ("No invoices yet") leads straight to creation.</p>
+          <p><em>Alternative:</em> a dashboard as the home screen.</p>
+          <p><em>Trade-off:</em> the earnings overview sits one tap away, under Account.</p>
+        </div>
+
+        <figure class="cs-figure cs-wide">
+          <!-- PLACEHOLDER: 07-ia.png not exported yet (Behance source). -->
+          <img src="assets/images/projects/07-ia.png" alt="Information architecture tree: App branches into three tabs, Invoices, Saved and Account" loading="lazy" />
+          <figcaption>Information architecture, always visible.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- SOLUTION -->
+    <section id="solution" class="section">
+      <div class="container">
+        <h2 class="section-title">Solution</h2>
+        <hr class="section-divider" />
+      </div>
+      <div class="grid-12 cs-body">
+        <div class="cs-prose">
+          <ul class="cs-list">
+            <li>A returning client takes one selection from a searchable list. A new client takes one form with eight fields.</li>
+            <li>The same pattern repeats for items: pick from a searchable list, or create inline.</li>
+            <li>Step 3 opens with the invoice number and invoice date already filled in, so the remaining inputs are the payment date, the payment methods and an instruction.</li>
+            <li>Multi-currency with search, tax selection, a date picker, a drafts list and payment-method toggles cover the cases that competitor reviews flag as thin.</li>
+          </ul>
+        </div>
+
+        <!-- Two paths (IMG 08): one image holding both paths, horizontal above 720px, vertical at
+             or below — the same <picture>/<source> swap as the onboarding pair on
+             ai-assistant-platform.html. -->
+        <div class="cs-onboarding cs-wide">
+          <div class="cs-onb-flows">
+            <figure class="cs-onb-flow">
+              <!-- PLACEHOLDER: 08-paths-horizontal.png and 08-paths-vertical.png not drawn yet. -->
+              <picture>
+                <source media="(min-width: 721px)" srcset="assets/images/projects/08-paths-horizontal.png" />
+                <img src="assets/images/projects/08-paths-vertical.png" alt="Two ways to add a client to an invoice side by side: picking a saved client from the list, and creating a new client inline" loading="lazy" />
+              </picture>
+              <figcaption class="cs-onb-caption">Saved-client path next to the new-client path.</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <figure class="cs-figure">
+          <!-- PLACEHOLDER: 09-states.png not exported yet (Figma frames 1:1620, 1:1493, 1:1857, 1:1980). -->
+          <img src="assets/images/projects/09-states.png" alt="Four iPhone screens: currency search, the drafts list, the date picker and the invoice preview" loading="lazy" />
+          <figcaption>Currencies, Drafts, Date Picker and invoice Preview.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- DESIGN SYSTEM & HANDOFF — supplementary section after Solution, with its own Contents
+         entry, the same way #design-system sits on ai-assistant-platform.html. -->
+    <section id="design-system" class="section">
+      <div class="container">
+        <h2 class="section-title">Design system &amp; handoff</h2>
+        <hr class="section-divider" />
+      </div>
+      <div class="grid-12 cs-body">
+        <div class="cs-prose">
+          <p>The handoff was a complete UI kit, built so a developer can pick it up without a meeting:</p>
+          <ul class="cs-list">
+            <li><strong>Color:</strong> a palette with the brand Lime #8FE715 and tokens.</li>
+            <li><strong>Typography:</strong> Satoshi Variable with styles and usage guidance.</li>
+            <li><strong>Spacing and radius scales.</strong></li>
+            <li><strong>27 component types</strong> with states (default, pressed, disabled, error) for Text Field, Button and Toggle.</li>
+            <li><strong>Icons:</strong> Basil pack by Craftwork.</li>
+            <li><strong>Specification page</strong> with sizes for key screens.</li>
+            <li><strong>Behavior notes:</strong> field validation, keyboard, date picker, empty states.</li>
+          </ul>
+        </div>
+        <figure class="cs-figure">
+          <!-- PLACEHOLDER: 11-spec.png not exported yet. -->
+          <img src="assets/images/projects/11-spec.png" alt="Specification page for a key screen, annotated with sizes" loading="lazy" />
+          <figcaption>Specification page for a key screen.</figcaption>
+        </figure>
+      </div>
+
+      <!-- Full-bleed: a direct child of the <section>, as in case-study-template.html. Placed last
+           in the section (after 11-spec, not before it as in the brief's image order): a grid
+           after a bleed figure sits flush against its caption, while the section's own bottom
+           padding spaces a bleed figure that ends it. -->
+      <figure class="cs-figure cs-figure--bleed">
+        <!-- PLACEHOLDER: 10-ui-kit.png not exported yet (Figma frames 1:2282, 1:2648). -->
+        <img src="assets/images/projects/10-ui-kit.png" alt="UI kit sheets: the color palette with the brand Lime #8FE715 and its tokens, and the Satoshi Variable typography styles" loading="lazy" />
+        <figcaption><p>Color and typography.</p></figcaption>
+      </figure>
+
+    </section>
+
+    <!-- OUTCOME -->
+    <section id="outcome" class="section">
+      <div class="container">
+        <h2 class="section-title">Outcome</h2>
+        <hr class="section-divider" />
+      </div>
+      <div class="grid-12 cs-body">
+        <div class="cs-prose">
+          <p>The client reviewed and approved the scope and the design, then passed the handoff to their developer.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- @include footer -->
+  <!-- @include scroll-top -->
+
+  <script src="js/main.js"></script>
+</body>
+</html>

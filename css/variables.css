@@ -70,6 +70,24 @@
   --transition: 0.2s ease;
 }
 
+/* Mobile: every --space-N token at 1/1.5 (÷1.5) of its desktop value, at the user's request —
+   one change here shrinks section padding, row-gaps, card padding and every other margin/padding
+   built on the scale everywhere on the site, rather than touching each component's own rule.
+   --grid-gap (column gutters) is a layout concern, not this spacing scale, so it's untouched;
+   --container-max is derived from --space-3 but has no visual effect below its own 1168px width
+   anyway. Written as calc(desktop-value / 1.5), not pre-computed decimals, so the ÷1.5
+   relationship stays legible and exact (no manual rounding) at a glance. */
+@media (max-width: 720px) {
+  :root {
+    --space-1: calc(0.5rem / 1.5);
+    --space-2: calc(1rem / 1.5);
+    --space-3: calc(1.5rem / 1.5);
+    --space-4: calc(2.5rem / 1.5);
+    --space-5: calc(4rem / 1.5);
+    --space-6: calc(6rem / 1.5);
+  }
+}
+
 /* DARK THEME — DISABLED for now (the site is light-only while we work).
    To bring it back, uncomment this block and remove `color-scheme: light`
    from :root. Rationale for the values is in DESIGN-SYSTEM.md ("Parked").
