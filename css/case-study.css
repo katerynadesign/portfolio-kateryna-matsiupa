@@ -192,6 +192,13 @@
   margin-top: 0;
 }
 
+/* Key decisions (Invoicer): each decision's screens belong to it, so the next decision starts
+   1.5× further away than the section's usual row gap (--space-4) — the extra half is added as
+   margin on top of the grid's own row gap. */
+.cs-body > .cs-prose--decision {
+  margin-top: calc(var(--space-4) / 2);
+}
+
 .cs-list {
   margin: 0 0 var(--space-2);
 }
@@ -211,6 +218,24 @@
   position: absolute;
   left: 0;
   color: var(--color-text-muted);
+}
+
+/* Key points inside prose (Invoicer, Research): a dot list one step up from body text, at the
+   pull quote's size and colour (.cs-quote p: --fs-lg, --color-text), so the findings read as
+   emphasis rather than as more body copy. */
+.cs-points {
+  margin: 0 0 var(--space-2);
+  padding-left: 1.25em;
+  list-style: disc;
+}
+
+.cs-points li {
+  font-size: var(--fs-lg);
+  color: var(--color-text);
+}
+
+.cs-points li + li {
+  margin-top: var(--space-1);
 }
 
 /* ---------- 4. Visuals ---------- */
@@ -246,6 +271,29 @@
    it scales with the grid below 1168px. Height follows the image's own ratio (.cs-figure > img).
    Used for the Invoicer empathy map and IA diagram. On a phone the grid is one column and the
    figure takes the full width. */
+/* A figure whose image fades into the page at the bottom, like the Hook's scrim
+   (.cs-hook--bg::after): solid --color-bg over the bottom --fade-solid of the image, fading to
+   transparent by --fade-end. Used for the Invoicer UI kit sheet (it also hides the export's own
+   slightly lighter bottom edge).
+   The solid part is visually empty page, so the figure pulls the next block up by exactly that
+   much — a negative margin-bottom of --fade-solid × the image's height — and the gap below reads
+   the same as between any other two sections. Percentage margins resolve against the width, so
+   the markup passes the image's height / width as --fade-ratio (e.g. 991 / 2000 = 0.4955). */
+.cs-figure--fade {
+  --fade-solid: 0.35;
+  --fade-end: 0.525;
+  position: relative;
+  margin-bottom: calc(var(--fade-ratio) * var(--fade-solid) * -100%);
+}
+
+.cs-figure--fade::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to top, var(--color-bg) 0%, var(--color-bg) calc(var(--fade-solid) * 100%), transparent calc(var(--fade-end) * 100%));
+}
+
 .cs-body > .cs-figure--9 {
   grid-column: 1 / -1;
   justify-self: center;
@@ -1168,6 +1216,11 @@
 
   .cs-body > * + * {
     margin-top: var(--space-4);
+  }
+
+  /* Same 1.5× on a phone, where spacing comes from margins rather than row-gap. */
+  .cs-body > .cs-prose--decision {
+    margin-top: calc(var(--space-4) * 1.5);
   }
 
   .cs-toc ol {

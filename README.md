@@ -11,7 +11,7 @@ portfolio-site/
 ├── index.html                  BUILT  home: hero, about, contact
 ├── work.html                   BUILT  every case study: Hook, Contents, then the cards
 ├── ai-assistant-platform.html  BUILT  the first real case study
-├── invoicer.html               BUILT  the Invoicer case study (images not exported yet)
+├── invoicer.html               BUILT  the Invoicer case study
 ├── case-study-2.html … 4.html  BUILT  placeholder case studies listed on work.html
 ├── case-study-template.html    BUILT  the template every case page starts from (noindex)
 ├── build.py                    the page builder (see "Building pages")
@@ -41,7 +41,7 @@ portfolio-site/
 │       ├── favicon.svg         unused now; kept, not referenced by any page
 │       └── projects/           project images, one folder per case study:
 │           ├── ai-assistant-platform/   every image of that case (lexi-screens/ inside)
-│           └── invoicer/                Invoicer images (not exported yet)
+│           └── invoicer/                every image of the Invoicer case
 ├── DESIGN-SYSTEM.md            tokens, layout and typography rules, components
 └── CASE-STUDY-TEMPLATE.md      what a case study contains and which projects get one
 ```
@@ -133,10 +133,6 @@ GitHub Pages, served from the `main` branch root: Settings → Pages → Source:
 - [ ] Fill in `case-study-2.html` … `4.html` (placeholders that repeat the template)
 - [ ] Export the one image the AI Assistant Platform page is still waiting for, optional:
       `evolution-whitelabel-1.png` / `2.png`, into `assets/images/projects/ai-assistant-platform/`
-- [ ] Export the remaining Invoicer images (`04-scope.png`,
-      `10-ui-kit.png`, `11-spec.png`) into `assets/images/projects/invoicer/`; the
-      page already points at every filename (list and Figma frames in its `PLACEHOLDER` comments).
-      The hero, `01-hero.webp`, is in place
 - [ ] Add `assets/cv.pdf` (the "download cv" link points at it and the file does not exist yet)
 - [ ] Update the email and social links in Contact
 - [ ] Connect the contact form to a form backend (for example Formspree)

@@ -23,12 +23,10 @@
     (invoicer-case-study-en.md): do not paraphrase it or add facts and numbers; anything new goes
     through Kateryna first. Structure follows ai-assistant-platform.html, with this case's own
     section set (Context, Problem, Research, Scoping, Key decisions, Solution, Design system &
-    handoff, Outcome). Components: DESIGN-SYSTEM.md.
+    handoff, What I take from this project). Components: DESIGN-SYSTEM.md.
     The header and footer are shared: edit src/partials/, then run python3 build.py.
 
-    IMAGES NOT EXPORTED YET: every <img> below already points at its final filename in
-    assets/images/projects/invoicer/ (01–11, from the brief's image table, Figma file
-    XsHDluztaADT3D7OSYNj5g); each is marked with a PLACEHOLDER comment until the file exists.
+    Images: assets/images/projects/invoicer/ (Figma file XsHDluztaADT3D7OSYNj5g).
   -->
 
   <header class="site-header">
@@ -89,7 +87,7 @@
           <li><a href="#key-decisions">key decisions</a></li>
           <li><a href="#solution">solution</a></li>
           <li><a href="#design-system">design system &amp; handoff</a></li>
-          <li><a href="#outcome">outcome</a></li>
+          <li><a href="#takeaways">what i take from this project</a></li>
         </ol>
       </nav>
     </div>
@@ -140,16 +138,16 @@
       <div class="grid-12 cs-body">
         <div class="cs-prose">
           <p>I studied reviews of established invoicing apps and discussions on social media. Three patterns repeated:</p>
-          <ol>
+          <ul class="cs-points">
             <li>A simple task sits behind many options and pages.</li>
             <li>Repeated data entry stays part of the routine.</li>
             <li>Multi-currency and drafts stay thin.</li>
-          </ol>
+          </ul>
           <p>These patterns became three design principles: one focus per screen, enter data once, keep work in progress safe.</p>
         </div>
 
         <figure class="cs-figure cs-figure--9">
-          <img src="assets/images/projects/invoicer/03-empathy-map.webp" width="2000" height="1900" alt="Empathy map in four quadrants around a photo of a woman working on a tablet. Says: I need this done fast and professionally; why do I need to enter the same information repeatedly; I want a simple way to manage payments. Thinks: is this tool reliable and secure; how can I ensure this invoice reflects my brand; I don't want to lose track of my payments or clients. Does: uses templates for repetitive tasks, reviews every invoice carefully before sending, switches between devices. Feels: frustrated when tools are too complex, relieved when an app saves time, confident when invoices look polished and payments are easy to track" loading="lazy" />
+          <img src="assets/images/projects/invoicer/03-empathy-map.webp" width="1280" height="1216" alt="Empathy map in four quadrants around a photo of a woman working on a tablet. Says: I need this done fast and professionally; why do I need to enter the same information repeatedly; I want a simple way to manage payments. Thinks: is this tool reliable and secure; how can I ensure this invoice reflects my brand; I don't want to lose track of my payments or clients. Does: uses templates for repetitive tasks, reviews every invoice carefully before sending, switches between devices. Feels: frustrated when tools are too complex, relieved when an app saves time, confident when invoices look polished and payments are easy to track" loading="lazy" />
         </figure>
       </div>
     </section>
@@ -167,10 +165,8 @@
           <p>Subscription pricing ($5.99 monthly, $59.99 yearly) came from the research and was agreed with the client.</p>
         </div>
 
-        <figure class="cs-figure">
-          <!-- PLACEHOLDER: 04-scope.png not drawn yet. -->
-          <img src="assets/images/projects/invoicer/04-scope.png" alt="Scope diagram in three columns: the client's ideas, the same ideas grouped by the user problem they solve, and the MVP; a lower row lists the four features moved to a later release" loading="lazy" />
-          <figcaption>From the client's ideas to the MVP.</figcaption>
+        <figure class="cs-figure cs-wide">
+          <img src="assets/images/projects/invoicer/04-scope.webp" width="2000" height="1202" alt="Scope table in three columns, Client's wish, User problem and Solution, four rows. Create invoices easily from a phone: a simple task sits behind many options and pages; MVP: invoice creation in three steps with a total that stays visible. Stop entering the same data every time: repeated data entry; MVP: a Saved tab with clients and items, and business and payment details entered once in Account. Get paid on time: losing track of open and paid invoices; MVP: payment details on the invoice, Open and Paid statuses and a Mark as paid action, with payment reminders and payment-gateway integration in a later release. Automate the routine: the next step once a basic invoice goes out fast; later release: recurring invoices and time tracking" loading="lazy" />
         </figure>
       </div>
     </section>
@@ -208,7 +204,7 @@
           </div>
         </div>
 
-        <div class="cs-prose">
+        <div class="cs-prose cs-prose--decision">
           <h3>Decision 2 — "Saved" as a reusable library</h3>
           <p>Clients and items live in their own tab. The invoice flow picks from that library, or creates a new entry inline through modals. This answers the "enter it once" pain directly.</p>
           <p><em>Alternative:</em> a client field typed fresh in every invoice.</p>
@@ -230,7 +226,7 @@
           </div>
         </div>
 
-        <div class="cs-prose">
+        <div class="cs-prose cs-prose--decision">
           <h3>Decision 3 — Three tabs: Invoices, Saved, Account</h3>
           <p>Earnings live under Account, so the home tab stays on the invoice list and the create action. The first-run empty state ("No invoices yet") leads straight to creation.</p>
           <p><em>Alternative:</em> a dashboard as the home screen.</p>
@@ -318,34 +314,24 @@
             <li><strong>Behavior notes:</strong> field validation, keyboard, date picker, empty states.</li>
           </ul>
         </div>
-        <figure class="cs-figure">
-          <!-- PLACEHOLDER: 11-spec.png not exported yet. -->
-          <img src="assets/images/projects/invoicer/11-spec.png" alt="Specification page for a key screen, annotated with sizes" loading="lazy" />
-          <figcaption>Specification page for a key screen.</figcaption>
+        <figure class="cs-figure cs-wide cs-figure--fade" style="--fade-ratio: 0.4955">
+          <img src="assets/images/projects/invoicer/10-ui-kit.webp" width="2000" height="991" alt="UI kit sheets on dark cards: Colors with the brand Lime #8FE715 at 100, 50 and 30%, a grey scale for black and white, semantic green and blue, and background colours; Typography with the Satoshi styles H1 to Tab Bar, each with weight, size, line height, letter spacing and purpose; the start of the Inputs and Controls sheets" loading="lazy" />
         </figure>
       </div>
 
-      <!-- Full-bleed: a direct child of the <section>, as in case-study-template.html. Placed last
-           in the section (after 11-spec, not before it as in the brief's image order): a grid
-           after a bleed figure sits flush against its caption, while the section's own bottom
-           padding spaces a bleed figure that ends it. -->
-      <figure class="cs-figure cs-figure--bleed">
-        <!-- PLACEHOLDER: 10-ui-kit.png not exported yet (Figma frames 1:2282, 1:2648). -->
-        <img src="assets/images/projects/invoicer/10-ui-kit.png" alt="UI kit sheets: the color palette with the brand Lime #8FE715 and its tokens, and the Satoshi Variable typography styles" loading="lazy" />
-        <figcaption><p>Color and typography.</p></figcaption>
-      </figure>
-
     </section>
 
-    <!-- OUTCOME -->
-    <section id="outcome" class="section">
+    <!-- WHAT I TAKE FROM THIS PROJECT — the closing section (was Outcome) -->
+    <section id="takeaways" class="section">
       <div class="container">
-        <h2 class="section-title">Outcome</h2>
+        <h2 class="section-title">What I take from this project</h2>
         <hr class="section-divider" />
       </div>
       <div class="grid-12 cs-body">
         <div class="cs-prose">
-          <p>The client reviewed and approved the scope and the design, then passed the handoff to their developer.</p>
+          <p><strong>The decisions work as a system.</strong> Splitting the invoice into three steps costs extra screen transitions. The Saved library gives that time back: a returning client or item is one selection, so the added step stays short. The same logic holds for navigation. A third tab costs one more destination, and putting earnings under Account keeps the home screen on the invoice list and the create action. Each decision carries a cost, and the next one pays part of it back.</p>
+          <p><strong>The scoping call shaped everything after it.</strong> Grouping the client's ideas by user problem gave us a shared picture of the product and a reason for every cut. The later release list stayed short because each item had a place in that grouping, and the design stayed focused on three capabilities.</p>
+          <p><strong>Handoff is part of the design.</strong> With the client's developer taking over, every behavior had to live in the file: component states, field validation, keyboard, date picker, empty states, sizes on a specification page. Designing for that reader changed how I built the UI kit, with states and usage guidance next to the visuals.</p>
         </div>
       </div>
     </section>

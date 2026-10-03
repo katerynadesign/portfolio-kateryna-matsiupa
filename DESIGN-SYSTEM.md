@@ -463,7 +463,9 @@ as the AI Assistant Platform case: do not paraphrase it or add facts). It is bui
 existing components — no new CSS — with these differences from the reference page:
 
 - **Its own section set, at Kateryna's request**, not the template's nine: Context, Problem,
-  Research, Scoping, Key decisions, Solution, Design system & handoff, Outcome. All eight are in
+  Research, Scoping, Key decisions, Solution, Design system & handoff, What I take from this
+  project (`#takeaways`, renamed from Outcome at Kateryna's request; each paragraph opens with a
+  bold first sentence, like Solution's lead-ins). All eight are in
   Contents; Design system & handoff sits after Solution with its own entry, the same way
   `#design-system` does on `ai-assistant-platform.html`.
 - **Hook: the same `.cs-hook--bg` variant as the reference page** — headline ("Invoicing in
@@ -493,8 +495,14 @@ existing components — no new CSS — with these differences from the reference
 - **`.cs-figure--9`** (new): a figure nine columns wide (`832px` on the 64px grid: nine columns
   plus eight gutters, fluid below 1168px), **centred horizontally** on the row rather than placed
   on grid lines, since nine of twelve columns cannot be centred on whole columns; height follows
-  the image's own ratio. Used for the empathy map (`03-empathy-map.webp`, 2000 × 1900, Research,
+  the image's own ratio. Used for the empathy map (`03-empathy-map.webp`, 1280 × 1216, Research,
   no caption) and the IA diagram. Full width on a phone.
+- **`.cs-prose--decision`** (new): on Decisions 2 and 3, the gap above a decision is 1.5× the
+  section's row gap (`--space-4`: 60px instead of 40px on desktop), so each decision's screens
+  read as belonging to it rather than to the next one.
+- **`.cs-points`** (new): a dot list inside `.cs-prose` for key points (Research's three
+  patterns), at the pull quote's size and colour (`--fs-lg`, `--color-text`), one step up from
+  body text.
 - **`.cs-screenshot`** (new): an iPhone screenshot's display corners, `border-radius: 10.4% /
   4.8%` — 39pt on a 375 × 812pt screen as a share of width and height, so the corner stays
   circular and in proportion at any rendered size.
@@ -503,14 +511,16 @@ existing components — no new CSS — with these differences from the reference
   screens in the same `.cs-devices--quarter` row, no captions (the two-paths diagram, IMG 08,
   was dropped at Kateryna's request): `09-invoice-details.png`,
   `09-preview.png` (moved here from Decision 1), `09-account-details.png`, `09-plan.png`.
-- **Design system & handoff:** the UI kit sheet (`10-ui-kit.png`) is `.cs-figure--bleed`, placed
-  **last** in the section, after the spec page (`11-spec.png`), though the brief lists it first:
-  a grid placed after a bleed figure sits flush against its caption, while a bleed figure that
-  ends a section is spaced by the section's own bottom padding.
-- **Images are not exported yet.** Every `<img>` already points at its final filename in
-  `assets/images/projects/invoicer/`, each
-  marked with a `PLACEHOLDER` comment (filename and Figma frames); until then the browser shows
-  the alt text.
+- **Design system & handoff:** the UI kit sheet (`10-ui-kit.webp`, 2000 × 991, transparent between
+  its cards) is a `.cs-figure.cs-wide.cs-figure--fade` (twelve columns) after the list, no
+  caption. **`.cs-figure--fade`** (new) lays a Hook-style scrim over the image:
+  `--color-bg` solid over the bottom 35%, transparent at 52.5%. Since that solid part is empty
+  page, the figure pulls the next block up by the same height (negative `margin-bottom`, from
+  `--fade-ratio` = height / width set inline, 0.4955 here), so the gap to the closing section matches the
+  gap between any two sections. The
+  specification-page image (IMG 11) was dropped at Kateryna's request.
+- **All images are in place** in `assets/images/projects/invoicer/`. Scoping's table
+  (`04-scope.webp`, 2000 × 1202) is a `.cs-figure.cs-wide`, no caption. No image on this page carries a caption.
 
 ### Mobile (≤ 720px)
 One column. The reading gutter is `--space-2` (the rest of the site uses `--space-3`) and the text
@@ -616,9 +626,6 @@ These are current facts, not decisions:
   published and linked, so they show that text to visitors. The AI Assistant Platform page is real,
   apart from its optional Evolution images; the Invoicer page is real copy with none of its images
   exported yet.
-- **A numbered list in `.cs-prose` (Invoicer, Research) is full-strength `--color-text`**, while
-  the paragraphs around it are `--color-text-muted`: `.cs-prose p` sets the muted colour and
-  nothing sets it on `ol li`. Left as is for now, at Kateryna's request.
 - **The AI Assistant Platform Impact has no "how it was measured" note**, because the brief supplies
   none and the copy may not be invented. Add one when the method is known.
 - **Head is not shared.** Only the header and footer come from partials. Each page keeps its own
