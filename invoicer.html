@@ -191,7 +191,7 @@
           <p><em>Trade-off:</em> extra screen transitions in return for one decision at a time on a small screen.</p>
         </div>
 
-        <!-- Decision 1 screens: the three steps and the Preview they lead to. Every screen row
+        <!-- Decision 1 screens: the three steps. Every screen row
              on this page is .cs-devices--quarter: each screen one quarter of the row (four per
              row), fewer screens centred, all the same size; .cs-devices turns it into the
              existing horizontal snapping strip on a phone. No captions under screens, at
@@ -206,9 +206,6 @@
             </figure>
             <figure class="cs-figure">
               <img src="assets/images/projects/invoicer/05-step-3-payment.png" width="750" height="1624" alt="Step 3 of 3: the invoice number and invoice date already filled in, the payment date, payment-method toggles, a payment instruction field and a Generate invoice button" loading="lazy" class="cs-screenshot" />
-            </figure>
-            <figure class="cs-figure">
-              <img src="assets/images/projects/invoicer/05-preview.png" width="750" height="1624" alt="Invoice preview: the generated invoice page, with Email and Share buttons below it" loading="lazy" class="cs-screenshot" />
             </figure>
           </div>
         </div>
@@ -242,27 +239,26 @@
           <p><em>Trade-off:</em> the earnings overview sits one tap away, under Account.</p>
         </div>
 
-        <!-- Decision 3 screens: one per tab, in tab-bar order (Invoices, Saved, Account), the same
-             .cs-row.cs-devices pattern as Decisions 1 and 2. -->
+        <!-- Decision 3: the information architecture first, then the three tab screens under it. -->
+        <figure class="cs-figure cs-figure--9">
+          <img src="assets/images/projects/invoicer/07-ia.png" width="1098" height="864" alt="Information architecture in three columns, one per tab. Invoices: create new invoice, add client, add items, add payment methods, generate invoice, send invoice. Saved: create new item (name, description, price, quantity) and create new client (name, contact information, address). Account: earnings chart, account details (business name, contact information, address, payment information), subscription plan, feedback, privacy policy" loading="lazy" />
+        </figure>
+
+        <!-- Decision 3 screens: one per tab, in tab-bar order (Invoices, Saved, Account), under the IA
+             diagram, the same .cs-row.cs-devices pattern as Decisions 1 and 2. -->
         <div class="cs-figure cs-wide">
           <div class="cs-row cs-devices cs-devices--quarter">
             <figure class="cs-figure">
               <img src="assets/images/projects/invoicer/07-tab-invoices.png" width="750" height="1624" alt="Invoices tab: the invoice list filtered by All, Open and Paid, grouped by Today and This month, with a create button and the tab bar" loading="lazy" class="cs-screenshot" />
             </figure>
             <figure class="cs-figure">
-              <img src="assets/images/projects/invoicer/07-tab-saved.png" width="750" height="1624" alt="Saved tab: saved items with SKU and price, a switch between Items and Clients, and a create button" loading="lazy" class="cs-screenshot" />
+              <img src="assets/images/projects/invoicer/07-tab-saved.png" width="750" height="1624" alt="Saved tab on Drafts: a segmented control for Items, Clients and Drafts, one draft invoice with client, date and amount, and a create button" loading="lazy" class="cs-screenshot" />
             </figure>
             <figure class="cs-figure">
               <img src="assets/images/projects/invoicer/07-tab-account.png" width="750" height="1624" alt="Account tab: a weekly earnings chart, the Your plan and Restore purchases rows, and the tab bar" loading="lazy" class="cs-screenshot" />
             </figure>
           </div>
         </div>
-
-        <figure class="cs-figure cs-wide">
-          <!-- PLACEHOLDER: 07-ia.png not exported yet (Behance source). -->
-          <img src="assets/images/projects/invoicer/07-ia.png" alt="Information architecture tree: App branches into three tabs, Invoices, Saved and Account" loading="lazy" />
-          <figcaption>Information architecture, always visible.</figcaption>
-        </figure>
       </div>
     </section>
 
@@ -274,34 +270,33 @@
       </div>
       <div class="grid-12 cs-body">
         <div class="cs-prose">
-          <ul class="cs-list">
-            <li>A returning client takes one selection from a searchable list. A new client takes one form with eight fields.</li>
-            <li>The same pattern repeats for items: pick from a searchable list, or create inline.</li>
-            <li>Step 3 opens with the invoice number and invoice date already filled in, so the remaining inputs are the payment date, the payment methods and an instruction.</li>
-            <li>Multi-currency with search, tax selection, a date picker, a drafts list and payment-method toggles cover the cases that competitor reviews flag as thin.</li>
-          </ul>
+          <p>Invoicer covers the invoicing routine in five areas.</p>
+          <p><strong>Invoices.</strong> The home tab lists every invoice as a card with client, date, amount and status, filtered by All, Open and Paid. A finished invoice opens inside the app with its number, date, total and status, and offers actions to mark it as paid, share or edit it. The same invoice also exists as a document preview that can be printed or saved as a PDF.</p>
+          <p><strong>Creating an invoice.</strong> Three steps. A returning client takes one selection from a searchable list. A new client takes one form with billing address and contact details, with the option to add it to Saved. The currency comes from a searchable list. Items follow the same pattern: pick from the saved list or create inline, add as many as needed, choose the tax rate and watch subtotal, tax and total update. Step 3 opens with the invoice number and date filled in, which leaves the payment date, the payment methods (bank transfer, PayPal, cash or check, other) and a payment instruction.</p>
+          <p><strong>Saved.</strong> One tab for items, clients and drafts, switched by a segmented control, with new entries created on the spot.</p>
+          <p><strong>Account.</strong> Business, personal and address details, together with payment details for bank transfer and PayPal, are entered once and reused in every invoice. Earnings appear as a chart by week, month and year.</p>
+          <p><strong>Plan.</strong> A subscription screen with monthly and yearly options and restore purchases.</p>
         </div>
 
-        <!-- Two paths (IMG 08): one image holding both paths, horizontal above 720px, vertical at
-             or below — the same <picture>/<source> swap as the onboarding pair on
-             ai-assistant-platform.html. -->
-        <div class="cs-onboarding cs-wide">
-          <div class="cs-onb-flows">
-            <figure class="cs-onb-flow">
-              <!-- PLACEHOLDER: 08-paths-horizontal.png and 08-paths-vertical.png not drawn yet. -->
-              <picture>
-                <source media="(min-width: 721px)" srcset="assets/images/projects/invoicer/08-paths-horizontal.png" />
-                <img src="assets/images/projects/invoicer/08-paths-vertical.png" alt="Two ways to add a client to an invoice side by side: picking a saved client from the list, and creating a new client inline" loading="lazy" />
-              </picture>
-              <figcaption class="cs-onb-caption">Saved-client path next to the new-client path.</figcaption>
+        <!-- Solution screens (IMG 09): the same .cs-devices--quarter row as Key decisions, in the
+             order the text names them — the invoice in the app, its document preview, Account
+             details, Plan. No captions under screens. -->
+        <div class="cs-figure cs-wide">
+          <div class="cs-row cs-devices cs-devices--quarter">
+            <figure class="cs-figure">
+              <img src="assets/images/projects/invoicer/09-invoice-details.png" width="750" height="1624" alt="Invoice details for INV001: invoice date, total amount and Open status, a Mark as paid button, Share and Edit, the client and the items" loading="lazy" class="cs-screenshot" />
+            </figure>
+            <figure class="cs-figure">
+              <img src="assets/images/projects/invoicer/09-preview.png" width="750" height="1624" alt="Invoice preview: the generated invoice page, with Email and Share buttons below it" loading="lazy" class="cs-screenshot" />
+            </figure>
+            <figure class="cs-figure">
+              <img src="assets/images/projects/invoicer/09-account-details.png" width="750" height="1624" alt="Account details: business name and logo, personal details and address, with a Save button" loading="lazy" class="cs-screenshot" />
+            </figure>
+            <figure class="cs-figure">
+              <img src="assets/images/projects/invoicer/09-plan.png" width="750" height="1624" alt="Plan screen: monthly and yearly subscription options, Confirm and continue, and Restore purchases" loading="lazy" class="cs-screenshot" />
             </figure>
           </div>
         </div>
-
-        <figure class="cs-figure">
-          <!-- PLACEHOLDER: 09-states.png not exported yet (Figma frames 1:1620, 1:1493, 1:1857, 1:1980). -->
-          <img src="assets/images/projects/invoicer/09-states.png" alt="Four iPhone screens: currency search, the drafts list, the date picker and the invoice preview" loading="lazy" />
-        </figure>
       </div>
     </section>
 

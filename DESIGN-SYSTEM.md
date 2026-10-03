@@ -479,25 +479,28 @@ existing components — no new CSS — with these differences from the reference
   *Trade-off* lines) followed by its screens, all in one `.cs-body`. Each decision's screens are
   real app screenshots (750 × 1624, an iPhone at 2×) in a `.cs-row.cs-devices.cs-devices--quarter`
   inside a `div.cs-figure.cs-wide`, **with no captions under screens**, at Kateryna's request:
-  - Decision 1: `05-step-1-client.png`, `05-step-2-items.png`, `05-step-3-payment.png`,
-    `05-preview.png` (the Preview sits here at Kateryna's request, though the brief's image
-    table lists it under IMG 09).
+  - Decision 1: `05-step-1-client.png`, `05-step-2-items.png`, `05-step-3-payment.png`.
   - Decision 2: `06-new-client-empty.png`, `06-new-client-filled.png`, `06-clients.png`.
   - Decision 3: `07-tab-invoices.png`, `07-tab-saved.png`, `07-tab-account.png` (tab-bar
-    order), above the IA diagram placeholder.
+    order), under the IA diagram (`07-ia.png`, 1098 × 864, a `.cs-figure.cs-figure--9`, no
+    caption), which comes first.
 - **`.cs-devices--quarter`** (new, `css/case-study.css`): on desktop every screen is one quarter
   of the row — 256px on the 1120px grid, the size four screens get side by side — so rows of
   three match rows of four instead of stretching to 352px, and a shorter row is centred
   (`justify-content: center`; measured at 1400px: 144px either side of a row of three). On a
   phone `.cs-devices`' own horizontal strip applies unchanged (256px screens). A modifier, not a
   change to `.cs-devices`, because the placeholder case studies' rows hold five framed screens.
+- **`.cs-figure--9`** (new): a figure nine columns wide (4–12, `832px` on the 64px grid), between
+  the default figure (5–12) and `.cs-wide`, ending on the text column's right edge; height
+  follows the image's own ratio. Used for the IA diagram. No effect on a phone (one column).
 - **`.cs-screenshot`** (new): an iPhone screenshot's display corners, `border-radius: 10.4% /
   4.8%` — 39pt on a 375 × 812pt screen as a share of width and height, so the corner stays
   circular and in proportion at any rendered size.
-- IMG 09's caption was removed too, since it is a row of screens.
-- **Two paths (IMG 08):** one `.cs-onb-flow` inside `.cs-onboarding` (both paths in one image,
-  `08-paths-horizontal.png` / `-vertical.png`, the same `<picture>` swap as Process on the
-  reference page), with no `.cs-onb-title`.
+- **Solution:** prose is Kateryna's "five areas" text (an intro line, then one paragraph per
+  area with a bold lead-in), followed by a row of four
+  screens in the same `.cs-devices--quarter` row, no captions (the two-paths diagram, IMG 08,
+  was dropped at Kateryna's request): `09-invoice-details.png`,
+  `09-preview.png` (moved here from Decision 1), `09-account-details.png`, `09-plan.png`.
 - **Design system & handoff:** the UI kit sheet (`10-ui-kit.png`) is `.cs-figure--bleed`, placed
   **last** in the section, after the spec page (`11-spec.png`), though the brief lists it first:
   a grid placed after a bleed figure sits flush against its caption, while a bleed figure that

@@ -234,6 +234,13 @@
   grid-column: 1 / -1;
 }
 
+/* Nine columns (4–12): between the default figure (5–12) and .cs-wide, ending on the same
+   right edge as the text column. Used for the Invoicer IA diagram. Height follows the image's
+   own ratio (.cs-figure > img). On a phone the grid is one column, so this has no effect. */
+.cs-body > .cs-figure--9 {
+  grid-column: 4 / 13;
+}
+
 .cs-media {
   display: flex;
   align-items: center;
