@@ -133,10 +133,10 @@ GitHub Pages, served from the `main` branch root: Settings → Pages → Source:
 - [ ] Fill in `case-study-2.html` … `4.html` (placeholders that repeat the template)
 - [ ] Export the one image the AI Assistant Platform page is still waiting for, optional:
       `evolution-whitelabel-1.png` / `2.png`, into `assets/images/projects/ai-assistant-platform/`
-- [ ] Export the Invoicer images (`01-hero.png` … `11-spec.png`, plus `08-paths-horizontal.png` /
-      `-vertical.png`) into `assets/images/projects/invoicer/`; the page already points at every filename
-      (list and Figma frames in its `PLACEHOLDER` comments), and its `work.html` card has no image
-      until `01-hero.png` exists
+- [ ] Export the remaining Invoicer images (`03-empathy-map.png` … `11-spec.png`, plus
+      `08-paths-horizontal.png` / `-vertical.png`) into `assets/images/projects/invoicer/`; the
+      page already points at every filename (list and Figma frames in its `PLACEHOLDER` comments).
+      The hero, `01-hero.webp`, is in place
 - [ ] Add `assets/cv.pdf` (the "download cv" link points at it and the file does not exist yet)
 - [ ] Update the email and social links in Contact
 - [ ] Connect the contact form to a form backend (for example Formspree)

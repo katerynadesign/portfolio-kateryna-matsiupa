@@ -467,13 +467,12 @@ existing components — no new CSS — with these differences from the reference
   Contents; Design system & handoff sits after Solution with its own entry, the same way
   `#design-system` does on `ai-assistant-platform.html`.
 - **Hook: the same `.cs-hook--bg` variant as the reference page** — headline ("Invoicing in
-  three steps") plus `.cs-hook-subtitle`, with the hero image (`01-hero.png`, three iPhone
-  screens, one pre-composed image; not `.cs-device-showcase`, which only fits the Lexi desktop +
-  phone frames) as the section's background. `.cs-hook--bg`'s scrim (`aspect-ratio: 1440 / 993`)
-  and `--hook-overlap: 24%` are sized for the Lexi image, so **`01-hero.png` must be exported at
-  the same ratio (2880 × 1986)** with the same kind of composition (devices in the upper part, a
-  calm lower third for the text); a different ratio would misplace the scrim and needs a CSS
-  change, to be agreed first.
+  three steps") plus `.cs-hook-subtitle`, with the hero image (`01-hero.webp`, 2000 × 1370: one
+  iPhone on the Account tab, over a dark background that fades to white at the bottom) as the
+  section's background — not `.cs-device-showcase`, which only fits the Lexi desktop + phone
+  frames. `.cs-hook--bg`'s scrim (`aspect-ratio: 1440 / 993`) and `--hook-overlap: 24%` are sized
+  for the Lexi image; this one's ratio (1.460 vs 1.450) is within 1% of it, so the scrim lines up
+  with no CSS change. Also used as the image of the Invoicer card on `work.html`.
 - **Quick facts** has four rows (role, format, platform, duration); Context is prose only.
 - **Key decisions:** each decision is a `.cs-prose` block (an `h3`, the text, *Alternative* and
   *Trade-off* lines) followed by its figure, all in one `.cs-body`.

@@ -52,12 +52,11 @@
     <!-- HOOK — the hero section, the same background-image variant as ai-assistant-platform.html:
          the hero image is its background, shown whole (never cropped) at every width, and the
          text block is pulled up over its lower part on a scrim in the page colour.
-         .cs-hook--bg's scrim and overlap are sized for that page's image ratio (2880 × 1986,
-         css/case-study.css), so 01-hero.png must be exported at the same ratio, with the same kind
-         of composition: devices in the upper part, a calm lower third the text can sit on.
-         PLACEHOLDER: 01-hero.png not exported yet (Figma frames 1:1805, 1:1818, 1:2098). -->
+         .cs-hook--bg's scrim and overlap are sized for that page's image ratio (1440 / 993,
+         css/case-study.css); 01-hero.webp (2000 × 1370) is within 1% of it, and like that image
+         it fades to white at the bottom, where the text sits. -->
     <section id="hook" class="cs-hook cs-hook--bg">
-      <img class="cs-hook-media" src="assets/images/projects/invoicer/01-hero.png" width="2880" height="1986" fetchpriority="high" alt="Three iPhone screens of Invoicer: Step 2 with items and the running total, Step 3 with dates and payment, and the Saved tab" />
+      <img class="cs-hook-media" src="assets/images/projects/invoicer/01-hero.webp" width="2000" height="1370" fetchpriority="high" alt="iPhone mockup of Invoicer on the Account tab: a weekly earnings chart above the account settings, with the Invoices, Saved and Account tab bar" />
       <div class="cs-hook-inner container">
         <p class="eyebrow">Invoicer · 2024 · Fintech</p>
         <h1 class="cs-hook-text">
